@@ -4,7 +4,13 @@
 /.vscode/
 
 **/*.quarto_ipynb
+/.jupyter_cache/
 
 /env/
+/.venv/
 
 /_extensions/
+/__pycache__/
+/_freeze/
+
+/lecture_notes.zip
