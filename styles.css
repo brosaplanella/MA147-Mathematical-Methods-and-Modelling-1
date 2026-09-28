@@ -1,4 +1,10 @@
 /* styles.css */
+
+/* Keep aspect ratio of images in figure layouts: Quarto sets max-width: 100%
+   on them but the fixed height attribute would otherwise squash them */
+.quarto-layout-cell img {
+  height: auto;
+}
 /* .book.font-family-0 {
   font-family: "Palatino", serif;
 }

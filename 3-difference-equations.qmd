@@ -1,0 +1,1153 @@
+{{< include macros.qmd >}}
+
+# Difference Equations {#sec-difference-equations}
+
+::: {.callout-tip}
+
+## Aims of the chapter
+
+By the end of this chapter, you should be able to:
+
+* Explain what a difference equation is.
+* Solve first order linear difference equations.
+* Explain Euler's method to approximate solutions to differential equations.
+* Solve second order linear difference equations with constant coefficients.
+* Analyse the behaviour of first order autonomous difference equations.
+* Draw a cobweb diagram to visualise the behaviour of first order autonomous difference equations.
+
+:::
+
+## Introduction to difference equations
+
+In the previous chapter, we learnt how to determine solutions for (certain types of) ordinary differential equations. Those solutions told us the value of the dependent variable $x$ for any value of the independent variable $t \in [\alpha, \beta]$. However, sometimes we will be interested instead in obtaining an equation relating one time step (e.g. day/hour/year) to the next one. 
+
+::: {#exm-compound-interest}
+
+## Compound interest
+
+Imagine you want to invest a sum of money $p$ in a bank account that pays a given interest $r$ per year. Let us denote $x_n$ as the amount of money in the account at a given year $n$. At the beginning (year zero) we have
+
+$$x_0 = p.$$
+
+After one year, the amount of money in the account will be the initial amount plus the interest earned, which is $r$ times the initial amount:
+
+$$x_1 = p  (1 + r).$$
+
+After another year, the interest paid will be computed based on the money in the account at the end of the previous year (not the initial amount), so we have
+
+$$x_2 = x_1 (1 + r).$$
+
+We could compute the amount of money in the account at any year $n$ by repeating this process, but we can also write a general formula for the amount of money in the account at year $n$ based on the amount of money in the account at year $n-1$:
+
+$$x_n = x_{n-1} (1 + r).$$
+
+This is an example of a difference equation and, in this chapter, we will learn how to solve these types of equations and analyse their behaviour.
+
+:::
+
+
+::: {.callout-important}
+::: {#def-difference-equation}
+
+## Difference equation
+
+A difference equation relates the value of a variable at one time step to its value at the previous $k$ time steps (for a given $k$):
+
+$$ x_n = f(x_{n-1}, x_{n-2}, \dots, x_{n-k}, n) $$ {#eq-difference-equation}
+
+where $f$ is some function. In order to be able to solve it, we need to specify the values of the variable at the first $k$ time steps (often known, unsurprisingly, as the initial conditions).
+:::
+:::
+
+::: {#rem-difference-equation}
+
+The notation for the variables used is completely arbitrary. For example, we could rewrite the definition above as
+
+$$ y_m = g(y_{m-1}, y_{m-2}, \dots, y_{m-k}, m) $$
+
+where $g$ is some function. The only difference is that we have changed the name of the variable from $x$ to $y$ and the index from $n$ to $m$. Note that we can also shift the index by any constant. For example, the three equation below are equivalent:
+
+$$ \begin{aligned}
+x_n &= x_{n-1} (1 + r),\\
+x_{n+1} &= x_n (1 + r),\\
+x_{n+73} &= x_{n+72} (1 + r).
+\end{aligned}$$
+
+:::
+
+As we will repeatedly see throughout this chapter, there are very strong similarities between difference and differential equations, including its properties.^[Be careful as there are some key difference, as we will see later. For example, on the stability criterion for autonomous equations.]
+
+::: {.callout-important}
+::: {#def-difference-equation-properties}
+
+For a difference equation of the form @eq-difference-equation, we define:
+
+1. The *order* of a difference equation is the difference between the highest and the lowest indices of $x$.^[This happens to be the number we defined as $k$ in @def-difference-equation.] Note that this is independent of the notation we use: for the equations above, they are all first order. The order also specifies the number of initial conditions we need to specify in order to be able to solve the equation. 
+
+2. The difference equation is *autonomous* if the function $f$ does not depend explicitly on the index $n$.
+
+3. The difference equation is homogeneous if setting all instances of the dependent variable $x$ to zero yields zero, i.e.
+
+$$s(n) = f(0, 0, \dots, 0, n) = 0.$$
+
+Otherwise, the difference equation is *inhomogeneous*.
+
+4. The difference equation is linear if the function $f$ is linear in all instances of the dependent variable $x$, i.e. if it can be written as
+
+$$f(x_{n-1}, x_{n-2}, \dots, x_{n-k}, n) = s(n) + \sum_{i=1}^k a_i(n) x_{n-i},$$
+
+for some given functions $s, a_i: \mathbb{N} \to \mathbb{R}$, $i=1, \dots, k$.
+:::
+:::
+
+::: {#exm-difference-equation-properties-1}
+
+The difference equation
+
+$$
+x_{n+2} - 5 x_{n+1} + 3 x_n = \cos \frac{n}{63}
+$$
+
+can be classified as follows:
+
+1. Of order 2, since the highest index is $n+2$ and the lowest is $n$.
+2. Non-autonomous, since the right-hand side depends explicitly on $n$.
+3. Inhomogeneous, since setting $x_n = 0$ for all $n$ yields $\cos \frac{n}{63} \neq 0$.
+4. Linear, since it can be written as a linear combination of the instances of $x$ plus an arbitrary function of $n$.
+
+:::
+
+::: {#exm-difference-equation-properties-2}
+
+The difference equation
+
+$$
+x_{n+7} - \cos x_{n+3} = 3 \pi
+$$
+
+can be classified as follows:
+
+1. Of order 4, since the highest index is $n+7$ and the lowest is $n+3$.
+2. Autonomous, as none of the terms depend explicitly on $n$ (other than the dependent variable).
+3. Inhomogeneous, since setting $x_n = 0$ for all $n$ yields $3 \pi \neq 0$.
+4. Non-linear, since the term $\cos x_{n+3}$ is not a linear function of $x_{n+3}$.
+
+:::
+
+## First order linear difference equations {#sec-delin}
+
+Let us now consider first order difference equations
+
+$$
+x_{n+1} = f(x_n, n),
+$$
+
+and, in particular, the linear^[Nonlinear difference equations can have extremely complicated solutions, and we will only consider them briefly later, in section @sec-difference-equations-nonlinear.] case
+
+$$
+x_{n+1} = a(n) x_n + b(n),$$
+
+with a given $x_0$, where $a,b:\mathbb{N} \to \mathbb{R}$ are given functions. 
+
+### Autonomous case
+
+Let us constrain first to the autonomous case, where $a(n) = a$ and $b(n) = b$ are constants, so that we have
+
+$$
+x_{n+1} = a x_n + b.
+$$ {#eq-difference-equation-autonomous}
+
+
+#### Homogeneous case ($b=0$) {#sec-linear-first-order-difference-equations-homogeneous}
+
+
+First we consider the case where $b=0$, which gives
+
+$$
+x_{n+1}=a x_n.
+$$
+
+In order to figure out the solution, we will compute the first few terms of the sequence and try to find a pattern.
+$$\begin{aligned}
+x_1 &= ax_0,  \\
+x_2 &= ax_1 = a^2 x_0,  \\
+x_3 &= ax_2 = a^3 x_0,  \\
+\vdots  \\
+x_n &= a^n x_0.
+\end{aligned}$$ {#eq-diffeqnfosoln}
+
+::: {.callout-important}
+
+::: {#prp-difference-equation-linear-autonomous-solution}
+
+The solution to the linear autonomous homogeneous first order difference equation
+
+$$x_{n+1} = a x_n$$
+
+with a given initial condition $x_0$ is given by
+
+$$
+x_n=a^nx_0.
+$$
+:::
+
+:::
+
+::: {#rem-difference-equation-linear-autonomous-solution}
+
+To formally prove that this is a solution we would need to check that indeed it satisfies @eq-difference-equation-autonomous (quite trivial in this case, but not so much in the upcoming examples).
+
+:::
+
+From the solution, we can see that there is a special case. If $x_0 = 0$, we have that $x_n = 0$ for all $n \in \mathbb{N}$. In this case, if we start at zero we stay zero. This is analogous to a *stationary point* of a differential equation and we will see a more rigorous definition of this later on in @sec-difference-equations-nonlinear. Moreover, we see that if $|a| < 1$, then for any $x_0$, the solution will tend to zero as $n \to \infty$, while if $|a| > 1$ the solution will tend to infinity. The case where $|a|=1$ yields some interesting behaviour: if $a=1$ then $x_n = x_0$ for all $n$, while if $a=-1$ then $x_n = (-1)^n x_0$ which oscillates between $x_0$ and $-x_0$. Again, more on this in @sec-difference-equations-nonlinear.
+
+#### Inhomogeneous case ($b\neq0$) {#sec-difference-equations-inhomogeneous}
+
+We now consider the inhomogeneous case, such that
+
+$$
+x_{n+1} = a x_n + b
+$$
+
+where $a$ and $b\neq0$ are constants and for some initial value $x_0$.
+
+As before, we compute a few terms and infer the solution:
+
+$$\begin{aligned}
+x_1 &= ax_0+b,\\
+x_2 &= a(ax_0+b)+b=a^2x_0+ab+b,\\
+x_3 &= a(a^2x_0+ab+b)+b=a^3x_0+a^2b+ab+b,\\
+&\vdots\\
+x_n &= a^nx_0+b\sum_{k=0}^{n-1}a^k=\begin{cases}
+a^nx_0+b\frac{1-a^n}{1-a} \quad \text{if } a\neq1,\\
+x_0+bn \quad\quad\quad\medspace \text{ if } a=1.
+\end{cases}
+\end{aligned}$$
+
+If $a\neq1$ we can rearrange this to get
+
+$$
+x_n=a^n\bigg(x_0-\frac{b}{1-a}\bigg)+\frac{b}{1-a}.
+$$
+
+### Non-autonomous case
+
+Finally, we want to consider the non-autonomous case:
+
+$$
+x_{n+1} = a(n) x_n + b(n),
+$$
+
+where $a(n)$ and $b(n)$ are functions of $n$ and we have an initial value $x_0$.
+
+Using the same iterative method as in the autonomous cases, it can be shown that solutions to this equation are of the form
+
+$$
+x_n=\prod_{k=0}^{n-1}a(k)x_0+\sum_{k=0}^{n-1}b(k)\prod_{j=k}^{n-1}\frac{a(j)}{a(k)},
+$$
+
+where $\prod_{k=0}^n f(k)$ represents the product from $k=0$ to $k=n$ of $f(k)$.
+
+## Euler's method {#sec-euler}
+
+Difference equations are not only interesting in their own right, but they also have a very important application in approximating solutions to differential equations. Consider an ordinary differential equation of the form
+
+$$
+\frac{\mathrm{\mathrm{d}}x}{\mathrm{\mathrm{d}}t}=f(t,x), \qquad x(0)=x_0.
+$$ {#eq-euler-differential}
+
+As we discussed in the previous chapter, unless $f(t,x)$ is of a very specific form, we will not be able to find an explicit solution $x(t)$ to this equation. In that case, we can help us with a computer.
+
+When a computer draws a graph of a function, it effectively draws a series of dots representing the function. If the dots are dense enough, they will look like a line, but they are still just a series of dots. So, if we want to draw a graph of the solution $x(t)$ to equation (@eq-euler-differential), we could find a series of dots that approximate the solution $x(t)$ at a discrete set of values of $t$, rather than the continuous solution. There are multiple ways of doing so, but the simplest one is called the Euler's method.^[Named after the Swiss mathematician Leonhard Euler (1707-1783) who proposed this method two centuries before electronic computers were invented.]
+
+The key idea is to take small time steps $h$ an approximate the solution at $t+h$ based on the solution at $t$. Then, we can use a Taylor expansion to relate $x(t+h)$ to $x(t)$:
+
+$$
+x(t+h) = x(t) + h \dot{x}(t) + \frac{h^2}{2} \ddot{x}(t) + \dots.
+$$ {#eq-euler-taylor}
+
+We can approximate this by ignoring all but the first two terms and, using @eq-euler-differential, we obtain
+
+$$x(t+h) \approx x(t) + h f(t,x(t)).$$ {#eq-euler-approximation}
+
+::: {#rem-euler}
+
+This is equivalent to assuming that $\dot x(t)$ is a constant, which is rarely the case, and can lead to significant errors.^[There are improved methods that take into account the fact that $\dot x(t)$ is not constant. For example, the *improved Euler's method* assumes that the second derivative is constant, and provides a better approximation. The *Runge-Kutta Method* takes this further by assuming that the fourth derivative is constant, yielding even higher accuracy. However, these methods are very much more complicated to put in to practice, and we will not study them here: those interested should consider taking [MA2K4 Numerical Methods and Computing](https://courses.warwick.ac.uk/modules/2025/MA2K4-10).]
+
+:::
+
+Another way to think about this approximation is to consider the definition of the derivative:
+
+$$\dot{x}(t) = \lim_{h \to 0} \frac{x(t+h)-x(t)}{h}.$$
+
+The definition holds in the limit, but we could approximate it by taking a small (but non-zero) value of $h$. If you replace it in @eq-euler-differential, you will get the same approximation as above.
+
+We have effectively obtained a difference equation, but let us redefine the notation to make it more apparent. Let us assume that we know the value of $x(t)$ at $t = 0$, so we define $x_0 = x(0)$ and $x_n = x(nh)$, for $n \in \mathbb{N}$. Then, we can advance our solution using @eq-euler-approximation to get
+
+$$\begin{aligned}
+x_0 &= x(0) \\
+x_1 &= x(h) = x(0 + h) = x(0) + h \dot{x} (0) = x_0 + h f(0,x_0) \\
+x_2 &= x(2h) = x(h + h) = x(h) + h f(x(h)) = x_1 + h f(h,x_1) \\
+\vdots \\
+x_{k+1} &= x_k + h f(kh, x_k)
+\end{aligned}$$ {#eq-eulersoln}
+
+At each step we have everything we need to compute the next value *without* having to know the explicit solution $x(t)$.
+
+::: {.callout-important}
+
+:::{#alg-Euler-method}
+
+## Euler's method
+
+We can approximate the first order differential equation (@eq-euler-differential) using the formula 
+
+$$
+x_{n+1} = x_n + hf(nh, x_n)
+$$
+
+where $h\ll 1$ is a small constant time step.
+:::
+
+:::
+
+An example of how the method works is shown in @fig-euler.
+
+```{python}
+#| label: fig-euler
+#| fig-cap: "Sketch of the Euler's method. The blue curve is the exact solution of a given differential equation, while the red dots represent the approximation obtained using Euler's method. Panel a) shows the case with a larger step size, and panel b) shows the case with a smaller step size, showing the improved accuracy."
+#| out-width: "100%"
+#| echo: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+from utils import euler_plot
+
+# ── Problem definition ────────────────────────────────────────────────────────
+x0 = 2.0
+
+def f(t):                         # RHS: x'(t) = f(t)
+    return 0.3 * t ** 2 - 2.1 * t + 3
+
+def exact(t):                     # exact solution
+    return 0.1 * t ** 3 - 1.05 * t ** 2 + 3 * t + x0
+
+# ── Two panels ────────────────────────────────────────────────────────────────
+fig, axes = plt.subplots(1, 2, figsize=(6, 3))
+
+euler_plot(axes[0], f, exact, x0, h=0.7, N=10, annotate=True)
+euler_plot(axes[1], f, exact, x0, h=0.1, N=70, annotate=False)
+
+for ax, label in zip(axes, ["a)", "b)"]):
+    ax.text(
+        0.025, 0.0,
+        label, 
+        transform=ax.transAxes,
+        fontsize=13,
+        fontweight="bold",
+        va="bottom", ha="left"
+)
+
+plt.tight_layout()
+plt.show()
+```
+
+
+## Second order linear difference equations with constant coefficients {#sec-difference-equations-second-order}
+
+Now we turn our attention to second order linear difference equations with constant coefficients. That is equations of the form
+
+$$
+x_{n+2} + a x_{n+1} + b x_n = f_n
+$$
+
+We already saw for first order equations that we could obtain solutions of the form of $a^n$, so we try the analogous approach here.^[Note that the $a^n$ is analogous to $e^{at}$ in the differential equations case. This is one of the differences between difference and differential equations, so make sure to not mix them up.] As we discussed earlier, for second order equations we need two initial conditions so, unless otherwise stated, we will assume that $x_0$ and $x_1$ are given.
+
+### Homogeneous case
+
+
+In this case, we consider the case where $f_n = 0$, i.e. equations of the form
+
+$$
+x_{n+2} + a x_{n+1} + b x_n = 0
+$$ {#eq-difference-equation-second-order-homogeneous}
+
+Appealing to previous solutions, we "guess" a solution $x_n = A k^n$, giving us
+
+$$
+A k^{n+2} + A a k^{n+1} + A b k^n = 0
+$$
+
+which is true if
+
+$$
+A k^n (k^2 + a k + b) = 0
+$$
+
+So, either $k=0$ and $x_n \equiv 0$, which isn't particularly interesting, or alternatively, $k$ is a root of the *auxiliary equation*.
+
+::: {.callout-important}
+
+::: {#def-auxiliary-equation-difference}
+
+## Auxiliary equation
+
+The auxiliary equation of the second order linear difference equation with constant coefficients (@eq-difference-equation-second-order-homogeneous) is
+$$
+k^2 + ak + b = 0.
+$$
+
+::: 
+
+Then, the suitable values of $k$ are given by the quadratic formula,
+
+$$
+k = \frac{-a \pm \sqrt{a^2 - 4b}}{2}.
+$$
+
+As with the differential equations case, we need to consider three distinct cases.
+:::
+
+#### Distinct real roots
+
+::: {.callout-important}
+In this case both $x_n = A k_1^n$ and $x_n = B k_2^n$ are solutions so by linearity the general solution is
+
+$$
+x_n = A k_1^n + B k_2^n,
+$$
+
+where $A$ and $B$ are constants determined by the initial conditions.
+:::
+
+::: {#exm-fibonacci}
+## Fibonacci's rabbits
+
+Let's now consider a historical example. In 1202 the Italian mathematician Leonardo Fibonacci posed the following problem in his book *Liber Abaci*. He wanted to predict the growth of a population of rabbits based on the following assumptions:
+
+1. We start with one baby rabbit.^[I am sure you can see some fundamental biological flaw in this assumption, but let us bear with him for now.]
+2. A rabbit can't give birth until it is 2 years old.
+3. A single unisex adult rabbit gives birth to one baby per year.
+4. A rabbit never dies.^[At least in the time frame of this problem.]
+
+Consider the Fibonacci sequence, given by the difference equation
+
+$$
+x_{n+2} = x_{n+1} + x_n \quad : \quad x_0 = x_1 = 1
+$$ {#eq-fibonacci1}
+
+
+
+Using these assumptions, we can construct @tbl-fibonacci, which shows the number of rabbits in each year, split into adults, one-year-olds and newborns.
+
+| Year | 0 | 1 | 2 | 3 | 4 | 5 | 6 | ... |
+|:---|---:|---:|---:|---:|---:|---:|---:|:---:|
+| Adult | 0 | 0 | 1 | 1 | 2 | 3 | 5 | ... |
+| One year | 0 | 1 | 0 | 1 | 1 | 2 | 3 | ... |
+| Newborns | 1 | 0 | 1 | 1 | 2 | 3 | 5 | ... |
+| **TOTAL** ($x_n$) | 1 | 1 | 2 | 3 | 5 | 8 | 13 | ... |
+
+Table: Table of Fibonacci's rabbits. {#tbl-fibonacci tbl-colwidths="[20,10,10,10,10,10,10,10,10]"}
+
+From the table, we can see that the number of rabbits in year $n$ is equal to the number of rabbits in year $n-1$ plus the number of babies born in year $n$. But the number of babies in year $n$ is just equal to the number of adults in year $n$, which is itself the number of rabbits in year $n-2$, since two years later all the rabbits will be adults. This gives us the formula:
+
+$$
+\underbrace{x_n}_{\scriptsize\text{rabbits in year $n$}} = \underbrace{x_{n-1}}_{\scriptsize\text{rabbits in year $n-1$}} + \underbrace{x_{n-2}}_{\scriptsize\text{rabbits in year $n-2$ = adults in year $n$}}
+$$
+
+Let us now solve this difference equation. We first rewrite it as 
+
+$$
+x_{n+2} - x_{n+1} - x_n = 0.
+$$
+
+This gives us the auxiliary equation $k^2 - k - 1 = 0$, with roots $k = \frac{1 \pm \sqrt{5}}{2}$ (where $k = \frac{1 + \sqrt{5}}{2}$ is known as the "golden ratio"^[This quantity appears recurrently in art but also in nature.]). Plugging this into our general solution gives
+
+$$
+x_n = A \left( \frac{1 + \sqrt{5}}{2} \right)^n + B \left( \frac{1 - \sqrt{5}}{2} \right)^n.
+$$
+
+We have the initial conditions $x_0 = x_1 = 1$ which we can substitute into the general solution to give us a system of equations for $A$ and $B$:
+
+$$\begin{aligned}
+x_0 &= A + B = 1,\\
+x_1 &= A \left( \frac{1 + \sqrt{5}}{2} \right) + B \left( \frac{1 - \sqrt{5}}{2} \right) = 1.
+\end{aligned}$$
+
+Solving them yields 
+
+$$  A = \frac{1 + \sqrt{5}}{2\sqrt{5}}, \quad \text{and} \quad B = \frac{\sqrt{5}-1}{2\sqrt{5}},$$
+
+so the solution to the Fibonacci sequence is
+
+$$
+x_n = \frac{1}{\sqrt{5}} \left( \frac{1 + \sqrt{5}}{2} \right)^{n+1} - \frac{1}{\sqrt{5}} \left( \frac{1 - \sqrt{5}}{2} \right)^{n+1}.
+$$
+
+Interestingly, despite of all the $\sqrt{5}$ in the solution, $x_n$ is an integer for all $n \in \mathbb{N}$. This can be shown by induction, but we will not go into that here. What we can easily prove is that the ratio of two consecutive terms in the Fibonacci sequence tends to the golden ratio as $n \to \infty$:
+
+$$
+\frac{x_{n}}{x_{n-1}} = \frac{\left( \frac{1 + \sqrt{5}}{2} \right)^{n+1} - \left( \frac{1 - \sqrt{5}}{2} \right)^{n+1}}{\left( \frac{1 + \sqrt{5}}{2} \right)^{n} - \left( \frac{1 - \sqrt{5}}{2} \right)^{n}}.
+$$
+
+Taking the limit as $n \to \infty$, and noting that $\left| \frac{1 - \sqrt{5}}{2} \right| < 1$, gives
+
+$$
+\lim_{n \to \infty} \frac{x_{n}}{x_{n-1}} = \lim_{n \to \infty} \frac{\left( \frac{1 + \sqrt{5}}{2} \right)^{n+1}}{\left( \frac{1 + \sqrt{5}}{2} \right)^{n}} = \frac{1 + \sqrt{5}}{2}.
+$$
+:::
+
+#### Complex roots
+
+::: {.callout-important}
+As it happened with differential equations, with complex roots we could just plough ahead and write the solution in terms of complex numbers, but given that the solution must be real it is more convenient to write the roots in the form $k_\pm = r e^{\pm i \theta}$, where $r^2 = p^2 + q^2$ and $\theta = \arctan \frac{q}{p}$. Then, the general solution is
+
+$$
+x_n = r^n \left( A \cos n\theta + B \sin n\theta \right)
+$$ {#eq-deic3}
+:::
+
+We will not go into detail about this, but it follows by considering
+
+$$
+C \left( r e^{i\theta} \right)^n + \overline{C} \left( r e^{-i\theta} \right)^n
+$$
+
+where $\overline{C}$ is the complex conjugate of $C$ (with $C$ chosen so that the solution is real), and by noting that $r e^{i\theta} = r (\cos \theta + i \sin \theta)$ and that $(\cos \theta + i \sin \theta )^n = \cos n\theta + i \sin n\theta$ (de Moivre's theorem).
+
+::: {#exm-complex-roots-example}
+We want to solve
+
+$$
+x_{n+2} - 2 x_{n+1} + 2 x_n = 0.$$
+
+The auxiliary equation is
+
+$$
+k^2 - 2k + 2 = 0, \qquad \implies \qquad k = 1 \pm i = \sqrt{2} e^{\pm \frac{i\pi}{4}}
+$$
+
+:::
+
+so, plugging this into @eq-deic3, we get
+
+$$
+x_n = (\sqrt2)^n \left( A \cos \left(\frac{n\pi}{4}\right) + B \sin \left( \frac{n\pi}{4} \right) \right).
+$$
+
+#### Repeated real root
+
+Once again, we look to differential equations for inspiration. We need a second solution, so we try $x_n = n k^n$ and, as we will show below, this is indeed a solution. 
+
+::: {.callout-important}
+Therefore, the general solution is
+$$
+x_n = A k^n + B n k^n.
+$$ {#eq-deic2}
+:::
+
+We know that $A k^n$ is a solution, so we just need to show that $B n k^n$ is also a solution. In order to do so, we just substitute into the difference equation. We obtain
+
+$$
+B (n+2) k^{n+2} + a B (n+1) k^{n+1} + b B n k^n = 0
+$$
+
+which, rearranged, gives
+
+$$
+B n k^n \left( k^2 + ak + b \right) + B k^n \left( 2k^2 + ak \right) = 0.
+$$
+
+The factor in brackets in the first term is zero as it satisfies the auxiliary equation. To show that the factor in brackets in the second term is zero, note that when we have a repeated root the in the auxiliary equation it must be of the form $k = -\frac{a}{2}$. Therefore, the identity is satisfied and $B n k^n$ is indeed a solution and @eq-deic2 is the general solution.
+
+::: {#exm-repeated-root-example}
+Find a general solution of
+
+$$
+x_n - 6 x_{n-1} + 9 x_{n-2} = 0.
+$$
+
+The auxiliary equation is just
+
+$$
+k^2 - 6k + 9 = 0, \qquad \implies \qquad (k - 3)^2 = 0, \qquad \implies \qquad k = 3.
+$$
+
+So, from @eq-deic2, the general solution is just
+
+$$
+x_n = (A + B n) 3^n.
+$$
+
+:::
+
+### Inhomogeneous Case
+
+::: {.callout-important}
+In this subsection we will consider difference equations of the form
+
+$$
+x_{n+2} + a x_{n+1} + b x_n = f_n.
+$$ {#eq-deih}
+
+Since @eq-deih is linear, we start by finding the solution to the homogeneous case, the *complementary function*, e.g. $x_n = A k_1^n + B k_2^n$.
+
+We then find a *particular solution*^[Obviously *particular integral* would make no sense in this context since there are no differentials or integrals.] that gives $f_n$ on the right-hand side. Then, by linearity, the general solution is simply the complementary function and the particular solution added together.
+
+:::
+
+As it happened with differential equations, there is no magic recipe to find a particular solution. In this subsection we will study two particular forms of $f_n$ that are common in applications, and we will see how to find a particular solution for them.
+
+#### $f_n$ is a polynomial in $n$
+
+::: {.callout-important}
+When $f_n$ is a polynomial in $n$, we try as a particular solution a polynomial of the same degree. For example, if $f_n = n^2$, we try $x_n = A n^2 + B n + C$.
+:::
+
+Note that, if $f_n$ is a polynomial of degree zero (i.e. a constant), the method is consistent with the results found in @sec-difference-equations-inhomogeneous. In that case, the particular solution is also a constant.
+
+::: {#exm-polynomial-inhomogeneous}
+Solve
+
+$$
+x_n - x_{n-1} - 6x_{n-2} = -36n.
+$$ {#eq-deihp1}
+
+We consider first the homogeneous case $x_n - x_{n-1} - 6x_{n-2} = 0$ to find the complementary function. The auxiliary equation yields
+$$
+k^2 - k - 6 = 0, \qquad \implies \qquad (k-3)(k+2) = 0, \qquad \implies \qquad k = 3, -2,
+$$
+
+which gives the complementary function
+
+$$
+x_n = A \cdot 3^n + B (-2)^n.
+$$ {#eq-deihp2}
+
+For the particular solution, since $f_n$ is a polynomial of degree 1, we try the most general first-degree polynomial possible, i.e. $x_n = Cn + D$, and substitute this into @eq-deihp1:
+
+$$
+Cn + D  - C(n-1) - D - 6C(n-2)  - 6D = -36n
+$$
+
+giving $C=6, D=13$, so the particular solution is $x_n = 6n+13$.
+
+Combining this with @eq-deihp2 gives us the general solution
+
+$$
+x_n = A 3^n + B (-2)^n + 6n + 13.
+$$
+
+:::
+
+#### $f_n$ is an exponential, $c^n$
+
+
+This is the "equivalent" case to that of $e^{ct}$ in differential equations.^[And, again, do not mix both cases up!] Once again, we have to be careful when $c^n$ is also part of the complementary function but, once again, the ideas from differential equations are carried over. 
+
+::: {.callout-important}
+So, for the particular solution when $f_n = c^n$, try:
+
+$$\begin{aligned}
+x_n &= D c^n &&\text{if $c$ is not a root of the auxiliary equation}, \\
+x_n &= D n c^n &&\text{if $c$ is a root}, \\
+x_n &= D n^2 c^n &&\text{if $c$ is a repeated root}.
+\end{aligned}$$
+:::
+
+We will now illustrate it with two examples.
+
+::: {#exm-deihe1}
+Find the general solution of
+
+$$
+x_{n+2} + x_{n+1} - 6x_n = 12 (-2)^n.
+$$
+
+First we find the complementary function. Our auxiliary equation is $k^2 + k - 6 = 0$, giving roots $k=2, -3$ and so we have our complementary function
+
+$$
+x_n = A \cdot 2^n + B (-3)^n.
+$$
+
+We have that $(-2)^n$ is not a solution of the homogeneous case, so we try
+
+$$
+x_n = D(-2)^n
+$$
+
+as a particular solution. Substituting this in gives
+
+$$
+D (-2)^{n+2} + D (-2)^{n+1} - 6D (-2)^n = 12 (-2)^n,
+$$
+
+which yields $D=3$. Bringing everything together gives us our general solution:
+
+$$
+x_n = A \cdot 2^n + B (-3)^n - 3 (-2)^n.
+$$
+
+:::
+
+::: {#exm-exponential-root-case}
+
+Solve
+
+$$
+x_{n+2} + x_{n+1} - 6 x_n = 40 \cdot 2^n.
+$$
+
+As in @exm-deihe1, the complementary function is $x_n = A \cdot 2^n + B (-3)^n$. However, this time $2^n$ *is* a solution of the homogeneous case, so we try
+
+$$
+x_n = Dn 2^n
+$$
+
+as a particular solution. Substituting this into the equation gives
+
+$$
+D (n+2) 2^{n+2} + D(n+1) 2^{n+1} - 6Dn 2^n = 40 \cdot 2^n
+$$
+
+so $D=4$, giving us our general solution
+
+$$
+x_n = A \cdot 2^n + B (-3)^n + 4n \cdot 2^n.
+$$
+
+:::
+
+## First order (autonomous) nonlinear difference equations {#sec-difference-equations-nonlinear}
+
+Like with differential equations, solving nonlinear difference equations (even first order ones) can be extremely difficult. In these situations we need to find alternative methods to understand how the solution behaves. Again, we will turn our attention to first order autonomous equations which, for the case of difference equations, are of the form
+
+$$
+x_{n+1} = f (x_n)
+$$ {#eq-denlg}
+
+given some $x_0$. Remember that this is *autonomous* because $f$ is a function of $x_n$, but not of $n$ explicitly, i.e. it does not involve terms like $n^2$ or $e^n x_n$.
+
+Calculating our sequence for @eq-denlg we get
+
+$$\begin{aligned}
+x_1 &= f(x_0), \\
+x_2 &= f(x_1) = f(f(x_0)) = f^2 (x_0), \\
+\vdots \\
+x_n &= f^n (x_0).
+\end{aligned}$$
+
+::: {.callout-important}
+Here for shorthand purposes we have used the notation $f^2 (x) = f(f(x))$, or more generally,
+
+$$
+\underbrace{f(f( \dots f(f(}_n x )) \dots )) = f^n (x)
+$$
+
+Note that $f^n (x) \neq ( f(x) )^n$, and also that $f^n (x) \neq f^{(n)} (x) = \frac{d^n}{\mathrm{\mathrm{d}}x^n} f(x)$.
+:::
+
+If $f(x_n)$ is *nonlinear*, then (most of the time) we *cannot* write an explicit solution of the form
+
+$$
+x_n = g(n)
+$$
+
+for some function $g$. Therefore, like in @sec-autonomous-differential, we will have to resort to qualitative methods to understand the behaviour of the solution. In the particular case of difference equations, as we will see, the solution can show much more interesting behaviours.
+
+We already mentioned *stationary points* of difference equations in section @sec-delin, but we now give a more rigorous definition.
+
+::: {.callout-important}
+::: {#def-stationary-point}
+
+## Stationary point
+
+A *stationary point* of the difference equation
+
+$$
+x_{n+1} = f(x_n)
+$$
+
+is a point $x_*$ such that $f(x_*) = x_*$. This means that if $x_n = x_*$, then $x_{n+1} = f(x_n) = x_*$ for all $n$.
+:::
+:::
+
+:::{#rem-stationary-point-difference}
+
+Note that the definition of stationary point is different from the one for differential equations (@def-stationary-point). In that case we were looking for points $x^*$ satisfying $f(x^*) = 0$, while here we are looking for points $x_*$ satisfying $f(x_*) = x_*$. This is a common mistake in exams, so make sure you understand the difference.
+
+:::
+
+In @sec-delin we also saw that the solution to the linear difference equation could be stable or unstable depending on the value of the coefficient: stable if $|a|<1$ and unstable if $|a|>1$. The question is: does this generalise to nonlinear equations? Fortunately for us, it does.
+
+::: {.callout-important}
+::: {#lem-stability-of-stationary-point-difference}
+If $x_*$ is a stationary point of the autonomous difference equation
+
+$$
+x_{n+1}=f(x_n),
+$$
+
+then the stationary point is
+
+1. *Stable* if $|f'(x_*)|<1$.
+2. *Unstable* if $|f'(x_*)|>1$.
+:::
+:::
+
+::: {.proof}
+
+Consider that we start at a point near the stationary point, i.e. $x_0 = x_* + h$ with $|h| \ll 1$. Then, taking a Taylor expansion of $f$ around $x_*$ we have
+
+$$
+\begin{aligned}
+x_1 &= f(x_0)  \\
+&= f(x_* + h)  \\
+&= f(x_*) + h f'(x_*) + \frac{h^2}{2} f'' (x_*) + \dots .
+\end{aligned}
+$$
+
+For sufficiently small $h$, and using the fact that $f(x_*) = x_*$, we approximate $x_1$ by
+
+$$
+x_1 \approx x_* + h f'(x_*).
+$$
+
+Let us carefully consider how the value of $x_n$ has changed after one iteration. If $|f'(x_*)| < 1$, then we can rearrange the expression above into $|x_1 - x_*| < |h| = |x_0 - x_*|$, i.e. we have moved closer to $x_*$. More formally, one could show that if $|f'(x_*)| < 1$, then $f^n (x_* + h) \to x_*$ as $n \to \infty$. This means that if $ |f'(x_*)| < 1 $ the solution tends towards the stationary point, so $x_*$ is *stable*. Conversely if $|f'(x_*)| > 1$ then $x_*$ is *unstable*.
+
+::: {#rem-non-monotonicity-difference}
+
+Note that the sequence $x_{n+1} = f(x_n)$ need *not* be monotonic, hence why we had to work with absolute values. The sequence could converge to (or diverge from) the stationary point by oscillating around it. This is another fundamental difference between difference and differential equations, and it is one of the reasons why difference equations can show more complicated behaviour than differential equations (as we will see next).
+:::
+
+:::
+
+## The logistic equation & chaos
+
+Let us now consider a discrete version of the logistic equation,^[This version is fundamentally different to that in @exm-pop-growth, that is, it is not what you would get if you simply discretised the differential equation, say with the Euler method.] often called the logistic map:
+
+$$
+x_{n+1}=\lambda x_n(1-x_n),
+$$
+
+where $\lambda > 0$ represents the growth rate. We now look for its stationary points, i.e. $x_*$ such that
+
+$$
+x_* = \lambda x_* (1 - x_*), \qquad \implies \qquad \lambda x_*^2 + (1-\lambda) x_* = 0.
+$$
+
+This yields two stationary points:
+
+$$ x_* = 0, \quad \text{and} \quad x_* = \frac{\lambda - 1}{\lambda}.$$
+
+Note that, as $x_n$ represents a population, we are only interested in the case $x_n \geq 0$, so the second stationary point is only physically relevant when $\lambda \geq 1$.
+
+Since $f(x) = \lambda x (1-x)$, the stability of the stationary point will be determined by
+
+$$f'(x) = \lambda (1-2x).$$
+
+Consider first $x_* = 0$. Then $f'(0) = \lambda$, so $x_* = 0$ is an unstable stationary point if $\lambda > 1$, while if $\lambda < 1$ then our growth rate for small $x_n$ will kill off the population and $x_* = 0$ is stable. On the other hand, the stationary point $x_* = (\lambda - 1)/\lambda$ yields $f'(\frac{\lambda - 1}{\lambda}) = 2 - \lambda$. So $x_*$ is stable if $|2 - \lambda| < 1$, that is if $1 < \lambda < 3$. 
+
+But what happens if $\lambda > 3$?^[Remember this stationary point is only applicable if $\lambda \geq 1$.] In that case we get $f'(\frac{\lambda - 1}{\lambda}) \leq -1$ and both stationary points are unstable. This is a breaking difference with the differential equation case. To illustrate this, consider @fig-phase-line-difference, which sketches a phase line for the logistic map when $\lambda > 3$.
+
+```{python}
+#| label: fig-phase-line-difference
+#| fig-cap: "Sketch of a phase line for the logistic map when $\\lambda > 3$. Both stationary points are unstable, so a nearby solution will be pushed away from them. Note that this is for purely illustrative purposes in the comparison with the differential equation case, in the next section we will see a better way of studying the logistic map."
+#| out-width: "100%"
+#| echo: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+from utils import apply_style
+
+apply_style()
+
+fig, ax = plt.subplots(figsize=(6, 1.2))
+
+# ── Horizontal axis only ──────────────────────────────────────────────────────
+ax.axhline(0, color="black", linewidth=1.2)
+ax.set_xlim(-0.8, 1.8)
+ax.set_ylim(-0.5, 0.5)
+
+# Hide everything except the horizontal axis
+for spine in ax.spines.values():
+    spine.set_visible(False)
+ax.yaxis.set_visible(False)
+ax.set_xticks([0, 1])
+ax.set_xticklabels(["$x_* = 0$", "$x_* = (\\lambda - 1)/\\lambda$"])
+ax.tick_params(axis="x", length=0)
+
+# ── x label at the right end of the axis ─────────────────────────────────────
+ax.annotate("$x$", xy=(1.8, 0), xycoords="data",
+            xytext=(6, 0), textcoords="offset points",
+            ha="left", va="center", fontsize=13)
+
+# ── Arrows pointing away from each equilibrium ───────────────────────────────
+L = 0.3   # arrow length — tweak to taste
+
+for x0 in [0, 1]:
+    # Arrow pointing left (away from x0, leftward)
+    ax.annotate("", xy=(x0 - L, 0), xytext=(x0 - 0.05, 0),
+                arrowprops=dict(arrowstyle="->", color="tomato", lw=1.8))
+    # Arrow pointing right (away from x0, rightward)
+    ax.annotate("", xy=(x0 + L, 0), xytext=(x0 + 0.05, 0),
+                arrowprops=dict(arrowstyle="->", color="tomato", lw=1.8))
+
+# ── Equilibrium markers ───────────────────────────────────────────────────────
+for x0 in [0, 1]:
+    ax.plot(x0, 0, "o", color="black", markersize=8, zorder=5)
+
+plt.tight_layout()
+plt.show()
+```
+
+
+Both stationary points are unstable, therefore a nearby solution will be pushed away from them. In the case of a differential equation, because we must move continuously, this would mean that there should be a stable stationary point in between where these solutions could converge too.^[Or that we made a mistake in our calculations.] However, in the case of a difference equation, we can jump over stationary points, which enables us to only have two unstable stationary points. But it is not that these solutions will diverge to infinity. In fact, things are about to become a lot more complicated.
+
+::: {#rem-stability-difference-edge-cases}
+
+Our analysis above did not determine what happens when $\lambda = 1$ or $\lambda = 3$. In these cases, the derivative criterion does not help us and one needs to study the equation in more detail.
+
+If $\lambda = 1$, then both stationary points overlap at $x_* = 0$. If we start with $x_0 > 0$, then $x_1 = x_0 (1 - x_0) < x_0$, and so the sequence will decrease monotonically to $0$. As $x_n$ must be non-negative, we do not need to study the other case, but, if you are curious, you would find that starting at a negative point the solution would be pushed towards $-\infty$.
+
+If $\lambda = 3$, the stationary point $x_* = 0$ is unstable, and we ony need to carefully study the other stationary point $x_* = 2/3$. In that case, we have $x_1 = 3 x_n (1 - x_n)$ and, if you compute a few iterations (you really want to use a computer here), you will see that the solution converges to the stationary point but extremely slowly. In fact, it is often that the case that at the threshold of stability (effectively at a bifurcation point) the solution will do extremely weird things, so it is not always trivial to assess what is going on.
+:::
+
+### Cobweb diagrams
+
+We saw that phase lines were useful when studying differential equations, but these no longer make sense for difference equations because $x_n$ is a sequence of numbers rather than a continuous function. However, graphical representations are a great way to get a feeling for how solutions of an equation behave.
+
+For difference equations we can use *cobweb diagrams*, which are constructed by plotting the graphs of $x_{n+1}=x_n$ and $x_{n+1}=f(x_n)$ on the same set of axes (with $x_n$ on the horizontal axis and $x_{n+1}$ on the vertical axis). The two graphs cross where $x_{n+1}=f(x_n)=x_n$, i.e. at the stationary points.
+
+::: {.callout-important}
+
+::: {#alg-cobweb-diagram}
+
+The procedure for drawing a cobweb diagram is as follows:
+
+0. Draw the graphs of $x_{n+1}=f(x_n)$ and $x_{n+1}=x_n$ on the same axes.
+1. Start at $x_0$ on the $x_n$ axis.
+2. Go up to the graph of $f$ and across to the $x_{n+1}$ axis to get $x_1$.
+3. Draw a line from $x_1$ to graph of $x_n = x_{n+1}$, then down to $x_n$ axis.
+4. Repeat from item 2.
+
+This method is illustrated in @fig-cobweb-method.
+
+:::
+
+:::
+
+```{python}
+#| label: fig-cobweb-method
+#| fig-cap: "Sketch of the method to produce a cobweb diagram. The blue line is $f(x_n)$ while the grey dashed line is $x_{n+1} = x_n$. The red lines show the method to find $x_1$, $x_2$, and $x_3$ from an initial value of $x_0$."
+#| out-width: "100%"
+#| echo: false
+
+import matplotlib.pyplot as plt
+from utils import apply_style, cobweb_plot
+
+apply_style()
+
+l = 2.5
+
+def f(x):
+    return l * x * (1 - x)
+
+x0 = 0.15
+xlim = (-0.05, 1.05)
+N = 3
+
+fig, ax = plt.subplots(1, 1, figsize=(6, 5))
+
+cobweb_plot(ax, f, x0=x0, N=N,  xlim=xlim, annotate=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+
+Cobweb diagrams can be drawn by hand but, as we shall see, accuracy is vital so they are best created by computer software such as MATLAB or Python (as I used here).
+
+To see the behaviour of the logistic equation in detail, we will consider a number of examples.
+
+#### Stable example: $\lambda = 2.5$
+
+We will now produce cobweb diagrams for various values of $\lambda$. The first case we will consider is $\lambda = 2.5$, shown in @fig-cobweb-25, which is a stable case. In this case, we simply spiral in towards the stationary point $x_* = \frac{\lambda - 1}{\lambda}$.
+
+```{python}
+#| label: fig-cobweb-25
+#| fig-cap: "The logistic equation with $\\lambda = 2.5$, with initial value $x_0 = 0.15$, iterated 50 times. As we can see, the solution simply spirals into the stationary point $x_* = \\frac{\\lambda - 1}{\\lambda} = 0.6$."
+#| out-width: "100%"
+#| echo: false
+
+import matplotlib.pyplot as plt
+from utils import apply_style, cobweb_plot
+
+apply_style()
+
+l = 2.5
+
+def f(x):
+    return l * x * (1 - x)
+
+x0 = 0.15
+xlim = (-0.05, 1.05)
+N = 50
+
+fig, ax = plt.subplots(1, 1, figsize=(6, 5))
+
+cobweb_plot(ax, f, x0=x0, N=N,  xlim=xlim, annotate=False)
+
+plt.tight_layout()
+plt.show()
+```
+
+#### Period two orbit: $\lambda = 3.2$
+
+Now the stationary point $x_* = \frac{\lambda - 1}{\lambda}$ is *unstable*, with the cobweb diagram plotted in @fig-cobweb-32.
+
+```{python}
+#| label: fig-cobweb-32
+#| fig-cap: "The logistic equation with $\\lambda = 3.2$, with initial value $x_0 = 0.15$, iterated 50 times. Here the solution settles down to oscillate with period 2."
+#| out-width: "100%"
+#| echo: false
+
+import matplotlib.pyplot as plt
+from utils import apply_style, cobweb_plot
+
+apply_style()
+
+l = 3.2
+
+def f(x):
+    return l * x * (1 - x)
+
+x0 = 0.15
+xlim = (-0.05, 1.05)
+N = 50
+
+fig, ax = plt.subplots(1, 1, figsize=(6, 5))
+
+cobweb_plot(ax, f, x0=x0, N=N,  xlim=xlim, annotate=False)
+
+plt.tight_layout()
+plt.show()
+```
+
+As we can see, when $\lambda = 3.2$, the solution is attracted to a "period two orbit", i.e. two alternating points; each repeated every $2$ iterations. Even though we concluded that the stationary point is unstable, in some sense, it feels like it is stable as we get attracted towards the orbit and do not go away from it. In fact we can show that each point $x_*$ of the orbit is a stationary point of $f^2 (x)=f(f(x))$, i.e. $f^2 (x_*) = x_*$.
+
+For $f(x) = \lambda x_n (1 - x_n)$, we have
+
+$$
+f^2 (x_n) = \lambda \left[ \lambda x_n (1 - x_n) \right] \left( 1 - \left[ \lambda x_n (1 - x_n) \right] \right).
+$$
+
+To find values of $x_*$ we now need to solve a quartic equation. The formula for this exists, but is messy! However, we already know two of the factors: we know that $x_* = 0$ and $x_* = \frac{\lambda - 1}{\lambda}$ will solve the quartic, since if $x_*$ solves $f (x_*) = x_*$, then
+
+$$
+f^2 (x_*) = f(f(x_*)) = f(x_*) = x_*.
+$$
+
+So we divide the quartic by $x_n (x_n - \frac{\lambda - 1}{\lambda})$, giving
+
+$$
+\lambda x_n^2 - (1 + \lambda) x_n + \left( 1 + \frac{1}{\lambda} \right) = 0,
+$$
+
+which has roots
+
+$$
+x_\pm = \frac{(1 + \lambda) \pm \sqrt{(\lambda + 1)(\lambda - 3)}}{2\lambda}.
+$$
+
+These exist provided $\lambda > 3$, which is consistent with our previous findings, and for our particular value of $\lambda = 3.2$ they are
+
+$$
+x_+ \approx 0.80, \qquad x_- \approx 0.51,
+$$
+
+as observed in @fig-cobweb-32.
+
+Even though we will not go into detail here, $\lambda = 3$ is a bifurcation point where the stability of the stationary point $x_* = \frac{\lambda - 1}{\lambda}$ changes and new solutions to $f^2 (x) = x$ are created. These points are stable stationary points of $f^2 (x_n)$ if $3 < \lambda < 1 + \sqrt{6} \approx 3.45$. If we call the two points $x_+$ and $x_-$, then we find that $f(x_+) = x_-$ and $f(x_-) = x_+$, and we have a period two orbit. However, beyond $\lambda \approx 3.45$, these stationary points become unstable.
+
+#### Period four orbit: $\lambda = 3.5$
+
+The cobweb diagram appears in Figure @fig-cobweb-35. In this case we no longer have a period two orbit, but rather a period four orbit, in which $f^4(x_*) = x_*$.
+
+```{python}
+#| label: fig-cobweb-35
+#| fig-cap: "The logistic equation with $\\lambda = 3.5$, with initial value $x_0 = 0.4$, iterated 50 times. Here the solution settles down to oscillate with period 4."
+#| out-width: "100%"
+#| echo: false
+
+import matplotlib.pyplot as plt
+from utils import apply_style, cobweb_plot
+
+apply_style()
+
+l = 3.5
+
+def f(x):
+    return l * x * (1 - x)
+
+x0 = 0.4
+xlim = (-0.05, 1.05)
+N = 50
+
+fig, ax = plt.subplots(1, 1, figsize=(6, 5))
+
+cobweb_plot(ax, f, x0=x0, N=N,  xlim=xlim, annotate=False)
+
+plt.tight_layout()
+plt.show()
+```
+
+If we then increase $\lambda$ further in small increments, we get periods of 8, 16, 32, etc. This is called a period-doubling cascade.^[The Wikipedia article about the [logistic map](https://en.wikipedia.org/wiki/Logistic_map) has a very cool animation on how the cobweb diagram evolves as we increase $\lambda$.] Beyond $\lambda\approx3.57$ the solutions we observe are apparently random. In fact it is an example of chaos (see @fig-cobweb-4).^[We deliberately do not provide a formal definition of chaos as it is complicated. But from the figure you get the idea that the behavious is "messy" at the very least.]
+
+::: {.callout-important}
+::: {#def-period-k-orbits}
+## Period $k$ orbits
+
+Period $k$ orbits of an autonomous first order difference equation
+
+$$
+x_{n+1} = f(x_n)
+$$
+
+are given by solutions of
+
+$$
+f^k(x_*) = x_*
+$$
+
+which are not either stationary points or belonging to a period $j$ orbit where $j<k$.
+:::
+:::
+
+```{python}
+#| label: fig-cobweb-4
+#| fig-cap: "The logistic equation with $\\lambda = 4$, with initial value $x_0 = 0.2$, iterated 30 times."
+#| out-width: "100%"
+#| echo: false
+
+import matplotlib.pyplot as plt
+from utils import apply_style, cobweb_plot
+
+apply_style()
+
+l = 4
+
+def f(x):
+    return l * x * (1 - x)
+
+x0 = 0.2
+xlim = (-0.05, 1.05)
+N = 30
+
+fig, ax = plt.subplots(1, 1, figsize=(6, 5))
+
+cobweb_plot(ax, f, x0=x0, N=N,  xlim=xlim, annotate=False)
+
+plt.tight_layout()
+plt.show()
+```

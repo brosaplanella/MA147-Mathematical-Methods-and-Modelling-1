@@ -2,37 +2,43 @@
 
 # Preface {.unnumbered}
 
-These are the lecture notes for the third-year Maths module [MA302 Electromagnetism](https://courses.warwick.ac.uk/modules/2025/MA302-15) taught at the [University of Warwick](https://warwick.ac.uk/). These notes are available both as a PDF and a static website (which should be suitable for screen-reading devices), you can access both at [https://brosaplanella.github.io/MA302-Electromagnetism/](https://brosaplanella.github.io/MA302-Electromagnetism/). I might update the notes as we go, fixing typos and improving explanations. You can keep track of those changes in the [CHANGELOG](https://github.com/brosaplanella/MA302-Electromagnetism/blob/main/CHANGELOG.md). Further material is available on Moodle for registered students.
+These are the lecture notes for the first-year Maths module [MA147 Mathematical Methods and Modelling 1](https://courses.warwick.ac.uk/modules/2025/MA147-10) taught at the [University of Warwick](https://warwick.ac.uk/). These notes are available both as a PDF and a static website (which should be suitable for screen-reading devices), you can access both on Moodle. The source files are available on [GitHub](https://github.com/brosaplanella/MA147-Mathematical-Methods-and-Modelling-1). I might update the notes as we go, fixing typos and improving explanations. You can keep track of those changes in the [CHANGELOG](https://github.com/brosaplanella/MA147-Mathematical-Methods-and-Modelling-1/blob/main/CHANGELOG.md). Further material is also available on Moodle.
 
-These lectures notes, which aim to be self--contained, are inspired by three main sources:
+These lectures notes, which aim to be self--contained, are based on the notes created in 2022 by Dr Björn Stinner, Dr Emma Davis and Dr Shreyas Mandre. For the academic year 2025-26, I have made significant changes to the content and structure of the notes, and I have also added new material on the topics of systems of differential equations.
 
-1. D. Tong, [Electromagnetism](https://doi.org/10.1017/9781009594660), Cambridge University Press, Cambridge, 2025.
-2. R.P. Feynman, R.B. Leighton, M.L. Sands, [The Feynman lectures on physics](https://www.feynmanlectures.caltech.edu/), Definitive ed, Pearson Addison Wesley, San Francisco, 2006.
-3. Lecture notes of the B7.2 Electromagnetism course at the University of Oxford, written by James Sparks and Erik Panzer.
+For further reading, the following books are recommended:
 
-The first two are good references if you want to read more about the topic, probably Tong's book is closer in structure to these lecture notes. In both cases, they cover a lot more material than this module does.
+* Robinson, James C. [An Introduction to Ordinary Differential Equations](https://go.exlibris.link/R5Hj12f1). Cambridge University Press, 2004.
+* Witelski, B. and Bowen, M., [Methods of Mathematical Modelling: Continuous Systems and Differential Equations](https://go.exlibris.link/NBDhPwTs). Springer, 2015.
+* Logan, David. [A First Course in Differential Equations](https://go.exlibris.link/48w2ldcs). Springer, 2015.
+* Holmes, Mark H. [Introduction to the Foundations of Applied Mathematics](https://go.exlibris.link/qQGGSwfD). Springer, 2019.
 
 ## Aims and structure {#aims-and-structure}
 
-The main aims of this module are:
+The main aim of this module is to introduce the basic concepts of (ordinary) differential equations and difference equations and their solutions.
 
-- Provide the student with the background necessary to understand basic electromagnetism concepts and Maxwell's equations.
-- Apply this knowledge to write and solve models for simple electromagnetism setups.
-- Highlight the connections of electromagnetism to practical applications in our day-to-day lives.
+By the end of this module, you should be able to:
 
-We will look at electromagnetism from a mathematical perspective, and use it to better understand the world around us, which is what applied mathematics is about.
+* Analyse, solve and interpret:
+    * Differential equations (first order and second order).
+    * Difference equations (first order and second order).
+    * First order systems of differential equations and difference equations.
+* Understand the modelling cycle and be able to formulate and analyse simple models.
+* Use scaling, non-dimensionalisation and linear stability techniques to reveal and understand the main underlying dynamics/driving factors.
 
-In @sec-introduction we will provide some motivation to the topic and recap some basic results from vector calculus that we will use in this module. 
+Throughout, we will use applied examples from a range of fields (often the sciences) to motivate and apply the methods covered. However, **no prior knowledge of science is required** to do well in this module or understand the content. In any instance where a fundamental principle, law or rule from science is used, it will be given to you and you will not be expected to memorise it or know its derivation or origin.
 
-We will start with electrostatics in @sec-electrostatics, which is the study of static electric charges. We will introduce some fundamental concepts like electric charge, electric field and electrostatic potential; and derive some important results like Gauss' law. In @sec-applications-electrostatics we will put into practice what we learned about electrostatics, by developing some concepts further and using them to understand some real applications, like conductors or capacitors.
+## Module structure
 
-Next, we will turn our attention to magnetostatics (@sec-magnetostatics), which is the study of steady magnetic fields. As magnetic fields are produced by charges in motion, we will introduce the concepts of current and current density. We will also derive some key results, like the Biot-Savart law, Gauss' law for magnetism or Ampère's law. Similarly to electrostatics, in @sec-applications-magnetostatics we will focus on applications of magnetostatics.
+These notes have six chapters:
 
-In @sec-electrodynamics we will bring time into the equation, and generalise our previous results to allow for time-dependence, leading to the Maxwell's equations. We will talk about induction and displacement currents, but the spotlight will be on light.^[Pun intended.] We will derive the governing equation for electromagnetic waves. In @sec-applications-electrodynamics we will see some applications of time-dependent Maxwell's equations and the wave equation, though if you want to learn a lot more about the latter you should probably sign up for [MA301 Waves and Metamaterials](https://warwick.ac.uk/fac/sci/maths/currentstudents/modules/ma301/).
+* **Introduction & notation:** we will start by introducing the notation used throughout the notes and the module, as well as some general advice on how to use these notes.
+* **Differential equations:** here we will initially learn how to classify differential equations and recap methods of solving first order equations covered in A-Level (or equivalent). We will see a more generalised method and look at some techniques for analysing the behaviour equations that we cannot necessarily solve. We will then extend our methods to second order differential equations, with a particular focus on the simplified linear case where we have constant coefficients, some of which may also be familiar from school.
+* **Difference equations:** in this chapter we move away from things about continuous time and introduce difference equations, where our models are constructed from discrete sequences rather than continuous functions. Difference equations are easier to analyse computationally, so we will first observe how Euler’s method can be used to discretise continuous equations. We will then cover topics from previous chapters applied to difference equations and a first introduction to the concept of ‘chaos’.
+* **Modelling:** in this chapter we will discuss the modelling cycle and how to formulate models and associated mathematical models using differential equations. This chapter contains very little examinable content and will be aligned with Week 6 of the term, which is breathing week.
+* **Dimensional analysis:** in which we will introduce the concepts of dimensional analysis. We will see that dimensional analysis is a useful tool that can be used to help us construct, validate and simplify models, as well to create generalised problems that can be used to investigate wider ranges of scenarios. 
+* **Systems:** here we will consider systems of multiple equations, first for discrete difference equations and then for continuous differential equations. We will use matrices to solve these systems, as well as explore alternative methods of analysing and visualising solutions. 
 
-We will conclude with @sec-matter, in which we will extend the Maxwell's equations to account for real macroscale materials, rather than just charges in motion, and explain some of the phenomena that arise.
+As these lecture notes have gone under a major editing process, they will doubtlessly contain errors and typos. There are also probably sections that could be better explained. If you spot anything or you have any suggestions, please do let me know via email.
 
-I would like to thank Dr Kawa Manmi for his valuable feedback on these notes and the rest of the material of the module. Still, this is the first time I teach this module, and there will doubtlessly be errors and typos in these notes. There are also probably sections that could be better explained. If you spot
-anything or you have any suggestions, please do let me know via email.
-
-[Dr Ferran Brosa Planella](https://www.brosaplanella.xyz), Autumn 2025
+[Dr Ferran Brosa Planella](https://www.brosaplanella.xyz), Summer 2026

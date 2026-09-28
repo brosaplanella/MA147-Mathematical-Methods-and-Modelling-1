@@ -6,22 +6,21 @@ project:
 
 execute:
   freeze: auto
+  cache: true
 
 book:
-  title: "MA302 Electromagnetism"
+  title: "MA147 Mathematical Methods and Modelling 1"
   author: "Ferran Brosa Planella"
   date: today
   date-format: "D MMMM, YYYY"
   chapters:
     - index.qmd
     - 1-introduction.qmd
-    - 2-electrostatics.qmd
-    - 3-applications-electrostatics.qmd
-    - 4-magnetostatics.qmd
-    - 5-applications-magnetostatics.qmd
-    - 6-electrodynamics.qmd
-    - 7-applications-electrodynamics.qmd
-    - 8-matter.qmd
+    - 2-differential-equations.qmd
+    - 3-difference-equations.qmd
+    - 4-modelling.qmd
+    - 5-dimensional-analysis.qmd
+    - 6-systems.qmd
   downloads: pdf
 
 format:
@@ -36,8 +35,10 @@ format:
     documentclass: scrbook
     papersize: a4
     toc: true
-    toc-depth: 2
+    toc-depth: 3
     pdf-engine: pdflatex
     colorlinks: true
     linkcolor: blue
     toccolor: blue
+
+bibliography: references.bib
