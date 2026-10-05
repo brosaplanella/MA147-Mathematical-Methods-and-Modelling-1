@@ -1145,6 +1145,7 @@ plt.tight_layout()
 plt.show()
 ```
 
+::: {.proof}
 This can be demonstrated by considering all possible scenarios (as shown in @fig-stability):
 
 **Case 1:** Consider $f(x) < 0$ if $x < x^*$ and that $f(x) > 0$ if $x > x^*$, where $x$ are points near the $x^*$, say, $x \in [x^*-\varepsilon, x^*+\varepsilon]$ for some small $\varepsilon > 0$.
@@ -1166,6 +1167,8 @@ This can be demonstrated by considering all possible scenarios (as shown in @fig
 
    1. Solutions to @eq-deq-autonomous that start at $x(t_{0}) < x^*$ increase towards $x^*$ as $t$ increases.
    2. Solutions that start at $x(t_{0}) > x^*$ will increase away from $x^*$ as $t$ increases and will eventually leave the small interval.
+
+:::
 
 ::: {.callout-important}
 We call stationary points with this property (stable from one side and unstable from the other) *saddle points*.

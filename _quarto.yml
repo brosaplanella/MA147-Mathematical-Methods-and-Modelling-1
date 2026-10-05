@@ -40,5 +40,3 @@ format:
     colorlinks: true
     linkcolor: blue
     toccolor: blue
-
-bibliography: references.bib

@@ -59,11 +59,14 @@ We will also encounter functions that take two inputs (or produce two outputs). 
 ### Vectors and matrices
 There is also specific notation to represent that we are talking about vectors and matrices. For vectors we often use **bold** font to imply something is a vector, e.g.
 $$
-    \boldsymbol{v} = (v_1, v_2).
+    \boldsymbol{v} = \begin{bmatrix}
+        v_1 \\
+        v_2
+    \end{bmatrix} = (v_1, v_2)^T.
 $$
-However, when writing by hand it is easier to use \underline{underlined symbols}, e.g.
+We assume vectors are column vectors unless otherwise specified. However, when writing by hand it is easier to use \underline{underlined symbols}, e.g.
 $$
-    \underline{v} = (v_1, v_2).
+    \underline{v} = (v_1, v_2)^T.
 $$
 
 We will represent matrices using **capital letters**, with the component entries indicated by the lowercase equivalent with subscripts, e.g.
