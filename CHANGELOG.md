@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2026-10-19
+
+* Chapter 2: in the fishery example, added a remark about the stability of the stationary point in the case $c = r$ and added the name of the bifurcation.
+* Chapter 2: small rewording of the title of section 2.8. 
+
 ## 2026-10-05
 
 * Chapter 1: fix typo in the definition of vector (in this module vectors are column vectors by definition).

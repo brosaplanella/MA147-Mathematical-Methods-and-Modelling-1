@@ -1891,9 +1891,9 @@ Note that there is a change in the number of stationary points at $c=r$ and also
 
 1. $0 < c < r$: In this case we have two stationary points. From the derivative we see that $f'(p^*_1) = r - c > 0$, therefore $p^*_1$ is unstable, and $f'(p^*_2) = - (r - c) < 0$, therefore $p^*_2$ is stable.
 2. $c > r$: In this case we have only one stationary point, $p^*_1$, and $f'(p^*_1) = r - c < 0$, therefore $p^*_1$ is stable.
-3. $c = r$: In this case we have only one stationary point as $p_1^* = p_2^* = 0$. We have that $f'(p^*_1) = r - c = 0$, so we cannot use the derivative to determine stability. However, we can see that in this case $f(p) = -rp^2/p_\mathrm{m} < 0$ for all $p > 0$ (we do not need to consider p < 0), therefore $p^*_1$ is stable. 
+3. $c = r$: In this case we have only one stationary point as $p_1^* = p_2^* = 0$. We have that $f'(p^*_1) = r - c = 0$, so we cannot use the derivative to determine stability. However, we can see that in this case $f(p) = -rp^2/p_\mathrm{m} < 0$ for all $p > 0$ (we do not need to consider $p < 0$), therefore $p^*_1$ is stable.^[Note that technically it is a saddle point. However, given that $p$ must be greater or equal that zero, we only consider on side of the saddle (the stable one).]
 
-With this information, we can draw the bifurcation diagram for this system (see @fig-fishery).
+With this information, we can draw the bifurcation diagram for this system (see @fig-fishery). We have a transcritical bifurcation at $c=r$ where the stability of the stationary points changes, even though it looks a bit different from the example we did earlier as the domain of the bifurcation diagram is restricted to the physically meaningful region $p^* \in [0, p_\mathrm{m}]$ and $c \geq 0$.
 
 The physical interpretation of this is that if the fishing rate is small ($c < r$), the population will always end up stabilising at a positive value $p^*_2$. However, if the fishing rate is too high ($c \geq r$), the population will eventually die out (i.e. reach $p^*_1 = 0$) no matter what the initial condition is.
 
@@ -2205,7 +2205,7 @@ $$ {#eq-ic-lin-o2-full}
 :::
 :::
 
-## Linear and second order with constant coefficients
+## Linear second order equations with constant coefficients
 
 To illustrate how the procedure outlined in the previous section works let us investigate the case of an equation @eq-deq-lin-o2 with constant coefficients,
 
