@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2026-10-26
+
+* Chapter 2: fixed minor typo in the saddle-node bifurcation definition.
+* Figure 2.9: fixed some typos in the labels of the axes and the stationary points.
+
 ## 2026-10-19
 
 * Chapter 2: in the fishery example, added a remark about the stability of the stationary point in the case $c = r$ and added the name of the bifurcation.

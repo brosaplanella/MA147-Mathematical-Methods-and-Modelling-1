@@ -1483,7 +1483,7 @@ plt.show()
 
 ::: {.callout-important}
 ::: {#def-saddle-node-bifurcation}
-A saddle-node bifurcation is any bifurcation where two stationary points collide, briefly becoming a single stationary point before annihilating each other nd leaving no stationary points.
+A saddle-node bifurcation is any bifurcation where two stationary points collide, briefly becoming a single stationary point before annihilating each other and leaving no stationary points.
 :::
 :::
 
@@ -1924,7 +1924,7 @@ plot_bifurcation(
          "y": 0 * c_1,
          "color": "C0",
          "linestyle": "dashed", 
-         "label": "$x^*_1 = 0$",
+         "label": "$p^*_1 = 0$",
          "text_xy": (0.05, 0.05),
          "text_kwargs": {"ha": "left", "va": "bottom"}
       },
@@ -1942,13 +1942,13 @@ plot_bifurcation(
          "y": 2 * (1 - c_1 /2),
          "color": "C1",
          "linestyle": "solid",
-         "label": "$x^*_2 = p_\\mathrm{m}\\left(1-\\frac{c}{r}\\right)$",
+         "label": "$p^*_2 = p_\\mathrm{m}\\left(1-\\frac{c}{r}\\right)$",
          "text_xy": (1, 1 + 0.05),
          "text_kwargs": {"ha": "left", "va": "bottom"}
       },
     ],
-    param_label="$r$",
-    var_label="$x^*$",
+    param_label="$c$",
+    var_label="$p^*$",
 )
 
 # Vertical dashed line from y=0 to y=2 at x=2
