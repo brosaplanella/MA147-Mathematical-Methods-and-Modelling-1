@@ -15,7 +15,7 @@ By the end of this chapter, you should be able to:
 
 :::
 
-Because of their fundamental importance and success in many scientific fields, differential equations have become a field within the mathematical sciences and are an integral part of training in mathematics. One fundamental question is whether a differential equation has solutions and, if so, whether the solution is unique. We will see some counterexamples showing that this is not always the case but have to delay deeper results on this questions because they require sophisticated analytical tools that we don't have to our disposition yet.
+Because of their fundamental importance and success in many scientific fields, differential equations have become a field within the mathematical sciences and are an integral part of training in mathematics. One fundamental question is whether a differential equation has solutions and, if so, whether the solution is unique. We will see some counterexamples showing that this is not always the case but have to delay deeper results on these questions because they require sophisticated analytical tools that we don't have at our disposal yet.
 
 If one can show that there is a solution, a natural question is whether we can find an explicit formula for it. We will study some techniques that enable us to do so for some simple differential equations. However, in general, this is not the case, and for this reason computational methods have been developed that approximate the solution. We may occasionally make use of the computer but the in-depth study of such methods is left to future modules.
 
@@ -26,13 +26,13 @@ Even if we cannot find an explicit solution formula, we still may be able to mak
 General scalar differential equations can be written in the form
 
 $$
-\mathcal{F} \left( x,y(x),y'(x), y''(x), \dots, y^{(k-1)}, y^{(k)} \right) = 0
+\mathcal{F} \left( x,y(x),y'(x), y''(x), \dots, y^{(k-1)}(x), y^{(k)}(x) \right) = 0
 $$ {#eq-deq-general}
 
 for some given function $\mathcal{F} : (\alpha, \beta) \times \mathbb{R}^{k+1} \to \mathbb{R}$ with an interval $(\alpha,\beta) \subset \mathbb{R}$. We here use the notation
 
 $$
-y^{(l)}(x) = \frac{d^l}{\mathrm{\mathrm{d}}x^l} y(x)
+y^{(l)}(x) = \frac{\mathrm{d}^l}{\mathrm{d}x^l} y(x)
 $$
 
 for the $l$-th derivative of a function $y : (\alpha, \beta) \to \mathbb{R}$. In the general form (@eq-deq-general) we make the implicit assumption that the highest derivative $y^{(k)}$ occurs in the equation (otherwise we could consider a function $\mathcal{F}$ that does not depend on this argument). We will focus on equations where we can solve the equation for $y^{(k)}$ and write it in the form
@@ -45,8 +45,8 @@ for some function $\phi : (\alpha, \beta) \times \mathbb{R}^{k} \to \mathbb{R}$.
 
 Our equation is expressed in terms of the *variables* $x$ and $y$. We distinguish:
 
-- *Independent variables* can be varied independently of any other variables. In @eq-deq-gen-o1, $x$ is an independent variable.
-- *Dependent variables* are unknown quantities that depend on independent variables. In @eq-deq-gen-o1, $y$ is a dependent variable, which depends on $x$.
+- *Independent variables* can be varied independently of any other variables. In @eq-deq-general, $x$ is an independent variable.
+- *Dependent variables* are unknown quantities that depend on independent variables. In @eq-deq-general, $y$ is a dependent variable, which depends on $x$.
 
 The equation may also depend on parameters, which are constant quantities that are fixed for a given problem but can be varied between problems. For example, if we wrote an equation for a weight on a spring, the mass of the weight would be a parameter.
 
@@ -63,7 +63,7 @@ $$
 
 all mean the same, $x$, $y$, or $\theta$ stand for a variable that has no effect on the integral.
 
-In the literature, the variable $t$ is often stands for time and $x,y,z$ are spatial variables. Recall from @sec-introduction that we will sometimes use dots and dashes to denote derivatives.
+In the literature, the variable $t$ often stands for time and $x,y,z$ are spatial variables. Recall from @sec-introduction that we will sometimes use dots and dashes to denote derivatives.
 
 
 ::: {.callout-important}
@@ -116,7 +116,7 @@ Let us briefly classify some of the differential equations.
 1. Consider the equation
 
    $$
-   \dot{p}(t) = k p(t) \left( 1 - \frac{p(t)}{p_{m}} \right),
+   \dot{p}(t) = k p(t) \left( 1 - \frac{p(t)}{p_\mathrm{m}} \right),
    $$
 
    which is used to describe the growth of a population $p(t)$ in time (more on this later).
@@ -124,20 +124,20 @@ Let us briefly classify some of the differential equations.
    We can write it in the form @eq-deq-general with
 
    $$
-   \mathcal{F}(t, p(t),\dot{p}(t)) = \dot{p}(t) - k p(t) \left( 1 - \frac{p(t)}{p_{m}} \right).
+   \mathcal{F}(t, p(t),\dot{p}(t)) = \dot{p}(t) - k p(t) \left( 1 - \frac{p(t)}{p_\mathrm{m}} \right).
    $$
 
    1. Its order is one as only the first derivative occurs.  
-   2. The independent variable is $t$, and the dependent variable $p$ is the only function that depends on it. Therefore, the equation is autonomous. 
+   2. The independent variable is $t$, and the dependent variable is $p$. The independent variable $t$ does not appear explicitly in the equation, therefore the equation is autonomous. 
    3. It is homogeneous as setting $p(t)$ and $\dot p(t)$ to zero yields zero (i.e. there is no additive constant).  
-   4. On the right-hand-side the quadratic term $p(t)^2$ occurs, so the equation is non-linear.
+   4. On the right-hand side the quadratic term $p(t)^2$ occurs, so the equation is non-linear.
 
 2. Now consider the equation for a mass-spring-damper system (again, more on this later):
    $$
-   m \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) = - c \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) - k x(t).
+   m \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) = - c \frac{\mathrm{d}}{\mathrm{d}t} x(t) - k x(t).
    $$
 
-   Here $m$ is the mass, $c$ is the damping coefficient, and $k$ is the spring constant; which are parameters. 
+   Here $m$ is the mass, $c$ is the damping coefficient, and $k$ is the spring constant, which are parameters. 
 
    Writing the equation in the form @eq-deq-general yields
 
@@ -149,11 +149,11 @@ Let us briefly classify some of the differential equations.
    2. The independent variable is $t$ and does not explicitly appear in the equation. Therefore, the equation is autonomous.
    3. We can write
 
-   $$
-   \mathcal{F}(t,x(t),\dot{x}(t),\ddot{x}(t)) = s(t) + \sum_{i=0}^2 a_i(t) \frac{d^i}{\mathrm{\mathrm{d}}t^i} x(t)
-   $$
+      $$
+      \mathcal{F}(t,x(t),\dot{x}(t),\ddot{x}(t)) = s(t) + \sum_{i=0}^2 a_i(t) \frac{\mathrm{d}^i}{\mathrm{d}t^i} x(t)
+      $$
 
-   with $a_2 = m$, $a_1 = c$, $a_0 = k$, and $s(t) = 0$. The equation therefore is linear. 
+      with $a_2 = m$, $a_1 = c$, $a_0 = k$, and $s(t) = 0$. The equation therefore is linear. 
    4. As $s(t) = \mathcal{F}(t,0,0,0) = 0$ (which we also knew from the previous point) the equation is homogeneous.
 
 :::
@@ -171,7 +171,7 @@ A function $y : (\alpha,\beta) \to \mathbb{R}$ is called a solution to the diffe
 
 ::: {#exm-explicit-implicit}
 
-The function $y(x) = 12 e^{-2x}$ is an explicit solution to the differential equation $\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x} y(x) = -2 y(x)$.  
+The function $y(x) = 12 e^{-2x}$ is an explicit solution to the differential equation $\frac{\mathrm{d}}{\mathrm{d}x} y(x) = -2 y(x)$.  
 The expression
 
 $$
@@ -181,7 +181,7 @@ $$ {#eq-ex-implicit}
 relates $y$ and $x$ but cannot be algebraically resolved for $y$ as a function of $x$. However, assuming that $y = y(x) \neq 0$ is a differentiable function of $x$, then differentiating the expression @eq-ex-implicit with respect to $x$ yields that
 
 $$
-\left( \frac{1}{y(x)} - 1 \right) \frac{\mathrm{d}}{\mathrm{\mathrm{d}}x} y(x) = 2 - 4 \frac{1}{x} \quad \Rightarrow \quad \frac{\mathrm{d}}{\mathrm{\mathrm{d}}x} y(x) = \frac{y(x)}{1 - y(x)} \left( 2 - 4 \frac{1}{x} \right),
+\left( \frac{1}{y(x)} - 1 \right) \frac{\mathrm{d}}{\mathrm{d}x} y(x) = 2 - 4 \frac{1}{x} \quad \Rightarrow \quad \frac{\mathrm{d}}{\mathrm{d}x} y(x) = \frac{y(x)}{1 - y(x)} \left( 2 - 4 \frac{1}{x} \right),
 $$
 
 and @eq-ex-implicit is an implicit solution to this differential equation.
@@ -193,10 +193,10 @@ and @eq-ex-implicit is an implicit solution to this differential equation.
 This distinction of a variable to formulate a differential equation from a solution might look a bit nit-picky but is similar to the careful distinction between a function, say $g$, and the expression $g(y)$, which is the value of $g$ in a point $y$. In practice (and in the following), however, this distinction often is not made. In a slight abuse of notation, $y(x)$ sometimes is just a dependent variable used to formulate a differential equation such as @eq-deq-general, and sometimes it denotes a solution, depending on the context.
 :::
 
-In the remainder of this chapter we study differential equations for scalar functions that involve first derivatives. The differential equations are of the form
+In the next sections we study differential equations for scalar functions that involve first derivatives. The differential equations are of the form
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = f \left( x(t), t \right), \quad t \in (\alpha, \beta),
+\frac{\mathrm{d}}{\mathrm{d}t} x(t) = f \left( x(t), t \right), \quad t \in (\alpha, \beta),
 $$ {#eq-deq-gen-o1}
 
 where $f : \mathbb{R} \times (\alpha,\beta) \to \mathbb{R}$ with an interval $(\alpha,\beta) \subset \mathbb{R}$ is a given function.
@@ -208,7 +208,7 @@ One can regard solving a differential equation of the form @eq-deq-gen-o1 as the
 This connection is easiest seen when considering the case that the given function $f$ in @eq-deq-gen-o1 is independent of $x(t)$ so that the differential equation reads
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = f(t), \quad t \in (\alpha, \beta).
+\frac{\mathrm{d}}{\mathrm{d}t} x(t) = f(t), \quad t \in (\alpha, \beta).
 $$ {#eq-deq-trivial}
 
 This case is called *trivial*.
@@ -225,7 +225,7 @@ $$
 Then $G$ is an *anti-derivative* of $g$, i.e., it satisfies
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x} G(x) = g(x), \quad x \in (a,b).
+\frac{\mathrm{d}}{\mathrm{d}x} G(x) = g(x), \quad x \in (a,b).
 $$
 
 Moreover, if $\tilde{G}$ is any other *anti-derivative* of $g$
@@ -279,7 +279,7 @@ $$
 x(t_{0}) = x_{0}
 $$ {#eq-ic-gen-o1}
 
-for some $t_{0} \in [\alpha,\beta]$ and some given number $x_{0} \in \mathbb{R}$ are satisfied.
+for some $t_{0} \in (\alpha,\beta)$ and some given number $x_{0} \in \mathbb{R}$ are satisfied.
 
 :::
 :::
@@ -293,7 +293,7 @@ $$ {#eq-sol-trivial}
 is the solution: indeed, as $x_{0}$ does not depend on $t$, it satisfies the differential equation because
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \left( \int_{t_{0}}^{t} f(\tilde{t}) \mathrm{d}\tilde{t} \right) = f(t)
+\frac{\mathrm{d}}{\mathrm{d}t} x(t) = \frac{\mathrm{d}}{\mathrm{d}t} \left( \int_{t_{0}}^{t} f(\tilde{t}) \mathrm{d}\tilde{t} \right) = f(t)
 $$
 
 by the *Fundamental Theorem of Calculus*, and it also satisfies the initial condition because
@@ -314,7 +314,7 @@ $$
 M \dot{v}(t) = - g M + u(t) \quad \Leftrightarrow \quad \dot{v}(t) = -g + \tfrac{1}{M} u(t)
 $$
 
-where $M>0$ is the mass (assumed constant here), $g>0$ is the gravitation constant, and $u(t)$ is a given function describing the thrust by the spacecraft's rockets. We here assume for simplicity that $u(t) = \bar{u} \in \mathbb{R}$ is constant.
+where $M>0$ is the mass (assumed constant here), $g>0$ is the gravitational acceleration, and $u(t)$ is a given function describing the thrust by the spacecraft's rockets. We here assume for simplicity that $u(t) = \bar{u} \in \mathbb{R}$ is constant.
 
 Assume now that, initially at time $t = t_{0} = 0$, the velocity is known and given by $v_{0} < 0$. We want to find out when the spacecraft comes to rest. In mathematical terms, we want to find a time $t^* > 0$ such that the solution to the initial value problem satisfies $v(t^*) = 0$.
 
@@ -332,7 +332,7 @@ $$
 
 We want that $t^*$ is positive. As $v_{0} < 0$ this requires that $g - \tfrac{1}{M} \bar{u}<0$, or the thrust $\bar{u} > M g$ has to be big enough. Poor spacecraft otherwise...
 
-We may ask at which height the spacecraft comes to rest (assuming it does so). To formulate this questions in mathematical terms, let us assume that the initial height at time $t=0$ is $h(0) = h_{0} > 0$, and we are interested in the value of $h(t^*)$ where $h$ satisfies the differential equation $\dot{h}(t) = v(t)$. As we know $v$ already this is again an initial value problem with a trivial differential equation. Its solution is given by
+We may ask at which height the spacecraft comes to rest (assuming it does so). To formulate this question in mathematical terms, let us assume that the initial height at time $t=0$ is $h(0) = h_{0} > 0$, and we are interested in the value of $h(t^*)$ where $h$ satisfies the differential equation $\dot{h}(t) = v(t)$. As we know $v$ already this is again an initial value problem with a trivial differential equation. Its solution is given by
 
 $$
 h(t) = h_{0} + \int_{t_{0}}^{t} v(\tilde{t}) \mathrm{d}\tilde{t} = h_{0} + \int_0^t \left( v_{0} + \left( - g + \tfrac{1}{M} \bar{u} \right) \tilde{t} \right) \mathrm{d}\tilde{t} = h_{0} + v_{0} t + \frac{1}{2} \left( - g + \tfrac{1}{M} \bar{u} \right) t^2.
@@ -364,10 +364,10 @@ A natural question is as to whether any differential equation of the form @eq-de
 Consider the initial value problem
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = -\frac{x(t)^2}{t^2}, \quad x(0) = x_{0} \in \mathbb{R}.
+\frac{\mathrm{d}}{\mathrm{d}t} x(t) = -\frac{x(t)^2}{t^2}, \quad x(0) = x_{0} \in \mathbb{R}.
 $$
 
-The right-hand-side function $f(x,t) = -x^2 / t^2$ is not defined at $t=0$. Intuitively, imposing a condition at time $t=0$ seems problematic. Indeed, if we rewrite the differential equation in the form $x^2 + t^2 \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x = 0$ then evaluating at $t=0$ yields that $x(0)^2 = 0$. The condition $x(0) = x_{0} \in \mathbb{R}$ therefore cannot be satisfied if $x_{0} \neq 0$, and the initial value problem has no solution then.
+The right-hand-side function $f(x,t) = -x^2 / t^2$ is not defined at $t=0$. Intuitively, imposing a condition at time $t=0$ seems problematic. Indeed, if we rewrite the differential equation in the form $x^2 + t^2 \frac{\mathrm{d}}{\mathrm{d}t} x = 0$ then evaluating at $t=0$ yields that $x(0)^2 = 0$. The condition $x(0) = x_{0} \in \mathbb{R}$ therefore cannot be satisfied if $x_{0} \neq 0$, and the initial value problem has no solution then.
 
 :::
 
@@ -378,7 +378,7 @@ The right-hand-side function $f(x,t) = -x^2 / t^2$ is not defined at $t=0$. Intu
 Consider the initial value problem
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = \sqrt{x(t)}, \quad x(0) = 0.
+\frac{\mathrm{d}}{\mathrm{d}t} x(t) = \sqrt{x(t)}, \quad x(0) = 0.
 $$
 
 The function $x(t) = 0$ for all $t$ obviously is a solution. However, it is not the only one. For any $c>0$ the function
@@ -390,7 +390,7 @@ $$
 also is a solution. Indeed, if $t>c$ then
 
 $$
-x_{c}'(t) = \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \left( \frac{(t-c)^2}{4} \right) = \frac{t-c}{2} = \sqrt{ \frac{(t-c)^2}{4} } = \sqrt{x_{c}(t)},
+x_{c}'(t) = \frac{\mathrm{d}}{\mathrm{d}t} \left( \frac{(t-c)^2}{4} \right) = \frac{t-c}{2} = \sqrt{ \frac{(t-c)^2}{4} } = \sqrt{x_{c}(t)},
 $$
 
 and if $t \leq c$ then
@@ -403,7 +403,7 @@ where we note that in the point $t=c$ the limits of the derivatives from both si
 
 :::
 
-Whilst these results are discouraging, one actually can ensure that there is a unique solution to @eq-deq-gen-o1 with @eq-ic-gen-o1 if the function $f$ is sufficiently smooth, or "nice" enough. We will not specify here what this means as we are lacking the tools to prove these results as this stage. This problem is picked up and addressed in detail in later modules.
+Whilst these results are discouraging, one actually can ensure that there is a unique solution to @eq-deq-gen-o1 with @eq-ic-gen-o1 if the function $f$ is sufficiently smooth, or "nice" enough. We will not specify here what this means as we are lacking the tools to prove these results at this stage. This problem is picked up and addressed in detail in later modules.
 
 ::: {#rem-f-nice}
 For the remainder of this chapter,
@@ -430,20 +430,20 @@ $$
 f(x,t) = r(t) x + s(t),
 $$
 
-with some functions $r,s : (\alpha, \beta) \to \mathbb{R}$. This is consistent with the definition of linearity in @eq-deq-lin-gen with $a_1 = r(t)$ and $a_0 = s(t)$, noting that the independent variable is denoted by $t$ and the dependent variable by $x$. As per @rem-f-nice, we assume that $r$ and $s$ are "nice" functions, therefore $f$ is also "nice".
+with some functions $r,s : (\alpha, \beta) \to \mathbb{R}$. This is consistent with the definition of linearity in @eq-deq-lin-gen with $a_1 = -1$, $a_0 = r(t)$ and source term $s(t)$, noting that the independent variable is denoted by $t$ and the dependent variable by $x$. As per @rem-f-nice, we assume that $r$ and $s$ are "nice" functions, therefore $f$ is also "nice".
 
 ### Homogeneous equations
 
 We first consider the case $s\equiv0$, which yields a homogeneous differential equation. The initial value problem then reads
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = r(t) x(t), \quad t \in (\alpha, \beta), \qquad x(t_{0}) = x_{0}.
+\frac{\mathrm{d}}{\mathrm{d}t} x(t) = r(t) x(t), \quad t \in (\alpha, \beta), \qquad x(t_{0}) = x_{0}.
 $$ {#eq-ivp-lin-hom-o1}
 
 If $r(t) = \bar{r}$ is constant then this means we are searching for a function such that its derivative is proportional to itself. We know of such functions: the exponential functions satisfy this property. Therefore we use an informed guess (also called an *ansatz*) to determine the solution.^[This might seem a bit handwavy, but it is actually a valid (and common) mathematical technique.] Using the ansatz $x(t) = e^{\lambda t}$ we obtain
 
 $$
-0 = \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) - \bar{r} x(t) = \lambda e^{\lambda t} - \bar{r} e^{\lambda t},
+0 = \frac{\mathrm{d}}{\mathrm{d}t} x(t) - \bar{r} x(t) = \lambda e^{\lambda t} - \bar{r} e^{\lambda t},
 $$
 
 and we see that $x(t) = e^{\bar{r} t}$ is a solution. Actually, any multiple of the ansatz, 
@@ -469,7 +469,7 @@ $$
 with $c \in \mathbb{R}$ and with a suitable function $R : (\alpha,\beta) \to \mathbb{R}$. Substituting this approach in the differential equation we see that $R$ has to be such that
 
 $$
-\dot{R}(t) c e^{R(t)} = \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = r(t) x(t) = r(t) c e^{R(t)}.
+\dot{R}(t) c e^{R(t)} = \frac{\mathrm{d}}{\mathrm{d}t} x(t) = r(t) x(t) = r(t) c e^{R(t)}.
 $$
 
 We see that $R$ then has to satisfy $\dot{R} = r$, so $R$ has to be an anti-derivative of $r$. If we choose
@@ -498,7 +498,7 @@ $$ {#eq-sol-lin-hom-o1}
 Let us use the above ideas to solve the initial value problem
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) + 2t x(t) = 0, \quad x(10) = 3.
+\frac{\mathrm{d}}{\mathrm{d}t} x(t) + 2t x(t) = 0, \quad x(10) = 3.
 $$
 
 So here $t_0 = 10$ and $x_0 = 3$. Note that $r(t) = -2t$. According to @eq-sol-lin-hom-o1 we need to compute
@@ -521,19 +521,19 @@ $$
 
 Consider a tank containing 1000 litres of a mixture of water and chlorine. To reduce the amount of chlorine, fresh water is pumped into the tank at a rate of $6$ l/s. The mixture is well-stirred and pumped out at a rate of $8$ l/s. The initial concentration of chlorine is $0.02$ g/l. We want to find i) the amount of chlorine in the tank as a function of time and ii) the interval of validity of the equation.
 
-Let us start with the second question. We denote the volume of the fluid by $v(t)$. The equation governing the volume should state the variation of the volume in time is how much water comes in minus how much mixture comes out:
+Let us start with the second question. We denote the volume of the fluid by $v(t)$. The equation governing the volume should state that the variation of the volume in time is how much water comes in minus how much mixture comes out:
 
-$$ \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} v(t) = 6 - 8 = -2. $$
+$$ \frac{\mathrm{d}}{\mathrm{d}t} v(t) = 6 - 8 = -2. $$
 
 This is a trivial differential equation, and with the initial condition $v(0) = 1000$ we obtain $v(t) = 1000 - 2t$. So when $t$ reaches $500$ then the tank is empty (and there is no chlorine left) and our equation is no longer valid.^[Note that the equation and the solution would still hold from a mathematical point of view (i.e. there is nothing preventing $v(t)$ from being negative). However, the equation describes a real-world scenario, so a negative volume would be meaningless. This is a crucial reasoning, that will pop up repeatedly.] Hence, the interval of validity is $t \in [0,500]$.
 
-We now denote the amount of chlorine by $c(t)$ in the interesting time interval $t \in [0,500]$. The concentration is $q(t) / v(t)$, where $q(t)$ is the total amount of chlorine (not mixture!) in the tank at time $t$. The flow of chlorine out of the tank is given by the rate $\alpha = 8$ l/s times this concentration, and this is the only way how the amount of chlorine changes. Hence, we obtain the differential equation
+We now denote the amount of chlorine by $c(t)$ in the interesting time interval $t \in [0,500]$. The concentration is $c(t) / v(t)$, where $c(t)$ is the total amount of chlorine (not mixture!) in the tank at time $t$. The flow of chlorine out of the tank is given by the rate $\alpha = 8$ l/s times this concentration, and this is the only way how the amount of chlorine changes. Hence, we obtain the differential equation
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} c(t) = -\alpha \frac{c(t)}{v(t)} = -8 \frac{c(t)}{1000 - 2t} = -\frac{4}{500-t} c(t).
+\frac{\mathrm{d}}{\mathrm{d}t} c(t) = -\alpha \frac{c(t)}{v(t)} = -8 \frac{c(t)}{1000 - 2t} = -\frac{4}{500-t} c(t).
 $$
 
-It comes with an initial value: $Q(0) = 0.02 \times 1000 = 20$. The problem thus is of the form @eq-ivp-lin-hom-o1. With $r(t) = -4 / (500 - t)$ we compute
+It comes with an initial value: $c(0) = 0.02 \times 1000 = 20$. The problem thus is of the form @eq-ivp-lin-hom-o1. With $r(t) = -4 / (500 - t)$ we compute
 
 $$
 R(t) = \int_0^t r(\tilde{t}) \mathrm{d}\tilde{t} = 4 \log (500 - t) - 4 \log (500).
@@ -542,7 +542,7 @@ $$
 We obtain the solution
 
 $$
-c(t) = c(0) e^{R(t)} = 20 e^{-4 \log(500-t) + 4 \log(500)} = 20 \left( \frac{500-t}{500} \right)^4.
+c(t) = c(0) e^{R(t)} = 20 e^{4 \log(500-t) - 4 \log(500)} = 20 \left( \frac{500-t}{500} \right)^4.
 $$
 
 :::
@@ -552,7 +552,7 @@ $$
 Consider the case where $s \neq 0$. The differential equation then reads
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = r(t) x(t) + s(t), \quad t \in (\alpha,\beta).
+\frac{\mathrm{d}}{\mathrm{d}t} x(t) = r(t) x(t) + s(t), \quad t \in (\alpha,\beta).
 $$ {#eq-deq-lin-inhom-o1}
 
 The exponential function from the previous section will prove quite useful in this case.
@@ -564,7 +564,7 @@ The exponential function from the previous section will prove quite useful in th
 The function
 
 $$
-I(t) = e^{-R(t)}.
+I(t) = e^{-R(t)},
 $$ {#eq-intfac}
 
 where $R(t) = \int r(\tilde{t}) \mathrm{d}\tilde{t}$ is an anti-derivative of $r$, is called an *integrating factor*. If an initial condition of the form $x(t_{0}) = x_{0}$ (as in @eq-ic-gen-o1) is imposed then a specific anti-derivative is chosen, namely
@@ -579,28 +579,28 @@ $$
 Note that
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} I(t) = \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} e^{-R(t)} = \left( -\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} R(t) \right) e^{-R(t)} = - r(t) I(t).
+\frac{\mathrm{d}}{\mathrm{d}t} I(t) = \frac{\mathrm{d}}{\mathrm{d}t} e^{-R(t)} = \left( -\frac{\mathrm{d}}{\mathrm{d}t} R(t) \right) e^{-R(t)} = - r(t) I(t).
 $$ {#eq-deq-intfac}
 
 Let us multiply the @eq-deq-lin-inhom-o1 with $I(t)$ so that
 
 $$
-I(t) \, \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) - I(t) r(t) x(t) = I(t) s(t).
+I(t) \, \frac{\mathrm{d}}{\mathrm{d}t} x(t) - I(t) r(t) x(t) = I(t) s(t).
 $$
 
 Then, using @eq-deq-intfac, we can rewrite the left-hand side as
 
 $$
-I(t) \, \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) - I(t) r(t) x(t) = I(t) \, \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) + x(t) \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} I(t) = \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \left( I(t) x(t) \right)
+I(t) \, \frac{\mathrm{d}}{\mathrm{d}t} x(t) - I(t) r(t) x(t) = I(t) \, \frac{\mathrm{d}}{\mathrm{d}t} x(t) + x(t) \frac{\mathrm{d}}{\mathrm{d}t} I(t) = \frac{\mathrm{d}}{\mathrm{d}t} \left( I(t) x(t) \right)
 $$
 
 and we obtain
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \left( I(t) x(t) \right) = I(t) s(t).
+\frac{\mathrm{d}}{\mathrm{d}t} \left( I(t) x(t) \right) = I(t) s(t).
 $$ {#eq-deq-lin-inhom-o1-withI}
 
-This is a trivial differential equation for $I(t) x(t)$, and such a transformation is exactly behind the idea of the integrating factor^[More generally, so-called *exact equations* are obtained after transformation, but which are beyond the scope of this module. In you are interested, see Chapter 10 in Robinson's book for more detail.].
+This is a trivial differential equation for $I(t) x(t)$, and such a transformation is exactly behind the idea of the integrating factor^[More generally, so-called *exact equations* are obtained after transformation, but which are beyond the scope of this module. If you are interested, see Chapter 10 in Robinson's book for more detail.].
 
 The initial condition for @eq-deq-lin-inhom-o1-withI reads $I(t_{0}) x(t_{0}) = I(t_{0}) x_{0}$. Recalling the solution formula for such problems from @eq-sol-trivial (or just integrating with respect to $t$), we obtain that
 
@@ -629,21 +629,21 @@ An algorithm (or "recipe") to solve @eq-deq-lin-inhom-o1, @eq-ic-gen-o1 with an 
 
 1. Find an anti-derivative of $r$,
 
-$$
-R(t) = \int_{t_{0}}^{t} r(\tilde{t}) \mathrm{d}\tilde{t}.
-$$
+   $$
+   R(t) = \int_{t_{0}}^{t} r(\tilde{t}) \mathrm{d}\tilde{t}.
+   $$
 
 2. Work out the integral
 
-$$
-x_{s}(t) = \int_{t_{0}}^{t} e^{R(t) - R(\tilde{t})} s(\tilde{t}) \mathrm{d}\tilde{t}.
-$$
+   $$
+   x_{s}(t) = \int_{t_{0}}^{t} e^{R(t) - R(\tilde{t})} s(\tilde{t}) \mathrm{d}\tilde{t}.
+   $$
 
 3. The solution is then given by @eq-sol-lin-inhom-o1-with-int,
 
-$$
-x(t) = e^{R(t)} x_{0} + x_{s}(t).
-$$
+   $$
+   x(t) = e^{R(t)} x_{0} + x_{s}(t).
+   $$
 
 :::
 :::
@@ -652,7 +652,7 @@ $$
 This recipe is aligned with the solution formula we derived for @eq-sol-lin-inhom-o1-with-int. There are other recipes to produce the solution with an integrating factor, some of which you may be familiar with from high school. In general, in this module alternative methods will be accepted in the assessed components, as long as they are i) mathematically correct and ii) clearly explained. You are still strongly encouraged to use the methods explained in this module.
 :::
 
-The significant advantage of solution formulas such as @eq-sol-lin-inhom-o1-with-int (as opposed to some computational approaches) is of analytical nature. The formula tells us, how variable and parameter enter the solution and influence it. We can therefore analyse, how small perturbations such a due to measurement uncertainty can affect the solution. In other words, we can much more easily investigate the properties of the problem.  
+The significant advantage of solution formulas such as @eq-sol-lin-inhom-o1-with-int (as opposed to some computational approaches) is of analytical nature. The formula tells us how variable and parameter enter the solution and influence it. We can therefore analyse how small perturbations such as due to measurement uncertainty can affect the solution. In other words, we can much more easily investigate the properties of the problem.  
 
 We will not much further investigate this topic here. However, note that small errors in $r$ influence $R$ and then, due to the $e^{R}$ terms, are exponentially amplified. In turn, errors in $s$ or $x_{0}$ influence the solution linearly only.
 
@@ -660,38 +660,38 @@ We will not much further investigate this topic here. However, note that small e
 
 You have just poured yourself a cup of coffee and want to drink it, but it is too hot. You need to let it cool down for a while and, while you wait, you decide to do some maths (as one does). You want to write an equation that describes the evolution of the temperature of the coffee over time, i.e. $T(t)$.^[In a grimmer application, a similar approach is used in forensic science to determine the time of death based on the temperature of the body.] 
 
-Let us consider on how we can describe the cooling process. We assume that the ambient temperature is constant and denote it by $\bar{T}$. To describe the cooling process, we use the so-called Newton's law of cooling, which states that the rate at which the temperature of the coffee changes is proportional to the difference between the coffee and the ambient temperatures. In mathematical terms, we can write
+Let us consider how we can describe the cooling process. We assume that the ambient temperature is constant and denote it by $\bar{T}$. To describe the cooling process, we use the so-called Newton's law of cooling, which states that the rate at which the temperature of the coffee changes is proportional to the difference between the coffee and the ambient temperatures. In mathematical terms, we can write
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} T(t) = -k \left( T(t) - \bar{T} \right),
+\frac{\mathrm{d}}{\mathrm{d}t} T(t) = -k \left( T(t) - \bar{T} \right),
 $$
 
 where $k > 0$ is a constant that determines how fast the coffee cools down (it would depend on the material of the mug, the amount of coffee, etc.). The negative sign indicates that if the coffee is hotter than the ambient temperature, it will cool down, and if it is cooler, it will warm up. Let us assume that when you poured the coffee at $t= 0$ the temperature was $T(0) = T_{0}$. 
 
-We need to solve the initial value problem, which is a linear inhomogeneous differential equation of the form @eq-deq-lin-inhom-o1 with $r(t) = -k$ and $s(t) = k \bar{T}$ constant. We can use the recipe from @alg-intfac to solve it. First, we compute
+We need to solve the initial value problem, which is a linear inhomogeneous differential equation of the form @eq-deq-lin-inhom-o1 with $r(t) = -k$ and $s(t) = k \bar{T}$ constant. We can use the recipe from @alg-intfac to solve it, with $t_{0} = 0$ and $x_{0} = T_0$. First, we compute
 $$
-R(t) = \int_{t_{0}}^{t} r(\tilde{t}) \mathrm{d}\tilde{t} = \int_{t_{0}}^{t} (-k) \mathrm{d}\tilde{t} = -k(t - t_{0}).
+R(t) = \int_{0}^{t} r(\tilde{t}) \mathrm{d}\tilde{t} = \int_{0}^{t} (-k) \mathrm{d}\tilde{t} = -kt.
 $$
 
 Then
 
 $$\begin{aligned}
-x_{s}(t) &= \int_{t_{0}}^{t} e^{R(t) - R(\tilde{t})} s(\tilde{t}) \mathrm{d}\tilde{t} \\
-&= \int_{t_{0}}^{t} e^{-k(t - t_{0}) + k(\tilde{t} - t_{0})} k \bar{T} \mathrm{d}\tilde{t} \\
-&= \bar{T} \int_{t_{0}}^{t} k e^{k(\tilde{t} - t)} \mathrm{d}\tilde{t} \\
-&= \bar{T} \left. \left( e^{k(\tilde{t} - t)} \right) \right|_{\tilde{t}=t_{0}}^{\tilde{t} = t} \\
-&= \bar{T} \left( 1 - e^{k(t_{0} - t)} \right).
+x_{s}(t) &= \int_{0}^{t} e^{R(t) - R(\tilde{t})} s(\tilde{t}) \mathrm{d}\tilde{t} \\
+&= \int_{0}^{t} e^{-kt + k\tilde{t}} k \bar{T} \mathrm{d}\tilde{t} \\
+&= \bar{T} \int_{0}^{t} k e^{k(\tilde{t} - t)} \mathrm{d}\tilde{t} \\
+&= \bar{T} \left. \left( e^{k(\tilde{t} - t)} \right) \right|_{\tilde{t}=0}^{\tilde{t} = t} \\
+&= \bar{T} \left( 1 - e^{-kt} \right).
 \end{aligned}$$
 
-Finally, with $T_{0} = T_0$,
+Finally,
 
 $$
-T(t) = e^{R(t)} x_{0} + x_{s}(t) = e^{-k t } T(t_{0}) + \bar{T} \left( 1 - e^{- k t} \right) = \left( T_0 - \bar{T} \right) e^{-k t} + \bar{T}.
+T(t) = e^{R(t)} x_{0} + x_{s}(t) = e^{-k t } T_0 + \bar{T} \left( 1 - e^{- k t} \right) = \left( T_0 - \bar{T} \right) e^{-k t} + \bar{T}.
 $$
 
 By quickly inspecting the solution we see that, as one could imagine, the coffee will start at $T_0$ and will approach the ambient temperature $\bar{T}$ as $t \to \infty$.
 
-Let us now calculate how long I need to wait until the coffee has cooled down to a temperature $T^*$ so that I can drink it. We need to find a time $t^*$ such that $T(t^*) = T^*$. Using the solution formula we have
+Let us now calculate how long you need to wait until the coffee has cooled down to a temperature $T^*$ so that you can drink it. We need to find a time $t^*$ such that $T(t^*) = T^*$. Using the solution formula we have
 
 $$
 T^* = \left( T_0 - \bar{T} \right) e^{-k t^*} + \bar{T},
@@ -701,7 +701,7 @@ so
 
 $$ t^* = \frac{1}{k} \log \left( \frac{T_0 - \bar{T}}{T^* - \bar{T}} \right).$$
 
-Given that $T^* < T_0$ and $T^* > \bar{T}$, we see that $t^* > 0$ as expected. Now let us put some numbers in. Assume that the ambient temperature is $\bar{T} = 22^\circ C$, the initial temperature of the coffee is $T_0 = 90^\circ C$, and that I want to drink it at $T^* = 50^\circ C$. If we assume that the cooling constant is $k = 5\cdot10^{-3}$ s$^{-1}$, then we have
+Given that $T^* < T_0$ and $T^* > \bar{T}$, we see that $t^* > 0$ as expected. Now let us put some numbers in. Assume that the ambient temperature is $\bar{T} = 22^\circ \mathrm{C}$, the initial temperature of the coffee is $T_0 = 90^\circ \mathrm{C}$, and that you want to drink it at $T^* = 50^\circ \mathrm{C}$. If we assume that the cooling constant is $k = 5\cdot10^{-3}$ s$^{-1}$, then we have
 
 $$ t^* \approx 177 \text{ s} \approx 3 \text{ min}.$$
 
@@ -720,21 +720,21 @@ $$
 with some functions $\xi: \mathbb{R} \to \mathbb{R}$ and $\tau : (\alpha,\beta) \to \mathbb{R}$. We will assume these to be "nice" so that the initial value problem
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = \xi(x(t)) \tau(t), \quad t \in (\alpha, \beta), \qquad x(t_{0}) = x_{0},
+\frac{\mathrm{d}}{\mathrm{d}t} x(t) = \xi(x(t)) \tau(t), \quad t \in (\alpha, \beta), \qquad x(t_{0}) = x_{0},
 $$ {#eq-ivp-sep-hom-o1}
 
 has a unique solution.
 
 ::: {.callout-important}
 ::: {#lem-separable-zero}
-If $x_{0}$ is a zero of $\xi$ then the constant function $x(t) = x_{0}$, $t \in (\alpha,\beta)$, is the solution to @eq-ivp-sep-hom-o1}.  
+If $x_{0}$ is a zero of $\xi$ then the constant function $x(t) = x_{0}$, $t \in (\alpha,\beta)$, is the solution to @eq-ivp-sep-hom-o1.  
 If $\xi(x_{0}) \neq 0$ then the solution $x$ to @eq-ivp-sep-hom-o1 is such that $\xi(x(t)) \neq 0$ for all $t \in (\alpha,\beta)$.
 
 :::
 :::
 
 ::: {.proof}
-If $x_{0}$ is a zero of $\xi$ then the constant function $x(t) = x_{0}$ satisfies both $\tfrac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = 0$ and $\xi(x(t)) \tau(t) = \xi(x_{0}) \tau(t) = 0$ for all $t$, and thus the initial value problem @eq-ivp-sep-hom-o1.
+If $x_{0}$ is a zero of $\xi$ then the constant function $x(t) = x_{0}$ satisfies both $\tfrac{\mathrm{d}}{\mathrm{d}t} x(t) = 0$ and $\xi(x(t)) \tau(t) = \xi(x_{0}) \tau(t) = 0$ for all $t$, and thus the initial value problem @eq-ivp-sep-hom-o1.
 
 Consider now the case $\xi(x_{0}) \neq 0$ and let $x$ denote the corresponding solution to @eq-ivp-sep-hom-o1. Assume that there is a time $t_{1} \in (\alpha,\beta)$ such that $\xi(x(t_{1})) = 0$. Let $y$ now denote the solution to @eq-ivp-sep-hom-o1 but with the initial condition $y(t_{1}) = x(t_{1})$ at the point $t_{1}$. Recall that the initial point in @eq-ivp-sep-hom-o1 is arbitrary, and that the solution is unique. As $x$ satisfies the differential equation and the initial condition we conclude that $y = x$. However, as $\xi(y(t_{1})) = \xi(x(t_{1})) = 0$, our previous result yields that the unique solution is also given by the constant function $y(t) = x(t_{1})$, $t \in (\alpha,\beta)$. But then $\xi(y(t_{0})) = 0 \neq \xi(x(t_{0}))$, which contradicts $y = x$. Therefore, $\xi(x(t)) \neq 0$ at all times $t \in (\alpha,\beta)$.
 
@@ -743,19 +743,19 @@ Consider now the case $\xi(x_{0}) \neq 0$ and let $x$ denote the corresponding s
 Let us now study the second case in more detail. If $\xi(x(t)) \neq 0$ for all $t$ we can divide the differential equation by $\xi(x(t))$ and obtain
 
 $$
-\frac{1}{\xi(x(t))} \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = \tau(t).
+\frac{1}{\xi(x(t))} \frac{\mathrm{d}}{\mathrm{d}t} x(t) = \tau(t).
 $$
 
 Suppose now that $H(x)$ is an anti-derivative of $1/ \xi(x)$, so that $H'(x) = \tfrac{1}{\xi(x)}$. By the chain rule
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} H(x(t)) = H'(x(t)) \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = \frac{1}{\xi(x(t))} \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t).
+\frac{\mathrm{d}}{\mathrm{d}t} H(x(t)) = H'(x(t)) \frac{\mathrm{d}}{\mathrm{d}t} x(t) = \frac{1}{\xi(x(t))} \frac{\mathrm{d}}{\mathrm{d}t} x(t).
 $$
 
 Substituting this we get that
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t}H(x(t)) = \tau(t).
+\frac{\mathrm{d}}{\mathrm{d}t}H(x(t)) = \tau(t).
 $$
 
 We see that we have transformed the differential equation into a trivial differential equation for $H(x)$. Integrating with respect to $t$ and using the initial condition yields that
@@ -796,10 +796,10 @@ which is @eq-sol-sep-hom-o1 as $H' = 1 / \xi$.
 Let us use separation of variables to solve the initial value problem
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = 3 t^2 e^{-x(t)}, \quad x(0) = 1.
+\frac{\mathrm{d}}{\mathrm{d}t} x(t) = 3 t^2 e^{-x(t)}, \quad x(0) = 1.
 $$
 
-Here $\xi(x) = e^x$ and $\tau(t) = 3 t^2$. Using @alg-separable first obtain
+Here $\xi(x) = e^{-x}$ and $\tau(t) = 3 t^2$. Using @alg-separable we first obtain
 
 $$
 e^{x} \mathrm{d}x = 3 t^2 \mathrm{d}t
@@ -823,34 +823,34 @@ $$
 
 Some differential equations that don't appear to satisfy any of the solution techniques or general methods previously described can still be evaluated using a transformation of variables. The below cases are not exhaustive, but serve to illustrate how substitution can be used to transform a differential equation into a form that we know how to solve.
 
-#### Case 1: linear combinatons of $y$ and $x$
+#### Case 1: linear combinations of $y$ and $x$
 
 ::: {.callout-important}
 Let us consider first order differential equations of the form
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}y(x)=f(ax+by)
+\frac{\mathrm{d}}{\mathrm{d}x}y(x)=f(ax+by)
 $$ {#eq-almost-sep}
 
 for some constants $a,b\in \mathbb{R}$ and initial condition $y(x_0)=y_0$. Then an obvious choice of substitution would be $z=ax+by$, with $z(x_0)=ax_0+by_0$. From this we see
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}z(x)=a+b\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}y(x)=a+bf(ax+by)\,,
+\frac{\mathrm{d}}{\mathrm{d}x}z(x)=a+b\frac{\mathrm{d}}{\mathrm{d}x}y(x)=a+bf(ax+by)\,,
 $$
 
 giving the differential equation
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}z(x)=a+bf(z)\,.
+\frac{\mathrm{d}}{\mathrm{d}x}z(x)=a+bf(z)\,.
 $$
 
-As the right hand side depends solely on $z$, we can then use separation of variables to get
+As the right-hand side depends solely on $z$, we can then use separation of variables to get
 
 $$
 \int_{x_0}^x \mathrm{d}\tilde{x}=\int_{z_0}^{z(x)} \frac{1}{a+bf(\tilde{z})}\mathrm{d}\tilde{z}\,,
 $$
 
-then, by evaluating this integral (if possible) and substituting $z=ax+by$ back in to rearrange for $y$ in terms of $x$, we therefore arrive at a solution to (@eq-almost-sep).
+then, by evaluating this integral (if possible) and substituting $z=ax+by$ back in to rearrange for $y$ in terms of $x$, we therefore arrive at a solution to @eq-almost-sep.
 :::
 
 ::: {#exm-substitution}
@@ -858,16 +858,16 @@ then, by evaluating this integral (if possible) and substituting $z=ax+by$ back 
 Let us use substitution to solve the initial value problem
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}y(x)=2(x+y)^2\quad y(0) = 0.
+\frac{\mathrm{d}}{\mathrm{d}x}y(x)=2(x+y)^2,\quad y(0) = 0.
 $$
 
 So we set $z=x+y$, which gives us $z_0=z(x_0)=x_0+y_0=0$ and
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}z(x)=1+\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}y(x)=1+2z^2\,.
+\frac{\mathrm{d}}{\mathrm{d}x}z(x)=1+\frac{\mathrm{d}}{\mathrm{d}x}y(x)=1+2z^2\,.
 $$
 
-Separating variables and integrating (using the fact that $\int \frac{1}{1+z^2}=\tan^{-1}(z)$) gives us
+Separating variables and integrating (using the fact that $\int \frac{1}{1+z^2}\mathrm{d}z=\tan^{-1}(z)$) gives us
 
 $$\begin{aligned}
 \int_{0}^x \mathrm{d}\tilde{x}&=\int_{0}^{z(x)} \frac{1}{1+2\tilde{z}^2}\mathrm{d}\tilde{z}=\int_{0}^{z(x)} \frac{1}{1+(\sqrt2\tilde{z})^2}\mathrm{d}\tilde{z}\\
@@ -895,46 +895,46 @@ $$
 Let us consider first order differential equations of the form
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}y(x)=f(y/x)
+\frac{\mathrm{d}}{\mathrm{d}x}y(x)=f(y/x)
 $$ {#eq-homog-ratio}
 
-for some initial condition $y(x_0)=y_0$. Then an obvious choice of substitution would be $z=y/x$, with $z(x_0)=y_0/x_0$. Our equation is invariant under replacing $x$ with $ax$ and replacing $y$ with $ay$, for any $a\in\mathbb{R}$. From this we see (from the product rule) that
+for some initial condition $y(x_0)=y_0$. Our equation is invariant under replacing $x$ with $ax$ and replacing $y$ with $ay$, for any $a\in\mathbb{R} \setminus \{0\}$, as the ratio $y/x$ does not change. This suggests the substitution $z=y/x$, with $z(x_0)=y_0/x_0$. Writing $y(x)=x z(x)$ and differentiating using the product rule, we obtain
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}y(x)=\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}z(x)x+z(x)\,,
+\frac{\mathrm{d}}{\mathrm{d}x}y(x)=\frac{\mathrm{d}}{\mathrm{d}x}z(x)x+z(x)\,,
 $$
 
 which rearranges to give
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}z(x)=\frac{1}{x}\bigg(\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}y(x)-z(x)\bigg)=\frac{1}{x}(f(z)-z)\,.
+\frac{\mathrm{d}}{\mathrm{d}x}z(x)=\frac{1}{x}\bigg(\frac{\mathrm{d}}{\mathrm{d}x}y(x)-z(x)\bigg)=\frac{1}{x}(f(z)-z)\,.
 $$
 
 Using separation of variables, we get
 
 $$
-\int_{z_0}^{z(x)}\frac{1}{(f(\tilde{z})-\tilde{z})}\mathrm{d}\tilde{z} = \int_{x_0}^x\frac{1}{\tilde{x}}\mathrm{d}\tilde{x}=\ln{x}-\ln{x_0}\,.
+\int_{z_0}^{z(x)}\frac{1}{(f(\tilde{z})-\tilde{z})}\mathrm{d}\tilde{z} = \int_{x_0}^x\frac{1}{\tilde{x}}\mathrm{d}\tilde{x}=\log{x}-\log{x_0}\,.
 $$
 
 :::
 
 ::: {#exm-substitution-quotient}
-For simplicity of notation, we will use $y$ for $y(x)$ and $z$ for $z(x)$ in this example.^[This is a trick I will also use in the blackboard sometimes to simplify the notation.] Let us use substitution to solve the initial value problem
+For simplicity of notation, we will use $y$ for $y(x)$ and $z$ for $z(x)$ in this example.^[This is a trick I will also use on the blackboard sometimes to simplify the notation.] Let us use substitution to solve the initial value problem
 
 $$
-xy\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}y-y^2=(x+y)^2e^{-y/x}
+xy\frac{\mathrm{d}}{\mathrm{d}x}y-y^2=(x+y)^2e^{-y/x}
 $$
 
 and $y(1)=1$. This rearranges to give
 
 $$
-\frac{\mathrm{\mathrm{d}}y}{\mathrm{\mathrm{d}}x}=\frac{y}{x}+\bigg(\frac{x}{y}+2+\frac{y}{x}\bigg)e^{-y/x}=\frac{y}{x}+\frac{x}{y}\bigg(1+\frac{y}{x}\bigg)^2e^{-y/x}
+\frac{\mathrm{d}y}{\mathrm{d}x}=\frac{y}{x}+\bigg(\frac{x}{y}+2+\frac{y}{x}\bigg)e^{-y/x}=\frac{y}{x}+\frac{x}{y}\bigg(1+\frac{y}{x}\bigg)^2e^{-y/x}
 $$
 
 So we let $z=y/x$, giving $z_0=z(1)=1$ and
 
 $$
-\frac{dz}{\mathrm{\mathrm{d}}x}=\frac{1}{x}(f(z)-z)=\frac{1}{x}\bigg(z+\frac{(1+z)^2}{z}e^{-z}-z\bigg)=\frac{1}{x}\bigg(\frac{(1+z)^2}{z}e^{-z}\bigg)\,.
+\frac{\mathrm{d}z}{\mathrm{d}x}=\frac{1}{x}(f(z)-z)=\frac{1}{x}\bigg(z+\frac{(1+z)^2}{z}e^{-z}-z\bigg)=\frac{1}{x}\bigg(\frac{(1+z)^2}{z}e^{-z}\bigg)\,.
 $$
 
 Separating variables and integrating gives
@@ -943,7 +943,7 @@ $$
 \int_{1}^z\frac{\tilde{z}e^{\tilde{z}}}{(1+\tilde{z})^2}\mathrm{d}\tilde{z}=\int_{1}^x\frac{1}{\tilde{x}}\mathrm{d}\tilde{x}\,.
 $$
 
-Integrating the left hand side requires another change of variables, $u=1+z$, giving
+Integrating the left-hand side requires another change of variables, $u=1+z$, giving
 $u_0=u(1)=2$ and
 
 $$
@@ -953,7 +953,7 @@ $$
 which is integrable for the implicit solution
 
 $$
-\ln{x}=\bigg(\frac{e^{\frac{y}{x}}}{1+\frac{y}{x}}-\frac{e}{2}\bigg)\,.
+\log{x}=\bigg(\frac{e^{\frac{y}{x}}}{1+\frac{y}{x}}-\frac{e}{2}\bigg)\,.
 $$
 
 :::
@@ -963,22 +963,22 @@ $$
 The Bernoulli equation is of the form
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}y(x)+P(x)y(x)=Q(x)y(x)^n\,,\quad n\neq1\,.
+\frac{\mathrm{d}}{\mathrm{d}x}y(x)+P(x)y(x)=Q(x)y(x)^n\,,\quad n\neq1\,.
 $$
 
 Changing variables to $z=y^{1-n}$ gives
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}z(x)=(1-n)y(x)^{-n}\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}y(x)\,,
+\frac{\mathrm{d}}{\mathrm{d}x}z(x)=(1-n)y(x)^{-n}\frac{\mathrm{d}}{\mathrm{d}x}y(x)\,,
 $$
 
 and the differential equation
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}x}z(x)+(1-n)P(x)z(x)=(1-n)Q(x)\,,
+\frac{\mathrm{d}}{\mathrm{d}x}z(x)+(1-n)P(x)z(x)=(1-n)Q(x)\,,
 $$
 
-which is first order linear and therefore can be solved using the integrating factor method described in Section @sec-int-factor.
+which is first order linear and therefore can be solved using the integrating factor method described in @sec-int-factor.
 
 
 ## Autonomous equations {#sec-autonomous-differential}
@@ -986,10 +986,10 @@ which is first order linear and therefore can be solved using the integrating fa
 Let us now consider the special case that the given function $f$ in @eq-deq-gen-o1 is independent of $t$ so that the differential equation reads
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = f(x(t)), \quad t \in (\alpha, \beta).
+\frac{\mathrm{d}}{\mathrm{d}t} x(t) = f(x(t)), \quad t \in (\alpha, \beta).
 $$ {#eq-deq-autonomous}
 
-Recall that such equations where the independent variables doesn't appear anywhere other than as a parameter of the dependent variable are called *autonomous*. These equations can be very challenging to integrate, with no method producing an explicit solution.
+Recall that such equations where the independent variable doesn't appear anywhere other than as a parameter of the dependent variable are called *autonomous*. These equations can be very challenging to integrate, with no method producing an explicit solution.
 
 However, there are tools that give us some insight into the qualitative behaviour of solutions.
 
@@ -1016,7 +1016,7 @@ To find stationary points of a differential equation, we have to set $f(x)=0$ an
 Consider the equation
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t}x(t)=x^2-1.
+\frac{\mathrm{d}}{\mathrm{d}t}x(t)=x^2-1.
 $$
 
 Then $f(x)=x^2-1=(x+1)(x-1)$ and setting $f(x)=0$ gives the stationary points $x_1^*=-1$ and $x_2^*=1$.
@@ -1050,7 +1050,7 @@ It's worth noting that not all stationary points can be classified as either *st
 
 ```{python}
 #| label: fig-stability
-#| fig-cap: "Different scenarios for the stability of a stationary point. a) Case 1 (unstable), b) Case 2 (stable), c) Case 3 (saddle point) for both f > 0 (solid) and f < 0 (dashed)."
+#| fig-cap: "Different scenarios for the stability of a stationary point. a) Case 1 (unstable), b) Case 2 (stable), c) Case 3 (saddle point) for both $f > 0$ (solid) and $f < 0$ (dashed)."
 #| out-width: "100%"
 #| fig-width: 12
 #| fig-height: 6
@@ -1148,13 +1148,13 @@ plt.show()
 ::: {.proof}
 This can be demonstrated by considering all possible scenarios (as shown in @fig-stability):
 
-**Case 1:** Consider $f(x) < 0$ if $x < x^*$ and that $f(x) > 0$ if $x > x^*$, where $x$ are points near the $x^*$, say, $x \in [x^*-\varepsilon, x^*+\varepsilon]$ for some small $\varepsilon > 0$.
+**Case 1:** Consider $f(x) < 0$ if $x < x^*$ and that $f(x) > 0$ if $x > x^*$, where $x$ are points near $x^*$, say, $x \in [x^*-\varepsilon, x^*+\varepsilon]$ for some small $\varepsilon > 0$.
 
    1. Suppose now that $x$ is a solution to @eq-deq-autonomous that starts at a point $x(t_{0}) < x^*$.  
       Then $\dot{x}(t_{0}) = f(x(t_{0})) < 0$, so the solution will decay and move further away from $x^*$. Using the same argument, this will continue for $t>t_{0}$ as long as $x(t) \in [x^*-\varepsilon, x^*)$, and ultimately $x(t)$ will leave the small interval.
    2. Similarly if $x(t_{0}) > x^*$. Then $\dot{x}(t_{0}) = f(x(t_{0})) > 0$, so the solution will increase and move away from $x^*$ and finally end up outside of $[x^*-\varepsilon, x^*+\varepsilon]$.
 
-   Therefore nearby solutions move away from $x^*$ as the independent variables grows and $x^*$ is *unstable*.
+   Therefore nearby solutions move away from $x^*$ as the independent variable grows and $x^*$ is *unstable*.
 
 **Case 2:** Consider now the opposite case that $f(x) > 0$ if $x < x^*$ and that $f(x) < 0$ if $x > x^*$, $x \in [x^*-\varepsilon, x^*+\varepsilon]$ for some small $\varepsilon > 0$. Following the same arguments as for Case 1:
 
@@ -1174,9 +1174,9 @@ This can be demonstrated by considering all possible scenarios (as shown in @fig
 We call stationary points with this property (stable from one side and unstable from the other) *saddle points*.
 :::
 
-If we can differentiate the function $f$ in @eq-deq-autonomous (with respect to $x$) then the sign of $f'(x^*)$ can be used as a criterion to decide on the stability of the point. If $f'(x^*)>0$ then $f$ is increasing locally around $x^*$, (the scenario outlined in Case 1) and $x^*$ is *unstable*. Similarly, if $f'(x^*)<0$ then $f$ is decreasing locally around $x^*$ (Case 2), and we see that $x^*$ then is *stable*.
+If we can differentiate the function $f$ in @eq-deq-autonomous (with respect to $x$) then the sign of $f'(x^*)$ can be used as a criterion to decide on the stability of the point. If $f'(x^*)>0$ then $f$ is increasing locally around $x^*$ (the scenario outlined in Case 1) and $x^*$ is *unstable*. Similarly, if $f'(x^*)<0$ then $f$ is decreasing locally around $x^*$ (Case 2), and we see that $x^*$ then is *stable*.
 
-We also see that if $x^*$ is a *saddle point* then we will have $f'(x^*)=0$ (Case 3), however $f'(x^*)=0$ is **not** a sufficient criteria for $x^*$ to be a saddle point. For example, consider the scenario where $x^*$ is an inflection point, rather than a turning point, of $f$, with $f$ locally increasing around $fx^*$ then we would still have $f'(x^*)=0$ but $x^*$ would be *unstable* as in Case 1. Stationary points where $f'(x^*)=0$ must therefore be carefully considered.
+We also see that if $x^*$ is a *saddle point* then we will have $f'(x^*)=0$ (Case 3), however $f'(x^*)=0$ is **not** a sufficient criterion for $x^*$ to be a saddle point. For example, consider the scenario where $x^*$ is an inflection point, rather than a turning point, of $f$, with $f$ locally increasing around $x^*$ then we would still have $f'(x^*)=0$ but $x^*$ would be *unstable* as in Case 1. Stationary points where $f'(x^*)=0$ must therefore be carefully considered.
 
 The connection with the derivative will later on be studied again in greater detail in the context of linearisation around stationary points of systems of differential equations (see @sec-autonomous-systems).
 
@@ -1291,9 +1291,9 @@ $$
 f(p^*_2) = 0, \, f'(p^*_2) = -k < 0 \quad \Rightarrow \quad p_2^* \text{ is stable}.
 $$
 
-As an alternative approach to the derivative criterion, we can draw the phase line for this equation (see Figure @fig-phase-line-pop-growth). We see that $f(p)$ intersects the horizontal axis at $p^*_1 = 0$ and $p^*_2 = p_\mathrm{m}$ (as expected). In the interval $(0,p_\mathrm{m})$, $f(p) > 0$, so the arrows point to the right, and in the intervals $(-\infty, 0)$ and $(p_\mathrm{m},\infty)$, $f(p) < 0$, so the arrows point to the left (even though these are not physically meaningful for the population growth equation). This means that solutions starting at a population $p_0 \in (0,p_\mathrm{m})$ will increase towards $p^*_2 = p_\mathrm{m}$ as $t$ increases. In other words, solutions starting near $p^*_1 = 0$ will move away from it, while solutions starting near $p^*_2 = p_\mathrm{m}$ will move towards it. This is consistent with our previous conclusion that $p^*_1$ is unstable and $p^*_2$ is stable.
+As an alternative approach to the derivative criterion, we can draw the phase line for this equation (see @fig-phase-line-pop-growth). We see that $f(p)$ intersects the horizontal axis at $p^*_1 = 0$ and $p^*_2 = p_\mathrm{m}$ (as expected). In the interval $(0,p_\mathrm{m})$, $f(p) > 0$, so the arrows point to the right, and in the intervals $(-\infty, 0)$ and $(p_\mathrm{m},\infty)$, $f(p) < 0$, so the arrows point to the left (even though these are not physically meaningful for the population growth equation). This means that solutions starting at a population $p_0 \in (0,p_\mathrm{m})$ will increase towards $p^*_2 = p_\mathrm{m}$ as $t$ increases. In other words, solutions starting near $p^*_1 = 0$ will move away from it, while solutions starting near $p^*_2 = p_\mathrm{m}$ will move towards it. This is consistent with our previous conclusion that $p^*_1$ is unstable and $p^*_2$ is stable.
 
-In this case one can actually explicitly work out the solution (using techniques outlined in Section @sec-eo1Separation). It is given by
+In this case one can actually explicitly work out the solution (using techniques outlined in @sec-eo1Separation). It is given by
 
 $$
 p(t) = \frac{p_{0} p_\mathrm{m}}{(p_\mathrm{m} - p_{0})e^{-kt} + p_{0}}.
@@ -1305,7 +1305,7 @@ The function indeed increases and converges to $p^*_2 = p_\mathrm{m}$ as $t \to 
 
 ### Bifurcations
 
-As we have seen in the previous section, we are able to evaluate the behaviour of solutions to autonomous differential equations close to stationary points. We shall now consider how these stationary points can depend on our choice of parameters. Indeed, sometimes a small change in a parameter can cause a change in the number fixed points and/or their stability.
+As we have seen in the previous section, we are able to evaluate the behaviour of solutions to autonomous differential equations close to stationary points. We shall now consider how these stationary points can depend on our choice of parameters. Indeed, sometimes a small change in a parameter can cause a change in the number of stationary points and/or their stability.
 
 ::: {.callout-important}
 ::: {#def-bifurcation}
@@ -1313,16 +1313,16 @@ A bifurcation (or bifurcation point) in a non-linear differential equation is wh
 :::
 :::
 
-Examples of bifurcations include the creation and destruction of fixed points, or a change in the stability of existing fixed points.
+Examples of bifurcations include the creation and destruction of stationary points, or a change in the stability of existing stationary points.
 
-It's worth noting that changes in parameters are likely to result in changes in the *value* of fixed points, but this does not count as a bifurcation if the number of fixed points and their stability stays the same and any change in value is "smooth". For example, in the logistic population growth equation above, changing the maximum population size $p_\mathrm{m}$ would change the values of the fixed point $p_2^*$, but not its stability or the total number of fixed points -- this is not a bifurcation.
+It's worth noting that changes in parameters are likely to result in changes in the *value* of stationary points, but this does not count as a bifurcation if the number of stationary points and their stability stays the same and any change in value is "smooth". For example, in the logistic population growth equation above, changing the maximum population size $p_\mathrm{m}$ would change the value of the stationary point $p_2^*$, but not its stability or the total number of stationary points -- this is not a bifurcation.
 
 #### Saddle-node bifurcation
 
 Consider the non-linear autonomous differential equation
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t}x(t)=r+x(t)^2\,.
+\frac{\mathrm{d}}{\mathrm{d}t}x(t)=r+x(t)^2\,.
 $$
 
 Stationary points of this equation occur at all points $x^*$ such that $f(x^*)=0$, giving
@@ -1333,9 +1333,9 @@ $$
 
 This yields three scenarios:
 
-1. $r>0$: $x(t)$ is a real-valued function, so there are no stationary points $x^*$ (they are complex).
+1. $r<0$: In this case $-r>0$ and therefore $x^*=\pm\sqrt{-r}$ gives two stationary points, $x_1^*=\sqrt{-r}>0$ and $x_2^*=-\sqrt{-r}<0$. To evaluate their stability, we see that $f'(x_1^*)=2\sqrt{-r}>0$, therefore $x_1^*$ is unstable, and $f'(x_2^*)=-2\sqrt{-r}<0$, therefore $x_2^*$ is stable.
 2. $r=0$: There is one stationary point at $x^*=0$. Since $f(x)=r+x^2$, differentiating gives $f'(x)=2x$ and therefore $f'(x^*)=0$, so $x^*=0$ is a saddle point.
-3. $r<0$: In this case $-r>0$ and therefore $x^*=\sqrt{-r}$ gives two fixed points, $x_1^*=\sqrt{-r}>0$ and $x_2^*=-\sqrt{-r}<0$. To evaluate their stability, we see that $f'(x_1^*)=2\sqrt{r}>0$, therefore $x_1^*$ is unstable, and $f'(x_2^*)=-2\sqrt{r}<0$, therefore $x_2^*$ is stable.
+3. $r>0$: $x(t)$ is a real-valued function, so there are no stationary points $x^*$ (they are complex).
 
 We can also visualise this by drawing phase lines for the three scenarios (see @fig-saddle-node).
 
@@ -1492,7 +1492,7 @@ A saddle-node bifurcation is any bifurcation where two stationary points collide
 Consider the non-linear autonomous differential equation
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t}x(t)=rx(t)-x(t)^2.
+\frac{\mathrm{d}}{\mathrm{d}t}x(t)=rx(t)-x(t)^2.
 $$
 
 Stationary points of this equation occur at all points $x^*$ such that $f(x^*)=0$, giving
@@ -1503,13 +1503,13 @@ $$
 
 Therefore, there are two stationary points if $r\neq0$: $x_1^*=0$ and $x_2^*=r$. When $r=0$ we have that $x_1^*=x_2^*=0$, giving only one stationary point.
 
-Stability of a stationary point, $x^*$, is found by examining the sign of $f'(x^*)=r-2x$. Evaluating at the stationary points we obtain $f'(x_1^*) = r$ and $f'(x_2^*) = -r$. Then, we need to consider:
+Stability of a stationary point, $x^*$, is found by examining the sign of $f'(x^*)=r-2x^*$. Evaluating at the stationary points we obtain $f'(x_1^*) = r$ and $f'(x_2^*) = -r$. Then, we need to consider:
 
-1. $r>0$: $f'(x_1^*) > 0$ so it is unstable, and $f'(x_2^*) < 0$ so it is stable.
-2. $r<0$: $f'(x_1^*) < 0$ so it is stable, and $f'(x_2^*) > 0$ so it is unstable.
-3. $r=0$: we cannot use the derivative, so we need to consider the sign of $f$ around the stationary point. We see that $f(x)=-x^2<0$ for $x \in \mathbb{R} \setminus \{0\}$, therefore $x^*$ is a saddle point (see @fig-transcritical).
+1. $r<0$: $f'(x_1^*) < 0$ so it is stable, and $f'(x_2^*) > 0$ so it is unstable.
+2. $r=0$: we cannot use the derivative, so we need to consider the sign of $f$ around the stationary point. We see that $f(x)=-x^2<0$ for $x \in \mathbb{R} \setminus \{0\}$, therefore $x^*$ is a saddle point (see @fig-transcritical).
+3. $r>0$: $f'(x_1^*) > 0$ so it is unstable, and $f'(x_2^*) < 0$ so it is stable.
 
-This means that there is a change of stability of the fixed points when $r$ changes sign. See @fig-transcritical-diag for the relevant bifurcation diagram.
+This means that there is a change of stability of the stationary points when $r$ changes sign. See @fig-transcritical-diag for the relevant bifurcation diagram.
 
 ```{python}
 #| label: fig-transcritical
@@ -1669,7 +1669,7 @@ plt.show()
 
 ::: {.callout-important}
 ::: {#def-transcritical-bifurcation}
-A transcritical bifurcation is a bifurcation where there is an exchange of stabilities between two fixed points.
+A transcritical bifurcation is a bifurcation where there is an exchange of stabilities between two stationary points.
 :::
 :::
 
@@ -1678,19 +1678,19 @@ A transcritical bifurcation is a bifurcation where there is an exchange of stabi
 Consider the non-linear autonomous differential equation
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t}x(t)=rx(t)-x(t)^3
+\frac{\mathrm{d}}{\mathrm{d}t}x(t)=rx(t)-x(t)^3.
 $$
 
 Stationary points of this equation occur at all points $x^*$ such that $f(x^*)=0$, giving
 
 $$
-rx^*-(x^*)^3=x^*(\sqrt{r}+x^*)(\sqrt{r}-x^*)=0\,.
+rx^*-(x^*)^3=x^*\left(r-(x^*)^2\right)=0\,.
 $$
 
 We also have that $f'(x)=r-3x^2$ and now we can examine all three possible cases:
 
-1. $r<0$: As $x(t)$ is real-valued, there is only one stationary point at $x^*=0$ and $f'(x^*)=f'(0)=r<0$, therefore the fixed point is stable.
-2. $r=0$: There is only one stationary point at $x^*=0$ and $f'(x^*)=0$. This means we cannot use the sign of $f$ at the stationary point to determine its stability, however we see that $f(x)=-x^3$ is $<0$ if $x>0=x^*$ and $>0$ if $x<0=x^*$, therefore $x^*$ is stable. We can also see this by plotting $f(x)$ against $x$ for $r=0$ and drawing the phase line (see @fig-pitchfork).
+1. $r<0$: As $x(t)$ is real-valued, there is only one stationary point at $x^*=0$ and $f'(x^*)=f'(0)=r<0$, therefore the stationary point is stable.
+2. $r=0$: There is only one stationary point at $x^*=0$ and $f'(x^*)=0$. This means we cannot use the sign of $f'$ at the stationary point to determine its stability, however we see that $f(x)=-x^3$ is $<0$ if $x>0=x^*$ and $>0$ if $x<0=x^*$, therefore $x^*$ is stable. We can also see this by plotting $f(x)$ against $x$ for $r=0$ and drawing the phase line (see @fig-pitchfork).
 3. $r>0$: There are three stationary points at $x^*=0$, $x_1^*=\sqrt{r}$ and $x_2^*=-\sqrt{r}$. We have that $f'(0)=r>0$, therefore $x^*=0$ is unstable, and $f'(\sqrt{r})=f'(-\sqrt{r})=r-3r=-2r<0$, therefore $x_1^*$ and $x_2^*$ are stable.
 
 See @fig-pitchfork-diag for the bifurcation diagram.
@@ -1701,7 +1701,7 @@ See @fig-pitchfork-diag for the bifurcation diagram.
 #| fig-height: 3
 #| echo: false
 #| label: fig-pitchfork-diag
-#| fig-cap: "Bifurcation diagram for the pitchfork bifurcation."
+#| fig-cap: "Bifurcation diagram for the pitchfork bifurcation. Solid lines represent the stable stationary points, dashed line represents the unstable stationary point."
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -1780,12 +1780,12 @@ apply_style()
 
 configs = [
     {
-        "f":           lambda x: 0.25 * x - x**3,
+        "f":           lambda x: -0.25 * x - x**3,
         "label":       "a)",
-        "equilibria":  [-0.5, 0, 0.5],
-        "arrow_bases": [-0.75, -0.25, 0.25, 0.75],
-        "xticks":      [-0.5, 0, 0.5],
-        "xticklabels": ["$x^*_2$", "$x^*$", "$x^*_1$"],
+        "equilibria":  [0],
+        "arrow_bases": [-0.5, 0.5],
+        "xticks":      [0],
+        "xticklabels": ["$x^*$"],
     },
     {
         "f":           lambda x: -x**3,
@@ -1796,12 +1796,12 @@ configs = [
         "xticklabels": ["$x^*$"],
     },
     {
-        "f":           lambda x: -0.25 * x - x**3,
+        "f":           lambda x: 0.25 * x - x**3,
         "label":       "c)",
-        "equilibria":  [0],
-        "arrow_bases": [-0.5, 0.5],
-        "xticks":      [0],
-        "xticklabels": ["$x^*$"],
+        "equilibria":  [-0.5, 0, 0.5],
+        "arrow_bases": [-0.75, -0.25, 0.25, 0.75],
+        "xticks":      [-0.5, 0, 0.5],
+        "xticklabels": ["$x^*_2$", "$x^*$", "$x^*_1$"],
     },
 ]
 
@@ -1858,7 +1858,7 @@ plt.show()
 A pitchfork bifurcation is a bifurcation where a differential equation transitions between having one stationary point and having three stationary points.
 
 1. *Super-critical pitchfork bifurcation:* A pair of stable stationary points are created at the bifurcation point and the existing stationary point switches from stable to unstable.
-2. *Sub-critical pitchfork bifurcation:* A pair of unstable fixed points are created at the bifurcation point and the existing stationary point switches from unstable to stable.
+2. *Sub-critical pitchfork bifurcation:* A pair of unstable stationary points are created at the bifurcation point and the existing stationary point switches from unstable to stable.
 
 :::
 :::
@@ -1867,35 +1867,35 @@ A pitchfork bifurcation is a bifurcation where a differential equation transitio
 
 ## Fishery
 
-Recall the logistic equation for the growth of a given population (@exm-pop-growth), let us say fishes. As we have seen, the equation describes the growth of a population that is limited by a maximum population size. However, let us now consider a scenario where the population is subject to fishing. In this case, we can modify the equation to account for that:
+Recall the logistic equation for the growth of a given population (@exm-pop-growth), let us say fish. As we have seen, the equation describes the growth of a population that is limited by a maximum population size. However, let us now consider a scenario where the population is subject to fishing. In this case, we can modify the equation to account for that:
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t}p(t)=rp(t)\left(1-\frac{p(t)}{p_\mathrm{m}}\right) \underbrace{-c p(t)}_{ \text{fishing term} }.
+\frac{\mathrm{d}}{\mathrm{d}t}p(t)=kp(t)\left(1-\frac{p(t)}{p_\mathrm{m}}\right) \underbrace{-c p(t)}_{ \text{fishing term} }.
 $$
 
 Here, the fishing term (with $c > 0$) is proportional to the population size, meaning that the more fish there are, the more can be caught. We want to consider the stationary points and their stability based on the value of $c$ (i.e. how much fishing is taking place).
 
 First, we need to compute the stationary points:
 
-$$ f(p^*) = rp^*\left(1-\frac{p^*}{p_\mathrm{m}}\right)-cp^*=0 \quad \implies \quad p^*_1 = 0, \quad \text{and} \quad p^*_2 = p_\mathrm{m}\left(1-\frac{c}{r}\right). $$
+$$ f(p^*) = kp^*\left(1-\frac{p^*}{p_\mathrm{m}}\right)-cp^*=0 \quad \implies \quad p^*_1 = 0, \quad \text{and} \quad p^*_2 = p_\mathrm{m}\left(1-\frac{c}{k}\right). $$
 
-Note that when $c=0$, we fall back to the original logistic equation that we studied in @exm-pop-growth. The stationary point $p^*_1$ always exists, but $p^*_2$ only exists if $c<r$. If $c>r$, then $p^*_2<0$ and is not physically meaningful so we can ignore it. Now let us consider the derivative of $f$:
+Note that when $c=0$, we fall back to the original logistic equation that we studied in @exm-pop-growth. The stationary point $p^*_1$ always exists, but $p^*_2$ only exists if $c<k$. If $c>k$, then $p^*_2<0$ and is not physically meaningful so we can ignore it. Now let us consider the derivative of $f$:
 
-$$ f'(p) = r - c - \frac{2r}{p_\mathrm{m}}p. $$
+$$ f'(p) = k - c - \frac{2k}{p_\mathrm{m}}p. $$
 
 Therefore, we have that
 
-$$ f'(p^*_1) = r - c, \quad \text{and} \quad f'(p^*_2) = - (r - c).$$
+$$ f'(p^*_1) = k - c, \quad \text{and} \quad f'(p^*_2) = - (k - c).$$
 
-Note that there is a change in the number of stationary points at $c=r$ and also the sign of the derivatives changes at that point. Therefore, we need to consider three cases:
+Note that there is a change in the number of stationary points at $c=k$ and also the sign of the derivatives changes at that point. Therefore, we need to consider three cases:
 
-1. $0 < c < r$: In this case we have two stationary points. From the derivative we see that $f'(p^*_1) = r - c > 0$, therefore $p^*_1$ is unstable, and $f'(p^*_2) = - (r - c) < 0$, therefore $p^*_2$ is stable.
-2. $c > r$: In this case we have only one stationary point, $p^*_1$, and $f'(p^*_1) = r - c < 0$, therefore $p^*_1$ is stable.
-3. $c = r$: In this case we have only one stationary point as $p_1^* = p_2^* = 0$. We have that $f'(p^*_1) = r - c = 0$, so we cannot use the derivative to determine stability. However, we can see that in this case $f(p) = -rp^2/p_\mathrm{m} < 0$ for all $p > 0$ (we do not need to consider $p < 0$), therefore $p^*_1$ is stable.^[Note that technically it is a saddle point. However, given that $p$ must be greater or equal that zero, we only consider on side of the saddle (the stable one).]
+1. $0 < c < k$: In this case we have two stationary points. From the derivative we see that $f'(p^*_1) = k - c > 0$, therefore $p^*_1$ is unstable, and $f'(p^*_2) = - (k - c) < 0$, therefore $p^*_2$ is stable.
+2. $c > k$: In this case we have only one stationary point, $p^*_1$, and $f'(p^*_1) = k - c < 0$, therefore $p^*_1$ is stable.
+3. $c = k$: In this case we have only one stationary point as $p_1^* = p_2^* = 0$. We have that $f'(p^*_1) = k - c = 0$, so we cannot use the derivative to determine stability. However, we can see that in this case $f(p) = -kp^2/p_\mathrm{m} < 0$ for all $p > 0$ (we do not need to consider $p < 0$), therefore $p^*_1$ is stable.^[Note that technically it is a saddle point. However, given that $p$ must be greater than or equal to zero, we only consider one side of the saddle (the stable one).]
 
-With this information, we can draw the bifurcation diagram for this system (see @fig-fishery). We have a transcritical bifurcation at $c=r$ where the stability of the stationary points changes, even though it looks a bit different from the example we did earlier as the domain of the bifurcation diagram is restricted to the physically meaningful region $p^* \in [0, p_\mathrm{m}]$ and $c \geq 0$.
+With this information, we can draw the bifurcation diagram for this system (see @fig-fishery). We have a transcritical bifurcation at $c=k$ where the stability of the stationary points changes, even though it looks a bit different from the example we did earlier as the domain of the bifurcation diagram is restricted to the physically meaningful region $p^* \in [0, p_\mathrm{m}]$ and $c \geq 0$.
 
-The physical interpretation of this is that if the fishing rate is small ($c < r$), the population will always end up stabilising at a positive value $p^*_2$. However, if the fishing rate is too high ($c \geq r$), the population will eventually die out (i.e. reach $p^*_1 = 0$) no matter what the initial condition is.
+The physical interpretation of this is that if the fishing rate is small ($c < k$), the population will always end up stabilising at a positive value $p^*_2$. However, if the fishing rate is too high ($c \geq k$), the population will eventually die out (i.e. reach $p^*_1 = 0$) no matter what the initial condition is.
 
 ```{python}
 #| out-width: "100%"
@@ -1903,7 +1903,7 @@ The physical interpretation of this is that if the fishing rate is small ($c < r
 #| fig-height: 3
 #| echo: false
 #| label: fig-fishery
-#| fig-cap: "Bifurcation diagram for the fishery equation. Solid line represents the stable stationary point, dashed line represents the unstable stationary point. Note that we constraint our bifurcation diagram to the physically meaningful region $p^* \\in [0, p_\\mathrm{m}]$ and $c \\geq 0$ (non-physical regions are shaded)."
+#| fig-cap: "Bifurcation diagram for the fishery equation. Solid line represents the stable stationary point, dashed line represents the unstable stationary point. Note that we constrain our bifurcation diagram to the physically meaningful region $p^* \\in [0, p_\\mathrm{m}]$ and $c \\geq 0$ (non-physical regions are shaded)."
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -1942,7 +1942,7 @@ plot_bifurcation(
          "y": 2 * (1 - c_1 /2),
          "color": "C1",
          "linestyle": "solid",
-         "label": "$p^*_2 = p_\\mathrm{m}\\left(1-\\frac{c}{r}\\right)$",
+         "label": "$p^*_2 = p_\\mathrm{m}\\left(1-\\frac{c}{k}\\right)$",
          "text_xy": (1, 1 + 0.05),
          "text_kwargs": {"ha": "left", "va": "bottom"}
       },
@@ -1960,7 +1960,7 @@ ax.text(2.15, 1.8, "overfishing", ha="left",  va="center", fontsize=14)
 
 # Fix ticks
 ax.set_xticks([2])
-ax.set_xticklabels(["$r$"])
+ax.set_xticklabels(["$k$"])
 ax.set_yticks([2])
 ax.set_yticklabels(["$p_\\mathrm{m}$"])
 
@@ -1980,12 +1980,12 @@ plt.show()
 
 ## Linear second order equations
 
-We now want to look into higher order linear differential equations, however we confine mostly to second order equations. Second order equations already showcase the essential ideas and difficulties, and the methods can be generalised to higher order equations, even though with a higher complexity. Moreover, second order equations are of importance in many applications as they can describe oscillatory behaviour.
+We now want to look into higher order linear differential equations, however we confine ourselves mostly to second order equations. Second order equations already showcase the essential ideas and difficulties, and the methods can be generalised to higher order equations, even though with a higher complexity. Moreover, second order equations are of importance in many applications as they can describe oscillatory behaviour.
 
 Therefore we consider differential equations of the form
 
 $$
-a(t) \frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x(t) + b(t) \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) + c(t) x(t) = s(t),
+a(t) \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) + b(t) \frac{\mathrm{d}}{\mathrm{d}t} x(t) + c(t) x(t) = s(t),
 $$ {#eq-deq-lin-o2}
 
 with given functions $a(t) \neq 0$, $b(t)$, $c(t)$, and $s(t)$, $t \in (\alpha, \beta)$.
@@ -1993,7 +1993,7 @@ with given functions $a(t) \neq 0$, $b(t)$, $c(t)$, and $s(t)$, $t \in (\alpha, 
 First, a brief observation. A special case is $a(t) = 1$, $b(t) = c(t) = s(t) = 0$:
 
 $$
-\frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x(t) = 0.
+\frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) = 0.
 $$
 
 Integrating twice we obtain that
@@ -2012,10 +2012,10 @@ where $C_1,C_0 \in \mathbb{R}$ are integration constants. This already shows tha
 The *initial value problem for linear second order equations* consists of finding a function $x : (\alpha,\beta) \to \mathbb{R}$ such that the differential equation @eq-deq-lin-o2 and the *initial conditions*
 
 $$
-x(t_{0}) = x_{0}, \quad \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t_{0}) = v_{0}
+x(t_{0}) = x_{0}, \quad \frac{\mathrm{d}}{\mathrm{d}t} x(t_{0}) = v_{0}
 $$ {#eq-ic-lin-o2}
 
-for some $t_{0} \in [\alpha,\beta]$ and some given numbers $x_{0}, v_{0} \in \mathbb{R}$ are satisfied.
+for some $t_{0} \in (\alpha,\beta)$ and some given numbers $x_{0}, v_{0} \in \mathbb{R}$ are satisfied.
 
 :::
 :::
@@ -2027,14 +2027,14 @@ Throughout this chapter and unless stated otherwise we assume that the data $a$,
 There are abstract results that address this problem. However, these results usually do not produce explicit solutions. Our strategy for this purpose is to exploit the linearity as follows:
 
 1. We first study the homogeneous equation ($s=0$ in @eq-deq-lin-o2). Thanks to linearity this will require solving two problems. The outcome will be a general solution called the *complementary function* with two parameters. These enable us to account for two initial conditions @eq-ic-lin-o2.
-2. The inhomogeneous case then requires finding a specific solution called the *particular integral* of @eq-deq-lin-o2. Thanks to linearity again, we can then use the results for the homogeneous case to account for the initial condition.
+2. The inhomogeneous case then requires finding a specific solution called the *particular integral* of @eq-deq-lin-o2. Thanks to linearity again, we can then use the results for the homogeneous case to account for the initial conditions.
 
 ### Homogeneous equation and complementary function
 
 We consider now the case of a homogeneous equation with $s=0$ in @eq-deq-lin-o2,
 
 $$
-a(t) \frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x(t) + b(t) \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) + c(t) x(t) = 0,
+a(t) \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) + b(t) \frac{\mathrm{d}}{\mathrm{d}t} x(t) + c(t) x(t) = 0,
 $$ {#eq-deq-lin-o2-hom}
 
 and aim for describing the set of solutions. 
@@ -2043,7 +2043,7 @@ and aim for describing the set of solutions.
 Assume that $x_1$ and $x_2$ are two solutions of @eq-deq-lin-o2-hom. Then so is
 
 $$
-x(t) = l_1 x_1(t) + l_2 x_2(t), \quad t \in [\alpha, \beta],
+x(t) = l_1 x_1(t) + l_2 x_2(t), \quad t \in (\alpha, \beta),
 $$
 
 for all $l_1,l_2 \in \mathbb{R}$.
@@ -2056,10 +2056,10 @@ This lemma can be generalised to higher order in a straightforward way.
 Substituting $x$ in @eq-deq-lin-o2-hom we see that indeed
 
 $$\begin{aligned}
-& a(t) \frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x(t) + b(t) \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) + c(t) x(t) \\
-& \qquad = a(t) \frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} \left( l_1 x_1(t) + l_2 x_2(t) \right) + b(t) \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \left( l_1 x_1(t) + l_2 x_2(t) \right) + c(t) \left( l_1 x_1(t) + l_2 x_2(t) \right) \\
-& \qquad = l_1 a(t) \frac{\mathrm{d}^2 x_1}{\mathrm{\mathrm{d}}t^2} + l_2 a(t) \frac{\mathrm{d}^2 x_2}{\mathrm{\mathrm{d}}t^2} + l_1 b(t) \frac{\mathrm{d} x_1}{\mathrm{\mathrm{d}}t} + l_2 b(t) \frac{\mathrm{d} x_2}{\mathrm{\mathrm{d}}t} + l_1 c(t) x_1(t) + l_2 c(t) x_2(t) \\
-& \qquad = l_1 \left( a(t) \frac{\mathrm{d}^2 x_1}{\mathrm{\mathrm{d} x_1}t^2} + b(t) \frac{\mathrm{d} x_1}{\mathrm{\mathrm{d}}t} + c(t) x_1(t) \right) + l_2 \left( a(t) \frac{\mathrm{d}^2 x_2}{\mathrm{\mathrm{d}}t^2} + b(t) \frac{\mathrm{d} x_2}{\mathrm{\mathrm{d}}t} + c(t) x_2(t) \right) \\
+& a(t) \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) + b(t) \frac{\mathrm{d}}{\mathrm{d}t} x(t) + c(t) x(t) \\
+& \qquad = a(t) \frac{\mathrm{d}^2}{\mathrm{d}t^2} \left( l_1 x_1(t) + l_2 x_2(t) \right) + b(t) \frac{\mathrm{d}}{\mathrm{d}t} \left( l_1 x_1(t) + l_2 x_2(t) \right) + c(t) \left( l_1 x_1(t) + l_2 x_2(t) \right) \\
+& \qquad = l_1 a(t) \frac{\mathrm{d}^2 x_1}{\mathrm{d}t^2} + l_2 a(t) \frac{\mathrm{d}^2 x_2}{\mathrm{d}t^2} + l_1 b(t) \frac{\mathrm{d} x_1}{\mathrm{d}t} + l_2 b(t) \frac{\mathrm{d} x_2}{\mathrm{d}t} + l_1 c(t) x_1(t) + l_2 c(t) x_2(t) \\
+& \qquad = l_1 \left( a(t) \frac{\mathrm{d}^2 x_1}{\mathrm{d}t^2} + b(t) \frac{\mathrm{d} x_1}{\mathrm{d}t} + c(t) x_1(t) \right) + l_2 \left( a(t) \frac{\mathrm{d}^2 x_2}{\mathrm{d}t^2} + b(t) \frac{\mathrm{d} x_2}{\mathrm{d}t} + c(t) x_2(t) \right) \\
 & \qquad = l_1 \times 0 + l_2 \times 0 = 0.
 \end{aligned}$$
 
@@ -2068,13 +2068,13 @@ $$\begin{aligned}
 ::: {#def-linearly-independent-functions}
 ## Linearly independent functions
 
-Two functions $x_1$, $x_2$ on an interval $[\alpha, \beta]$ are *linearly independent*^[You may be familiar with the concept of linear independence from linear algebra. Here, the vector space is that of functions, which can be pointwise added and multiplied with a scalar.] if the only solution to
+Two functions $x_1$, $x_2$ on an interval $(\alpha, \beta)$ are *linearly independent*^[You may be familiar with the concept of linear independence from linear algebra. Here, the vector space is that of functions, which can be pointwise added and multiplied with a scalar.] if the only solution to
 
 $$
-l_1 x_1(t) + l_2 x_2(t) = 0 \text{ for any } l_1,l_2 \in \mathbb{R}
+l_1 x_1(t) + l_2 x_2(t) = 0 \text{ for all } t \in (\alpha,\beta)
 $$
 
-is $l_1 = l_2 = 0$.
+with $l_1,l_2 \in \mathbb{R}$, is $l_1 = l_2 = 0$.
 
 :::
 
@@ -2104,7 +2104,7 @@ is called the *complementary function*.
 Assume that $x_1$ and $x_2$ are two linearly independent solutions of @eq-deq-lin-o2-hom. Then the solution to the initial value problem in @eq-deq-lin-o2-hom with initial conditions in @eq-ic-lin-o2 is given by
 
 $$
-x(t) = l_1 x_1(t) + l_2 x_2(t), \quad t \in [\alpha,\beta],
+x(t) = l_1 x_1(t) + l_2 x_2(t), \quad t \in (\alpha,\beta),
 $$
 
 where $l_1,l_2$ are such that
@@ -2112,7 +2112,7 @@ where $l_1,l_2$ are such that
 $$
 \begin{split}
 x_{0} &= x(t_0)=l_1 x_1(t_{0}) + l_2 x_2(t_{0}), \\
-v_{0} &= v(t_0)=l_1 \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_1(t_{0}) + l_2 \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_2(t_{0}).
+v_{0} &= \dot{x}(t_0)=l_1 \frac{\mathrm{d}}{\mathrm{d}t} x_1(t_{0}) + l_2 \frac{\mathrm{d}}{\mathrm{d}t} x_2(t_{0}).
 \end{split}
 $$ {#eq-sysl1l2}
 
@@ -2121,10 +2121,10 @@ $$ {#eq-sysl1l2}
 
 ### Inhomogeneous equation and particular integral
 
-Let us now assume that $s \neq 0$ in @eq-deq-lin-o2, i.e. our differential equation is inhomogeneous. A convenient objective then is to find a solution $x_{p}$ that satisfies
+Let us now assume that $s \neq 0$ in @eq-deq-lin-o2, i.e. our differential equation is inhomogeneous. A convenient objective then is to find a solution $x_\mathrm{p}$ that satisfies
 
 $$
-x_{p}(t_{0}) = 0, \quad \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_{p}(t_{0}) = 0.
+x_\mathrm{p}(t_{0}) = 0, \quad \frac{\mathrm{d}}{\mathrm{d}t} x_\mathrm{p}(t_{0}) = 0.
 $$ {#eq-ic-lin-o2-pI}
 
 This is called the particular integral.
@@ -2133,15 +2133,15 @@ This is called the particular integral.
 Assume $x_1$ and $x_2$ are two linearly independent solutions of @eq-deq-lin-o2-hom (homogeneous) and $x_\mathrm{p}$ is a solution to @eq-deq-lin-o2 (inhomogeneous) fulfilling @eq-ic-lin-o2-pI, then the solution to the initial value problem @eq-deq-lin-o2 with initial conditions @eq-ic-lin-o2 is given by
 
 $$
-x(t)=x_\mathrm{p}(t)+l_1x_1(t)+l_2x_2(t), \quad t \in [\alpha,\beta],
-$$
+x(t)=x_\mathrm{p}(t)+l_1x_1(t)+l_2x_2(t), \quad t \in (\alpha,\beta),
+$$ {#eq-sol-lin-o2-pI}
 
 where $l_1$ and $l_2$ are such that
 
 $$
 \begin{split}
 x_0&=l_1x_1(t_0)+l_2x_2(t_0), \\
-v_0&=l_1\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t}x_1(t_0)+l_2\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t}x_2(t_0).
+v_0&=l_1\frac{\mathrm{d}}{\mathrm{d}t}x_1(t_0)+l_2\frac{\mathrm{d}}{\mathrm{d}t}x_2(t_0).
 \end{split}
 $$
 
@@ -2149,7 +2149,7 @@ $$
 
 ::: {.proof}
 
-Substituting our solution $x$ from @eq-sol-lin-o2 into our inhomogeneous differential equation @eq-deq-lin-o2 (and using dot notation to represent derivatives of $x$ with respect to time and dropping the argument $t$ in the dependent variables for brevity) we get:
+Substituting our solution $x$ from @eq-sol-lin-o2-pI into our inhomogeneous differential equation @eq-deq-lin-o2 (and using dot notation to represent derivatives of $x$ with respect to time and dropping the argument $t$ in the dependent variables for brevity) we get:
 
 $$
 l_1\left(a(t)\ddot{x}_1+b(t)\dot{x}_1+c(t)x_1\right)
@@ -2182,15 +2182,15 @@ $$
 :::
 
 ::: {#rem-IVPlin2-pI-icrelax}
-In practice, finding $x_{p}$ can be challenging. But note that the initial conditions @eq-ic-lin-o2-pI do not have to be satisfied. In fact, if $x_{p}(t_{0}) \neq 0$ and $\dot{x}_{p}(t_{0}) \neq 0$ then the equation $x(t)=l_1x_1(t)+l_2x_2(t)+x_\mathrm{p}(t)$ is still a solution, and we simply need to include $x_\mathrm{p}(t_0)$ and $\dot{x}_\mathrm{p}(t_0)$ when using our initial conditions to calculate $l_1$ and $l_2$, giving us the following result.
+In practice, finding $x_\mathrm{p}$ can be challenging. But note that the initial conditions @eq-ic-lin-o2-pI do not have to be satisfied. In fact, if $x_\mathrm{p}(t_{0}) \neq 0$ or $\dot{x}_\mathrm{p}(t_{0}) \neq 0$ then the equation $x(t)=l_1x_1(t)+l_2x_2(t)+x_\mathrm{p}(t)$ is still a solution, and we simply need to include $x_\mathrm{p}(t_0)$ and $\dot{x}_\mathrm{p}(t_0)$ when using our initial conditions to calculate $l_1$ and $l_2$, giving us the following result.
 :::
 
 ::: {.callout-important}
 ::: {#lem-general-solution-linear-second-order}
-Assume $x_1$ and $x_2$ are two linearly independent solutions of @eq-deq-lin-o2-hom (homogeneous) and $x_\mathrm{p}$ is a solution to @eq-deq-lin-o2 (inohomogeneous), then the solution to the initial value problem @eq-deq-lin-o2 with initial conditions @eq-ic-lin-o2 is given by
+Assume $x_1$ and $x_2$ are two linearly independent solutions of @eq-deq-lin-o2-hom (homogeneous) and $x_\mathrm{p}$ is a solution to @eq-deq-lin-o2 (inhomogeneous), then the solution to the initial value problem @eq-deq-lin-o2 with initial conditions @eq-ic-lin-o2 is given by
 
 $$
-x(t)=x_\mathrm{p}(t)+l_1x_1(t)+l_2x_2(t), \quad t \in [\alpha,\beta],
+x(t)=x_\mathrm{p}(t)+l_1x_1(t)+l_2x_2(t), \quad t \in (\alpha,\beta),
 $$ {#eq-sol-lin-o2}
 
 where $l_1$ and $l_2$ are such that
@@ -2198,7 +2198,7 @@ where $l_1$ and $l_2$ are such that
 $$
 \begin{split}
 x_0&=x_\mathrm{p}(t_0)+l_1x_1(t_0)+l_2x_2(t_0), \\
-v_0&=\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t}x_\mathrm{p}(t_0)+l_1\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t}x_1(t_0)+l_2\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t}x_2(t_0).
+v_0&=\frac{\mathrm{d}}{\mathrm{d}t}x_\mathrm{p}(t_0)+l_1\frac{\mathrm{d}}{\mathrm{d}t}x_1(t_0)+l_2\frac{\mathrm{d}}{\mathrm{d}t}x_2(t_0).
 \end{split}
 $$ {#eq-ic-lin-o2-full}
 
@@ -2210,7 +2210,7 @@ $$ {#eq-ic-lin-o2-full}
 To illustrate how the procedure outlined in the previous section works let us investigate the case of an equation @eq-deq-lin-o2 with constant coefficients,
 
 $$
-a \frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x(t) + b \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) + c x(t) = s(t),
+a \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) + b \frac{\mathrm{d}}{\mathrm{d}t} x(t) + c x(t) = s(t),
 $$ {#eq-deq-lin-o2-const}
 
 where we assume that $a \neq 0$ (otherwise the order of the differential equation would be less than two).
@@ -2218,7 +2218,7 @@ where we assume that $a \neq 0$ (otherwise the order of the differential equatio
 We first need to find the solutions to the homogeneous equation, so assume that $s=0$ and study
 
 $$
-a \frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x(t) + b \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) + c x(t) = 0,
+a \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) + b \frac{\mathrm{d}}{\mathrm{d}t} x(t) + c x(t) = 0.
 $$ {#eq-deq-lin-o2-const-hom}
 
 We have seen that a function of the form $e^{\lambda t}$ solved the linear first order equations with constant coefficients, so let us try this form. Substituting it in the differential equation @eq-deq-lin-o2-const-hom yields that
@@ -2300,10 +2300,10 @@ $$
 Consider the initial value problem
 
 $$
-\frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x(t) + \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) - 6 x(t) = 0, \qquad x(0) = 5, \quad \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(0) = 0.
+\frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) + \frac{\mathrm{d}}{\mathrm{d}t} x(t) - 6 x(t) = 0, \qquad x(0) = 5, \quad \frac{\mathrm{d}}{\mathrm{d}t} x(0) = 0.
 $$
 
-We know from Corollary @cor-sol-lin-o2-hom that the solution then is given by
+We know from @cor-sol-lin-o2-hom that the solution then is given by
 
 $$
 x(t) = l_1 x_1(t) + l_2 x_2(t).
@@ -2318,7 +2318,7 @@ $$
 and has the solutions
 
 $$
-\lambda_{1,2} = - \frac{1}{2} \pm \sqrt{\frac{1}{4} - 6} = \frac{1}{2} \left( 1 \pm 5 \right), \quad \Rightarrow \quad \lambda_1 = 2, \, \lambda_2 = -3,
+\lambda_{1,2} = - \frac{1}{2} \pm \sqrt{\frac{1}{4} + 6} = \frac{1}{2} \left( -1 \pm 5 \right), \quad \Rightarrow \quad \lambda_1 = 2, \, \lambda_2 = -3,
 $$
 
 so
@@ -2344,7 +2344,7 @@ $$
 \tilde{x}_1(t) = e^{(p + i q) t}, \quad \tilde{x}_2(t) = e^{(p - i q) t}
 $$
 
-are linearly independent but complex-valued solutions to @eq-deq-lin-o2-const-hom. We are interested in two linearly independent real-valued solutions, which we would obtain if we followed the same approach as in the previous case, only that this would require many complex-values calculations. Instead, we will rearrange the expression so we can work in the real domain only. First, note that the arguments in @lem-lin-hom still go through if $l_1,l_2 \in \mathbb{C}$. Second, by Euler's formula
+are linearly independent but complex-valued solutions to @eq-deq-lin-o2-const-hom. We are interested in two linearly independent real-valued solutions, which we would obtain if we followed the same approach as in the previous case, only that this would require many complex-valued calculations. Instead, we will rearrange the expression so we can work in the real domain only. First, note that the arguments in @lem-lin-hom still go through if $l_1,l_2 \in \mathbb{C}$. Second, by Euler's formula
 
 $$
 e^{\pm i q t} = \cos(qt) \pm i \sin(qt).
@@ -2366,13 +2366,13 @@ Let us again assume that $t_{0} = 0$ but solve an example directly, following th
 Consider the initial value problem
 
 $$
-\frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x(t) - 2 \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) + 26 x(t) = 0, \qquad x(0) = 3, \quad \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(0) = -12.
+\frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) - 2 \frac{\mathrm{d}}{\mathrm{d}t} x(t) + 26 x(t) = 0, \qquad x(0) = 3, \quad \frac{\mathrm{d}}{\mathrm{d}t} x(0) = -12.
 $$
 
 Then $a=1$, $b=-2$, $c=26$, and then
 
 $$
-p = -\frac{b}{2a} = 1, \quad q = \frac{\sqrt{4ca - b^2}}{2a} = \frac{\sqrt{104 - 4}}{2} = 5,
+p = -\frac{b}{2a} = 1, \quad q = \frac{\sqrt{4ac - b^2}}{2a} = \frac{\sqrt{104 - 4}}{2} = 5,
 $$
 
 so we obtain that
@@ -2390,7 +2390,7 @@ $$
 Note that
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) = l_1 \left( e^{t} \cos(5t) - 5 e^{t} \sin(5t) \right) + l_2 \left( e^{t} \sin(5t) + 5 e^{t} \cos(5t) \right).
+\frac{\mathrm{d}}{\mathrm{d}t} x(t) = l_1 \left( e^{t} \cos(5t) - 5 e^{t} \sin(5t) \right) + l_2 \left( e^{t} \sin(5t) + 5 e^{t} \cos(5t) \right).
 $$
 
 To satisfy the initial conditions we have to solve
@@ -2419,7 +2419,7 @@ $$
 \lambda := \lambda_{1,2} = - \frac{b}{2a}.
 $$
 
-Then $x_1(t) = e^{\lambda t}$ is only one solution. A convenient second, linearly independent solution is given by^[This second solutions drops out of the blue here. It is fairly natural, though, but deriving it requires some tools from linear algebra, namely the *Jordan Canonical Form* and the *Matrix Exponential*. Details are left for future modules.]
+Then $x_1(t) = e^{\lambda t}$ is only one solution. A convenient second, linearly independent solution is given by^[This second solution drops out of the blue here. It is fairly natural, though, but deriving it requires some tools from linear algebra, namely the *Jordan Canonical Form* and the *Matrix Exponential*. Details are left for future modules.]
 
 $$
 x_2(t) = t e^{\lambda t}.
@@ -2442,14 +2442,14 @@ $$
 Now
 
 $$\begin{aligned}
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_2(t) &= e^{\lambda t} + \lambda t e^{\lambda t}, \\
-\frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x_2(t) &= 2 \lambda e^{\lambda t} + \lambda^2 t e^{\lambda t}.
+\frac{\mathrm{d}}{\mathrm{d}t} x_2(t) &= e^{\lambda t} + \lambda t e^{\lambda t}, \\
+\frac{\mathrm{d}^2}{\mathrm{d}t^2} x_2(t) &= 2 \lambda e^{\lambda t} + \lambda^2 t e^{\lambda t}.
 \end{aligned}$$
 
 Altogether,
 
 $$\begin{aligned}
-& \frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x_2(t) + \frac{b}{a} \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_2(t) + \frac{c}{a} x_2(t) \\
+& \frac{\mathrm{d}^2}{\mathrm{d}t^2} x_2(t) + \frac{b}{a} \frac{\mathrm{d}}{\mathrm{d}t} x_2(t) + \frac{c}{a} x_2(t) \\
 & \qquad = 2 \lambda e^{\lambda t} + \lambda^2 t e^{\lambda t} - 2 \lambda \left( e^{\lambda t} + \lambda t e^{\lambda t} \right) + \lambda^2 t e^{\lambda t} \\
 & \qquad = e^{\lambda t} \left( 2 \lambda + \lambda^2 t - 2 \lambda - 2 \lambda^2 t + \lambda^2 t \right) = 0,
 \end{aligned}$$
@@ -2460,10 +2460,10 @@ so $x_2(t)$ indeed solves @eq-deq-lin-o2-const-hom.
 Consider the initial value problem
 
 $$
-\frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x(t) + 6 \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) + 9 x(t) = 0, \qquad x(-1) = 2, \quad \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(-1) = -5.
+\frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) + 6 \frac{\mathrm{d}}{\mathrm{d}t} x(t) + 9 x(t) = 0, \qquad x(-1) = 2, \quad \frac{\mathrm{d}}{\mathrm{d}t} x(-1) = -5.
 $$
 
-Then $a=1$, $b=6$, $c=9$, and indeed $b^2 - 4ac = 0$. Noting that $\lambda = -b/2a = -3$, $t_{0} = -1$, $x_{0} = 2$, and $v_{0} = -5$ and hence that the solution is given by
+Then $a=1$, $b=6$, $c=9$, and indeed $b^2 - 4ac = 0$. Noting that $\lambda = -b/(2a) = -3$, $t_{0} = -1$, $x_{0} = 2$, and $v_{0} = -5$ and hence that the solution is given by
 
 $$
 x(t) = l_1 x_1(t) + l_2 x_2(t) = l_1e^{-3t}+l_2te^{-3t}
@@ -2486,10 +2486,10 @@ Let us consider two examples.
 Let us try to find the solutions to
 
 $$
-\frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x(t) + \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) -2 x(t) = t^2.
+\frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) + \frac{\mathrm{d}}{\mathrm{d}t} x(t) -2 x(t) = t^2,
 $$
 
-With initial condition $x(0)=\dot{x}(0)=1$. The solutions to the homogeneous equation can be found using the methods in the previous sections and are given in terms of
+with initial condition $x(0)=\dot{x}(0)=1$. The solutions to the homogeneous equation can be found using the methods in the previous sections and are given in terms of
 
 $$
 x_1(t) = e^{-2t}, \quad x_2(t) = e^{t}.
@@ -2498,13 +2498,13 @@ $$
 As $s(t)$ is a polynomial we may try to find a particular integral in the form of a polynomial, too. Choosing the same degree let us try the ansatz
 
 $$
-x_{p}(t) = p_2 t^2 + p_1 t + p_0, \quad \text{with some } p_i \in \mathbb{R}.
+x_\mathrm{p}(t) = p_2 t^2 + p_1 t + p_0, \quad \text{with some } p_i \in \mathbb{R}.
 $$
 
-Substituting this and its derivatives into, the differential equation yields that
+Substituting this and its derivatives into the differential equation yields that
 
 $$
-t^2 = \frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x_{p}(t) + \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_{p}(t) -2 x_{p}(t) = 2 p_2 + (2 p_2 t + p_1) - 2(p_2 t^2 + p_1 t + p_0).
+t^2 = \frac{\mathrm{d}^2}{\mathrm{d}t^2} x_\mathrm{p}(t) + \frac{\mathrm{d}}{\mathrm{d}t} x_\mathrm{p}(t) -2 x_\mathrm{p}(t) = 2 p_2 + (2 p_2 t + p_1) - 2(p_2 t^2 + p_1 t + p_0).
 $$
 
 Equating coefficients yields the equations
@@ -2516,7 +2516,7 @@ $$
 We see that $p_2 = -1/2$, then $p_1 = p_2 = -1/2$ and finally $p_0 = p_2 + p_1/2 = -3/4$ so that
 
 $$
-x_{p}(t) = -\frac{1}{2} t^2 - \frac{1}{2} t - \frac{3}{4}.
+x_\mathrm{p}(t) = -\frac{1}{2} t^2 - \frac{1}{2} t - \frac{3}{4}.
 $$
 
 With $x(0) = \dot{x}(0)=1$ we obtain the solution
@@ -2532,13 +2532,13 @@ $$
 Let us investigate the same equation but with $s(t) = e^{-t}$,
 
 $$
-\frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x(t) + \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) -2 x(t) = e^{-t}.
+\frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) + \frac{\mathrm{d}}{\mathrm{d}t} x(t) -2 x(t) = e^{-t}.
 $$
 
 In this case we may try with an exponential function for the particular integral, too. Substituting
 
 $$
-x_{p}(t) = k e^{-t}, \quad k \in \mathbb{R},
+x_\mathrm{p}(t) = k e^{-t}, \quad k \in \mathbb{R},
 $$
 
 into the differential equation yields
@@ -2547,20 +2547,20 @@ $$
 e^{-t} = k e^{-t} - k e^{-t} -2 k e^{-t} = -2 k e^{-t},
 $$
 
-and we see that $k=-1/2$ yields that particular integral
+and we see that $k=-1/2$ yields the particular integral
 
 $$
-x_{p}(t) = -\frac{1}{2} e^{-t}.
+x_\mathrm{p}(t) = -\frac{1}{2} e^{-t}.
 $$
 
-Again, the initial conditions @eq-ic-lin-o2-pI are not satisfied but Remark @rem-IVPlin2-pI-icrelax tells us how to incorporate any initial conditions.  
-Note that $x_1(t) = e^{t}$ and $x_2(t) = e^{-2t}$ are solutions to the homogeneous equation. So if, say,
+Again, the initial conditions @eq-ic-lin-o2-pI are not satisfied but @rem-IVPlin2-pI-icrelax tells us how to incorporate any initial conditions.  
+Note that $x_1(t) = e^{-2t}$ and $x_2(t) = e^{t}$ are solutions to the homogeneous equation. So if, say,
 
 $$
 s(t) = e^{-2t}
 $$
 
-then the ansatz $x_{p}(t) = k e^{-2t}$ will not work. Remembering what we did in the case of repeated roots of the auxiliary equation we may try with $x_{p}(t) = p(t) e^{-2t}$ where $p(t)$ is a polynomial. In this specific case, $x_{p} = -\tfrac{1}{3} t e^{-2t}$ turns out to work.
+then the ansatz $x_\mathrm{p}(t) = k e^{-2t}$ will not work. Remembering what we did in the case of repeated roots of the auxiliary equation we may try with $x_\mathrm{p}(t) = p(t) e^{-2t}$ where $p(t)$ is a polynomial. In this specific case, $x_\mathrm{p} = -\tfrac{1}{3} t e^{-2t}$ turns out to work.
 
 :::
 
@@ -2568,7 +2568,7 @@ then the ansatz $x_{p}(t) = k e^{-2t}$ will not work. Remembering what we did in
 
 ![Sketch of a mass-spring-damper system.](figs/mass-spring-damper.svg){#fig-mass-spring-damper width="60%"}
 
-Consider the system composed of a mass $m$ attached to a spring with spring constant $k$ and a damper^[A damper is a device that provides resistance to motion, typically through a viscous fluid or mechanical friction.] with damping coefficient $c$, as shown in @fig-mass-spring-damper. The mass is free to move in one dimension, and we denote the position along that direction $x(t)$. The force exerted by the spring is proportional to the displacement of the mass from its equilibrium position (which wlog^[Without loss of generality.] we define it to be $x=0$), and is given by Hooke's law as $F_k = - k x(t)$. The force exerted by the damper is proportional to the velocity of the mass, and is given by $F_d = - c \dot x (t)$. The equation of motion for the mass can be derived using Newton's second law, which states that the sum of the forces acting on the mass is equal to the mass times its acceleration:
+Consider the system composed of a mass $m > 0$ attached to a spring with spring constant $k > 0$ and a damper^[A damper is a device that provides resistance to motion, typically through a viscous fluid or mechanical friction.] with damping coefficient $c \geq 0$, as shown in @fig-mass-spring-damper. The mass is free to move in one dimension, and we denote the position along that direction $x(t)$. The force exerted by the spring is proportional to the displacement of the mass from its equilibrium position (which wlog^[Without loss of generality.] we define it to be $x=0$), and is given by Hooke's law as $F_k = - k x(t)$. The force exerted by the damper is proportional to the velocity of the mass, and is given by $F_d = - c \dot x (t)$. The equation of motion for the mass can be derived using Newton's second law, which states that the sum of the forces acting on the mass is equal to the mass times its acceleration:
 
 $$ m \ddot x(t) = - k x(t) - c \dot x (t). $$ {#eq-mass-spring-damper}
 
@@ -2590,7 +2590,7 @@ $$
 \lambda_{1,2} = - \frac{c}{2m} \pm \frac{1}{2m} \sqrt{c^2 - 4mk}.
 $$
 
-Depending on the parameters we have the following solution regimes:
+Depending on the parameters we have the following solution regimes.
 
 #### Underdamped case
 If $c^2  - 4mk < 0$ then @sec-cplrts gives us the linearly independent solutions
@@ -2605,11 +2605,11 @@ $$
 x(t) = x_0 e^{pt} \left( \cos(qt) - \frac{p}{q} \sin(qt) \right).
 $$
 
-We obtain an oscillatory behaviour in time with exponential decay of the oscillation amplitude, to which we refer to as underdamped (i.e. there is damping but the system still oscillates), and the behaviour is illustrated in @fig-underdamped. Note that, in the case when $c = 0$ we have $p=0$ so the oscillation amplitude does not decay in time. This is the undamped case, illustrated in @fig-undamped.
+We obtain an oscillatory behaviour in time with exponential decay of the oscillation amplitude, which we refer to as underdamped (i.e. there is damping but the system still oscillates), and the behaviour is illustrated in @fig-underdamped. Note that, in the case when $c = 0$ we have $p=0$ so the oscillation amplitude does not decay in time. This is the undamped case, illustrated in @fig-undamped.
 
 ```{python}
 #| label: fig-underdamped
-#| fig-cap: "**Underdamped** case of a mass-spring-damper system. Note how the system oscillates but the amplitude (shown by the dashed lines) decays exponentially in time"
+#| fig-cap: "**Underdamped** case of a mass-spring-damper system. Note how the system oscillates but the amplitude (shown by the dashed lines) decays exponentially in time."
 #| out-width: "100%"
 #| fig-width: 12
 #| fig-height: 3
@@ -2645,7 +2645,7 @@ plt.show()
 
 ```{python}
 #| label: fig-undamped
-#| fig-cap: "**Undamped** case of a mass-spring-damper system. Note how the system oscillates with constant amplitude"
+#| fig-cap: "**Undamped** case of a mass-spring-damper system. Note how the system oscillates with constant amplitude."
 #| out-width: "100%"
 #| fig-width: 12
 #| fig-height: 3
@@ -2692,11 +2692,11 @@ $$
 x(t) = x_0 \left( \frac{\lambda_2}{\lambda_2 - \lambda_1} e^{\lambda_1 t} + \frac{\lambda_1}{\lambda_1 - \lambda_2} e^{\lambda_2 t} \right).
 $$
 
-Note that $\lambda_1, \lambda_2 < 0$ because $\frac{1}{2m} \sqrt{c^2 - 4mk} < \frac{1}{2m} \sqrt{c^2} = c/(2m)$, so $x(t)$ decays exponentially fast in time, with no oscillations. This is known as the overdamped case, and its behaviour can is shown in @fig-overdamped.
+Note that $\lambda_1, \lambda_2 < 0$ because $\frac{1}{2m} \sqrt{c^2 - 4mk} < \frac{1}{2m} \sqrt{c^2} = c/(2m)$, so $x(t)$ decays exponentially fast in time, with no oscillations. This is known as the overdamped case, and its behaviour is shown in @fig-overdamped.
 
 ```{python}
 #| label: fig-overdamped
-#| fig-cap: "**Overdamped** case of a mass-spring-damper system. Note how the system now does not oscillate, and just decays to the "
+#| fig-cap: "**Overdamped** case of a mass-spring-damper system. Note how the system now does not oscillate, and just decays to the equilibrium position."
 #| out-width: "100%"
 #| fig-width: 12
 #| fig-height: 3
@@ -2729,17 +2729,17 @@ plt.show()
 ```
 
 #### Critically damped case 
-If $c^2  - 4mk = 0$ then we have a repeated eigenvalue $\lambda = - c/(2m)$. Following the arguments in @sec-rptrts one can work out the solution to the initial value problem @eq-mass-spring-damper, @eq-mass-spring-damper-IC:
+If $c^2  - 4mk = 0$ then we have a repeated root of the auxiliary equation $\lambda = - c/(2m)$. Following the arguments in @sec-rptrts one can work out the solution to the initial value problem @eq-mass-spring-damper, @eq-mass-spring-damper-IC:
 
 $$
 x(t) = x_0 e^{\lambda t} (1 - \lambda t).
 $$
 
-From @fig-critically-damped, this behaviour looks similar to the overdamped case. However, the decay is faster than in the overdamped case as the eigenvalue is larger in magnitude. This is known as the critically damped case.
+From @fig-critically-damped, this behaviour looks similar to the overdamped case. However, the decay is faster than in the overdamped case: for fixed $m$ and $k$, critical damping is the value of $c$ for which the solution returns to equilibrium fastest without oscillating. This is known as the critically damped case.
 
 ```{python}
 #| label: fig-critically-damped
-#| fig-cap: "**Critically damped** case of a mass-spring-damper system. Note how the system returns to equilibrium quickly as without oscillating."
+#| fig-cap: "**Critically damped** case of a mass-spring-damper system. Note how the system returns to equilibrium quickly without oscillating."
 #| out-width: "100%"
 #| fig-width: 12
 #| fig-height: 3

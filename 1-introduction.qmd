@@ -39,14 +39,14 @@ $$ g(y) = y^2. $$
 
 However, there are a few conventions:
 
-* The variable $t$ often represents time. Alternatives, used for changes of variable can include $s$, $\tau$ or modifications to $t$ such as $\tilde t$.
+* The variable $t$ often represents time. Alternatives, used for changes of variable, can include $s$, $\tau$ or modifications to $t$ such as $\tilde t$.
 * $x$, $y$, $z$ are often used for spatial variables.
 * Derivatives with respect to time are often denoted using dots:
-$$    \frac{\mathrm{\mathrm{d}}}{\mathrm{\mathrm{d}} t} z(t) = \dot z (t), \quad \frac{\mathrm{\mathrm{d}}^2}{\mathrm{\mathrm{d}} t^2} z(t) = \ddot z (t), \quad \dots .
+$$    \frac{\mathrm{d}}{\mathrm{d} t} z(t) = \dot z (t), \quad \frac{\mathrm{d}^2}{\mathrm{d} t^2} z(t) = \ddot z (t), \quad \dots .
 $$
 * Derivatives with respect to space are often denoted using dashes:
 $$
-    \frac{\mathrm{\mathrm{d}}}{\mathrm{\mathrm{d}} x} y(x) =  y' (x), \quad \frac{\mathrm{\mathrm{d}}^2}{\mathrm{\mathrm{d}} x^2} y(x) = y'' (x), \quad \dots .
+    \frac{\mathrm{d}}{\mathrm{d} x} y(x) =  y' (x), \quad \frac{\mathrm{d}^2}{\mathrm{d} x^2} y(x) = y'' (x), \quad \dots .
 $$
 * The initial value of a variable is often described using a subscript 0, e.g. $x(0) = x_0$.
 
@@ -54,7 +54,7 @@ $$
 
 Mathematical functions will play a central role in this module. A function is a mapping from one set to another, e.g. $f : \mathbb{R} \to \mathbb{R}$ is a function that maps real numbers to real numbers. This means that the function $f$ takes an input $x \in \mathbb{R}$ (remember that calling it $x$ is an arbitrary choice) and produces an output $f(x) \in \mathbb{R}$. In some cases this might seem overkill to write, but it is always important to keep in mind the range of values the input and output of a function can take to avoid studying unnecessary cases.
 
-We will also encounter functions that take two inputs (or produce two outputs). For example, imagine a function $f$ that depends on both time $t$ and space $x$ and returns two values (e.g. the concentration of two chemicals $u$ and $v$). Then we would write $f : [0, \infty) \times \mathbb{R} \to [0, \infty)\times[0, \infty)$, which means that $f$ takes two inputs $t \in [0, \infty)$ and $x \in \mathbb{R}$ and returns two outputs $u \in [0, \infty)$ and $v \in [0, \infty)$. Here $\times$ is the Cartesian product between two sets, which is the set of all possible pairs of elements from the two sets. For simplicity, when we have the product between two instances of the same set, e.g. $\mathbb{R}$, we write $\mathbb{R}^2$ instead of $\mathbb{R} \times \mathbb{R}$.
+We will also encounter functions that take two inputs (or produce two outputs). For example, imagine a function $f$ that depends on both time $t$ and space $x$ and returns two values (e.g. the concentrations of two chemicals $u$ and $v$). Then we would write $f : [0, \infty) \times \mathbb{R} \to [0, \infty)\times[0, \infty)$, which means that $f$ takes two inputs $t \in [0, \infty)$ and $x \in \mathbb{R}$ and returns two outputs $u \in [0, \infty)$ and $v \in [0, \infty)$. Here $\times$ is the Cartesian product between two sets, which is the set of all possible pairs of elements from the two sets. For simplicity, when we have the product between two instances of the same set, e.g. $\mathbb{R}$, we write $\mathbb{R}^2$ instead of $\mathbb{R} \times \mathbb{R}$.
 
 ### Vectors and matrices
 There is also specific notation to represent that we are talking about vectors and matrices. For vectors we often use **bold** font to imply something is a vector, e.g.
@@ -64,7 +64,7 @@ $$
         v_2
     \end{bmatrix} = (v_1, v_2)^T.
 $$
-We assume vectors are column vectors unless otherwise specified. However, when writing by hand it is easier to use \underline{underlined symbols}, e.g.
+We assume vectors are column vectors unless otherwise specified. However, when writing by hand it is easier to use [underlined symbols]{.underline}, e.g.
 $$
     \underline{v} = (v_1, v_2)^T.
 $$
@@ -83,7 +83,7 @@ Knowledge of key mathematical operators will be assumed, these include:
 
 * $\sum_{a}^{b}$ represents the discrete sum of items indexed from $a$ to $b$ (the symbol is a capital sigma).
 * $\int_{a}^{b}$ represents the continuous integral from $a$ to $b$.
-* $\prod_{a}^{b}$ represents the the discrete product of items indexed from a to b (this is a capital pi).
+* $\prod_{a}^{b}$ represents the discrete product of items indexed from $a$ to $b$ (this is a capital pi).
 * $a \in B$ represents that $a$ belongs to or is contained in $B$, for example $x \in \mathbb{R}$ implies $x$ is a real number.
 * $\lim_{t \to T}$ is the limit of some value that depends on $t$ as $t$ tends towards some value $T$, e.g. $\lim_{t \to 0}$.
 * $\approx$ means "approximately equal to" (usually due to approximations either numerical or analytical).

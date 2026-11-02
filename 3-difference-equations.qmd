@@ -31,7 +31,7 @@ $$x_0 = p.$$
 
 After one year, the amount of money in the account will be the initial amount plus the interest earned, which is $r$ times the initial amount:
 
-$$x_1 = p  (1 + r).$$
+$$x_1 = x_0  (1 + r).$$
 
 After another year, the interest paid will be computed based on the money in the account at the end of the previous year (not the initial amount), so we have
 
@@ -65,7 +65,7 @@ The notation for the variables used is completely arbitrary. For example, we cou
 
 $$ y_m = g(y_{m-1}, y_{m-2}, \dots, y_{m-k}, m) $$
 
-where $g$ is some function. The only difference is that we have changed the name of the variable from $x$ to $y$ and the index from $n$ to $m$. Note that we can also shift the index by any constant. For example, the three equation below are equivalent:
+where $g$ is some function. The only difference is that we have changed the name of the variable from $x$ to $y$ and the index from $n$ to $m$. Note that we can also shift the index by any constant. For example, the three equations below are equivalent:
 
 $$ \begin{aligned}
 x_n &= x_{n-1} (1 + r),\\
@@ -75,7 +75,7 @@ x_{n+73} &= x_{n+72} (1 + r).
 
 :::
 
-As we will repeatedly see throughout this chapter, there are very strong similarities between difference and differential equations, including its properties.^[Be careful as there are some key difference, as we will see later. For example, on the stability criterion for autonomous equations.]
+As we will repeatedly see throughout this chapter, there are very strong similarities between difference and differential equations, including its properties.^[Be careful as there are some key differences, as we will see later. For example, on the stability criterion for autonomous equations.]
 
 ::: {.callout-important}
 ::: {#def-difference-equation-properties}
@@ -86,13 +86,13 @@ For a difference equation of the form @eq-difference-equation, we define:
 
 2. The difference equation is *autonomous* if the function $f$ does not depend explicitly on the index $n$.
 
-3. The difference equation is homogeneous if setting all instances of the dependent variable $x$ to zero yields zero, i.e.
+3. The difference equation is *homogeneous* if setting all instances of the dependent variable $x$ to zero yields zero, i.e.
 
 $$s(n) = f(0, 0, \dots, 0, n) = 0.$$
 
 Otherwise, the difference equation is *inhomogeneous*.
 
-4. The difference equation is linear if the function $f$ is linear in all instances of the dependent variable $x$, i.e. if it can be written as
+4. The difference equation is *linear* if the function $f$ is linear in all instances of the dependent variable $x$, i.e. if it can be written as
 
 $$f(x_{n-1}, x_{n-2}, \dots, x_{n-k}, n) = s(n) + \sum_{i=1}^k a_i(n) x_{n-i},$$
 
@@ -142,7 +142,7 @@ $$
 x_{n+1} = f(x_n, n),
 $$
 
-and, in particular, the linear^[Nonlinear difference equations can have extremely complicated solutions, and we will only consider them briefly later, in section @sec-difference-equations-nonlinear.] case
+and, in particular, the linear^[Nonlinear difference equations can have extremely complicated solutions, and we will only consider them briefly later, in @sec-difference-equations-nonlinear.] case
 
 $$
 x_{n+1} = a(n) x_n + b(n),$$
@@ -151,7 +151,7 @@ with a given $x_0$, where $a,b:\mathbb{N} \to \mathbb{R}$ are given functions.
 
 ### Autonomous case
 
-Let us constrain first to the autonomous case, where $a(n) = a$ and $b(n) = b$ are constants, so that we have
+Let us first restrict ourselves to the autonomous case, where $a(n) = a$ and $b(n) = b$ are constants, so that we have
 
 $$
 x_{n+1} = a x_n + b.
@@ -243,24 +243,24 @@ where $a(n)$ and $b(n)$ are functions of $n$ and we have an initial value $x_0$.
 Using the same iterative method as in the autonomous cases, it can be shown that solutions to this equation are of the form
 
 $$
-x_n=\prod_{k=0}^{n-1}a(k)x_0+\sum_{k=0}^{n-1}b(k)\prod_{j=k}^{n-1}\frac{a(j)}{a(k)},
+x_n=\prod_{k=0}^{n-1}a(k)x_0+\sum_{k=0}^{n-1}b(k)\prod_{j=k+1}^{n-1}a(j),
 $$
 
-where $\prod_{k=0}^n f(k)$ represents the product from $k=0$ to $k=n$ of $f(k)$.
+where $\prod_{k=0}^n f(k)$ represents the product from $k=0$ to $k=n$ of $f(k)$ (with the convention that an empty product, such as $\prod_{j=n}^{n-1} a(j)$, equals $1$).
 
 ## Euler's method {#sec-euler}
 
 Difference equations are not only interesting in their own right, but they also have a very important application in approximating solutions to differential equations. Consider an ordinary differential equation of the form
 
 $$
-\frac{\mathrm{\mathrm{d}}x}{\mathrm{\mathrm{d}}t}=f(t,x), \qquad x(0)=x_0.
+\frac{\mathrm{d}x}{\mathrm{d}t}=f(t,x), \qquad x(0)=x_0.
 $$ {#eq-euler-differential}
 
-As we discussed in the previous chapter, unless $f(t,x)$ is of a very specific form, we will not be able to find an explicit solution $x(t)$ to this equation. In that case, we can help us with a computer.
+As we discussed in the previous chapter, unless $f(t,x)$ is of a very specific form, we will not be able to find an explicit solution $x(t)$ to this equation. In that case, a computer can help us.
 
-When a computer draws a graph of a function, it effectively draws a series of dots representing the function. If the dots are dense enough, they will look like a line, but they are still just a series of dots. So, if we want to draw a graph of the solution $x(t)$ to equation (@eq-euler-differential), we could find a series of dots that approximate the solution $x(t)$ at a discrete set of values of $t$, rather than the continuous solution. There are multiple ways of doing so, but the simplest one is called the Euler's method.^[Named after the Swiss mathematician Leonhard Euler (1707-1783) who proposed this method two centuries before electronic computers were invented.]
+When a computer draws a graph of a function, it effectively draws a series of dots representing the function. If the dots are dense enough, they will look like a line, but they are still just a series of dots. So, if we want to draw a graph of the solution $x(t)$ to @eq-euler-differential, we could find a series of dots that approximate the solution $x(t)$ at a discrete set of values of $t$, rather than the continuous solution. There are multiple ways of doing so, but the simplest one is called Euler's method.^[Named after the Swiss mathematician Leonhard Euler (1707-1783) who proposed this method two centuries before electronic computers were invented.]
 
-The key idea is to take small time steps $h$ an approximate the solution at $t+h$ based on the solution at $t$. Then, we can use a Taylor expansion to relate $x(t+h)$ to $x(t)$:
+The key idea is to take small time steps $h$ and approximate the solution at $t+h$ based on the solution at $t$. Then, we can use a Taylor expansion to relate $x(t+h)$ to $x(t)$:
 
 $$
 x(t+h) = x(t) + h \dot{x}(t) + \frac{h^2}{2} \ddot{x}(t) + \dots.
@@ -272,7 +272,7 @@ $$x(t+h) \approx x(t) + h f(t,x(t)).$$ {#eq-euler-approximation}
 
 ::: {#rem-euler}
 
-This is equivalent to assuming that $\dot x(t)$ is a constant, which is rarely the case, and can lead to significant errors.^[There are improved methods that take into account the fact that $\dot x(t)$ is not constant. For example, the *improved Euler's method* assumes that the second derivative is constant, and provides a better approximation. The *Runge-Kutta Method* takes this further by assuming that the fourth derivative is constant, yielding even higher accuracy. However, these methods are very much more complicated to put in to practice, and we will not study them here: those interested should consider taking [MA2K4 Numerical Methods and Computing](https://courses.warwick.ac.uk/modules/2025/MA2K4-10).]
+This is equivalent to assuming that $\dot x(t)$ is a constant, which is rarely the case, and can lead to significant errors.^[There are improved methods that take into account the fact that $\dot x(t)$ is not constant. For example, the *improved Euler's method* assumes that the second derivative is constant, and provides a better approximation. The *Runge-Kutta method* takes this further by assuming that the fourth derivative is constant, yielding even higher accuracy. However, these methods are very much more complicated to put into practice, and we will not study them here: those interested should consider taking [MA2K4 Numerical Methods and Computing](https://courses.warwick.ac.uk/modules/2025/MA2K4-10).]
 
 :::
 
@@ -287,9 +287,9 @@ We have effectively obtained a difference equation, but let us redefine the nota
 $$\begin{aligned}
 x_0 &= x(0) \\
 x_1 &= x(h) = x(0 + h) = x(0) + h \dot{x} (0) = x_0 + h f(0,x_0) \\
-x_2 &= x(2h) = x(h + h) = x(h) + h f(x(h)) = x_1 + h f(h,x_1) \\
+x_2 &= x(2h) = x(h + h) = x(h) + h f(h, x(h)) = x_1 + h f(h,x_1) \\
 \vdots \\
-x_{k+1} &= x_k + h f(kh, x_k)
+x_{n+1} &= x_n + h f(nh, x_n)
 \end{aligned}$$ {#eq-eulersoln}
 
 At each step we have everything we need to compute the next value *without* having to know the explicit solution $x(t)$.
@@ -315,7 +315,7 @@ An example of how the method works is shown in @fig-euler.
 
 ```{python}
 #| label: fig-euler
-#| fig-cap: "Sketch of the Euler's method. The blue curve is the exact solution of a given differential equation, while the red dots represent the approximation obtained using Euler's method. Panel a) shows the case with a larger step size, and panel b) shows the case with a smaller step size, showing the improved accuracy."
+#| fig-cap: "Sketch of Euler's method. The blue curve is the exact solution of a given differential equation, while the red dots represent the approximation obtained using Euler's method. Panel a) shows the case with a larger step size, and panel b) shows the case with a smaller step size, showing the improved accuracy."
 #| out-width: "100%"
 #| echo: false
 
@@ -355,10 +355,10 @@ plt.show()
 
 ## Second order linear difference equations with constant coefficients {#sec-difference-equations-second-order}
 
-Now we turn our attention to second order linear difference equations with constant coefficients. That is equations of the form
+Now we turn our attention to second order linear difference equations with constant coefficients. That is, equations of the form
 
 $$
-x_{n+2} + a x_{n+1} + b x_n = f_n
+x_{n+2} + a x_{n+1} + b x_n = s(n)
 $$
 
 We already saw for first order equations that we could obtain solutions of the form of $a^n$, so we try the analogous approach here.^[Note that the $a^n$ is analogous to $e^{at}$ in the differential equations case. This is one of the differences between difference and differential equations, so make sure to not mix them up.] As we discussed earlier, for second order equations we need two initial conditions so, unless otherwise stated, we will assume that $x_0$ and $x_1$ are given.
@@ -366,7 +366,7 @@ We already saw for first order equations that we could obtain solutions of the f
 ### Homogeneous case
 
 
-In this case, we consider the case where $f_n = 0$, i.e. equations of the form
+In this case, we consider the case where $s(n) = 0$, i.e. equations of the form
 
 $$
 x_{n+2} + a x_{n+1} + b x_n = 0
@@ -408,7 +408,7 @@ $$
 As with the differential equations case, we need to consider three distinct cases.
 :::
 
-#### Distinct real roots
+#### Real roots
 
 ::: {.callout-important}
 In this case both $x_n = A k_1^n$ and $x_n = B k_2^n$ are solutions so by linearity the general solution is
@@ -430,14 +430,6 @@ Let's now consider a historical example. In 1202 the Italian mathematician Leona
 3. A single unisex adult rabbit gives birth to one baby per year.
 4. A rabbit never dies.^[At least in the time frame of this problem.]
 
-Consider the Fibonacci sequence, given by the difference equation
-
-$$
-x_{n+2} = x_{n+1} + x_n \quad : \quad x_0 = x_1 = 1
-$$ {#eq-fibonacci1}
-
-
-
 Using these assumptions, we can construct @tbl-fibonacci, which shows the number of rabbits in each year, split into adults, one-year-olds and newborns.
 
 | Year | 0 | 1 | 2 | 3 | 4 | 5 | 6 | ... |
@@ -445,7 +437,7 @@ Using these assumptions, we can construct @tbl-fibonacci, which shows the number
 | Adult | 0 | 0 | 1 | 1 | 2 | 3 | 5 | ... |
 | One year | 0 | 1 | 0 | 1 | 1 | 2 | 3 | ... |
 | Newborns | 1 | 0 | 1 | 1 | 2 | 3 | 5 | ... |
-| **TOTAL** ($x_n$) | 1 | 1 | 2 | 3 | 5 | 8 | 13 | ... |
+| **TOTAL**\ ($x_n$) | 1 | 1 | 2 | 3 | 5 | 8 | 13 | ... |
 
 Table: Table of Fibonacci's rabbits. {#tbl-fibonacci tbl-colwidths="[20,10,10,10,10,10,10,10,10]"}
 
@@ -459,7 +451,7 @@ Let us now solve this difference equation. We first rewrite it as
 
 $$
 x_{n+2} - x_{n+1} - x_n = 0.
-$$
+$$ {#eq-fibonacci1}
 
 This gives us the auxiliary equation $k^2 - k - 1 = 0$, with roots $k = \frac{1 \pm \sqrt{5}}{2}$ (where $k = \frac{1 + \sqrt{5}}{2}$ is known as the "golden ratio"^[This quantity appears recurrently in art but also in nature.]). Plugging this into our general solution gives
 
@@ -484,7 +476,7 @@ $$
 x_n = \frac{1}{\sqrt{5}} \left( \frac{1 + \sqrt{5}}{2} \right)^{n+1} - \frac{1}{\sqrt{5}} \left( \frac{1 - \sqrt{5}}{2} \right)^{n+1}.
 $$
 
-Interestingly, despite of all the $\sqrt{5}$ in the solution, $x_n$ is an integer for all $n \in \mathbb{N}$. This can be shown by induction, but we will not go into that here. What we can easily prove is that the ratio of two consecutive terms in the Fibonacci sequence tends to the golden ratio as $n \to \infty$:
+Interestingly, despite all the $\sqrt{5}$ in the solution, $x_n$ is an integer for all $n \in \mathbb{N}$. This can be shown by induction, but we will not go into that here. What we can easily prove is that the ratio of two consecutive terms in the Fibonacci sequence tends to the golden ratio as $n \to \infty$:
 
 $$
 \frac{x_{n}}{x_{n-1}} = \frac{\left( \frac{1 + \sqrt{5}}{2} \right)^{n+1} - \left( \frac{1 - \sqrt{5}}{2} \right)^{n+1}}{\left( \frac{1 + \sqrt{5}}{2} \right)^{n} - \left( \frac{1 - \sqrt{5}}{2} \right)^{n}}.
@@ -500,12 +492,14 @@ $$
 #### Complex roots
 
 ::: {.callout-important}
-As it happened with differential equations, with complex roots we could just plough ahead and write the solution in terms of complex numbers, but given that the solution must be real it is more convenient to write the roots in the form $k_\pm = r e^{\pm i \theta}$, where $r^2 = p^2 + q^2$ and $\theta = \arctan \frac{q}{p}$. Then, the general solution is
+As it happened with differential equations, with complex roots we could just plough ahead and write the solution in terms of complex numbers, but given that the solution must be real it is more convenient to write the roots $k_\pm = p \pm i q$ in the form $k_\pm = r e^{\pm i \theta}$, where $r^2 = p^2 + q^2$ and $\theta = \arctan \frac{q}{p}$. Then, the general solution is
 
 $$
 x_n = r^n \left( A \cos n\theta + B \sin n\theta \right)
 $$ {#eq-deic3}
 :::
+
+Be careful with the quadrant of $\theta$: we need $\cos \theta = \frac{p}{r}$ and $\sin \theta = \frac{q}{r}$. Taking $q > 0$, if $p < 0$ then $\theta$ lies in the second quadrant, so $\theta = \pi + \arctan \frac{q}{p}$ (the arctangent alone would give an angle in the fourth quadrant). For example, $k = -1 \pm i = \sqrt{2} e^{\pm \frac{3 i \pi}{4}}$, not $\sqrt{2} e^{\mp \frac{i \pi}{4}}$.
 
 We will not go into detail about this, but it follows by considering
 
@@ -513,7 +507,7 @@ $$
 C \left( r e^{i\theta} \right)^n + \overline{C} \left( r e^{-i\theta} \right)^n
 $$
 
-where $\overline{C}$ is the complex conjugate of $C$ (with $C$ chosen so that the solution is real), and by noting that $r e^{i\theta} = r (\cos \theta + i \sin \theta)$ and that $(\cos \theta + i \sin \theta )^n = \cos n\theta + i \sin n\theta$ (de Moivre's theorem).
+where $\overline{C}$ is the complex conjugate of $C$ (with $C$ chosen so that the solution is real), and by noting that $r e^{i\theta} = r (\cos \theta + i \sin \theta)$ and that $(\cos \theta + i \sin \theta )^n = \cos n\theta + i \sin n\theta$ (de Moivre's theorem).^[The proof of this is left as an exercise in Problem Sheet 5.]
 
 ::: {#exm-complex-roots-example}
 We want to solve
@@ -527,13 +521,13 @@ $$
 k^2 - 2k + 2 = 0, \qquad \implies \qquad k = 1 \pm i = \sqrt{2} e^{\pm \frac{i\pi}{4}}
 $$
 
-:::
-
 so, plugging this into @eq-deic3, we get
 
 $$
 x_n = (\sqrt2)^n \left( A \cos \left(\frac{n\pi}{4}\right) + B \sin \left( \frac{n\pi}{4} \right) \right).
 $$
+
+:::
 
 #### Repeated real root
 
@@ -558,7 +552,7 @@ $$
 B n k^n \left( k^2 + ak + b \right) + B k^n \left( 2k^2 + ak \right) = 0.
 $$
 
-The factor in brackets in the first term is zero as it satisfies the auxiliary equation. To show that the factor in brackets in the second term is zero, note that when we have a repeated root the in the auxiliary equation it must be of the form $k = -\frac{a}{2}$. Therefore, the identity is satisfied and $B n k^n$ is indeed a solution and @eq-deic2 is the general solution.
+The factor in brackets in the first term is zero as it satisfies the auxiliary equation. To show that the factor in brackets in the second term is zero, note that when we have a repeated root in the auxiliary equation, it must be of the form $k = -\frac{a}{2}$. Therefore, the identity is satisfied and $B n k^n$ is indeed a solution and @eq-deic2 is the general solution.
 
 ::: {#exm-repeated-root-example}
 Find a general solution of
@@ -581,30 +575,30 @@ $$
 
 :::
 
-### Inhomogeneous Case
+### Inhomogeneous case
 
 ::: {.callout-important}
 In this subsection we will consider difference equations of the form
 
 $$
-x_{n+2} + a x_{n+1} + b x_n = f_n.
+x_{n+2} + a x_{n+1} + b x_n = s(n).
 $$ {#eq-deih}
 
 Since @eq-deih is linear, we start by finding the solution to the homogeneous case, the *complementary function*, e.g. $x_n = A k_1^n + B k_2^n$.
 
-We then find a *particular solution*^[Obviously *particular integral* would make no sense in this context since there are no differentials or integrals.] that gives $f_n$ on the right-hand side. Then, by linearity, the general solution is simply the complementary function and the particular solution added together.
+We then find a *particular solution*^[Obviously *particular integral* would make no sense in this context since there are no differentials or integrals.] that gives $s(n)$ on the right-hand side. Then, by linearity, the general solution is simply the complementary function and the particular solution added together.
 
 :::
 
-As it happened with differential equations, there is no magic recipe to find a particular solution. In this subsection we will study two particular forms of $f_n$ that are common in applications, and we will see how to find a particular solution for them.
+As it happened with differential equations, there is no magic recipe to find a particular solution. In this subsection we will study two particular forms of $s(n)$ that are common in applications, and we will see how to find a particular solution for them.
 
-#### $f_n$ is a polynomial in $n$
+#### $s(n)$ is a polynomial in $n$
 
 ::: {.callout-important}
-When $f_n$ is a polynomial in $n$, we try as a particular solution a polynomial of the same degree. For example, if $f_n = n^2$, we try $x_n = A n^2 + B n + C$.
+When $s(n)$ is a polynomial in $n$, we try as a particular solution a polynomial of the same degree. For example, if $s(n) = n^2$, we try $x_n = A n^2 + B n + C$.
 :::
 
-Note that, if $f_n$ is a polynomial of degree zero (i.e. a constant), the method is consistent with the results found in @sec-difference-equations-inhomogeneous. In that case, the particular solution is also a constant.
+Note that, if $s(n)$ is a polynomial of degree zero (i.e. a constant), the method is consistent with the results found in @sec-difference-equations-inhomogeneous. In that case, the particular solution is also a constant.
 
 ::: {#exm-polynomial-inhomogeneous}
 Solve
@@ -624,7 +618,7 @@ $$
 x_n = A \cdot 3^n + B (-2)^n.
 $$ {#eq-deihp2}
 
-For the particular solution, since $f_n$ is a polynomial of degree 1, we try the most general first-degree polynomial possible, i.e. $x_n = Cn + D$, and substitute this into @eq-deihp1:
+For the particular solution, since $s(n)$ is a polynomial of degree 1, we try the most general first-degree polynomial possible, i.e. $x_n = Cn + D$, and substitute this into @eq-deihp1:
 
 $$
 Cn + D  - C(n-1) - D - 6C(n-2)  - 6D = -36n
@@ -635,18 +629,18 @@ giving $C=6, D=13$, so the particular solution is $x_n = 6n+13$.
 Combining this with @eq-deihp2 gives us the general solution
 
 $$
-x_n = A 3^n + B (-2)^n + 6n + 13.
+x_n = A \cdot 3^n + B (-2)^n + 6n + 13.
 $$
 
 :::
 
-#### $f_n$ is an exponential, $c^n$
+#### $s(n)$ is an exponential, $c^n$
 
 
 This is the "equivalent" case to that of $e^{ct}$ in differential equations.^[And, again, do not mix both cases up!] Once again, we have to be careful when $c^n$ is also part of the complementary function but, once again, the ideas from differential equations are carried over. 
 
 ::: {.callout-important}
-So, for the particular solution when $f_n = c^n$, try:
+So, for the particular solution when $s(n) = c^n$, try:
 
 $$\begin{aligned}
 x_n &= D c^n &&\text{if $c$ is not a root of the auxiliary equation}, \\
@@ -682,7 +676,7 @@ $$
 D (-2)^{n+2} + D (-2)^{n+1} - 6D (-2)^n = 12 (-2)^n,
 $$
 
-which yields $D=3$. Bringing everything together gives us our general solution:
+which yields $D=-3$. Bringing everything together gives us our general solution:
 
 $$
 x_n = A \cdot 2^n + B (-3)^n - 3 (-2)^n.
@@ -744,7 +738,7 @@ $$
 \underbrace{f(f( \dots f(f(}_n x )) \dots )) = f^n (x)
 $$
 
-Note that $f^n (x) \neq ( f(x) )^n$, and also that $f^n (x) \neq f^{(n)} (x) = \frac{d^n}{\mathrm{\mathrm{d}}x^n} f(x)$.
+Note that $f^n (x) \neq ( f(x) )^n$, and also that $f^n (x) \neq f^{(n)} (x) = \frac{\mathrm{d}^n}{\mathrm{d}x^n} f(x)$.
 :::
 
 If $f(x_n)$ is *nonlinear*, then (most of the time) we *cannot* write an explicit solution of the form
@@ -755,10 +749,10 @@ $$
 
 for some function $g$. Therefore, like in @sec-autonomous-differential, we will have to resort to qualitative methods to understand the behaviour of the solution. In the particular case of difference equations, as we will see, the solution can show much more interesting behaviours.
 
-We already mentioned *stationary points* of difference equations in section @sec-delin, but we now give a more rigorous definition.
+We already mentioned *stationary points* of difference equations in @sec-delin, but we now give a more rigorous definition.
 
 ::: {.callout-important}
-::: {#def-stationary-point}
+::: {#def-stationary-point-difference}
 
 ## Stationary point
 
@@ -813,7 +807,7 @@ $$
 x_1 \approx x_* + h f'(x_*).
 $$
 
-Let us carefully consider how the value of $x_n$ has changed after one iteration. If $|f'(x_*)| < 1$, then we can rearrange the expression above into $|x_1 - x_*| < |h| = |x_0 - x_*|$, i.e. we have moved closer to $x_*$. More formally, one could show that if $|f'(x_*)| < 1$, then $f^n (x_* + h) \to x_*$ as $n \to \infty$. This means that if $ |f'(x_*)| < 1 $ the solution tends towards the stationary point, so $x_*$ is *stable*. Conversely if $|f'(x_*)| > 1$ then $x_*$ is *unstable*.
+Let us carefully consider how the value of $x_n$ has changed after one iteration. If $|f'(x_*)| < 1$, then we can rearrange the expression above into $|x_1 - x_*| < |h| = |x_0 - x_*|$, i.e. we have moved closer to $x_*$. More formally, one could show that if $|f'(x_*)| < 1$, then $f^n (x_* + h) \to x_*$ as $n \to \infty$. This means that if $|f'(x_*)| < 1$ the solution tends towards the stationary point, so $x_*$ is *stable*. Conversely if $|f'(x_*)| > 1$ then $x_*$ is *unstable*.
 
 ::: {#rem-non-monotonicity-difference}
 
@@ -848,11 +842,11 @@ $$f'(x) = \lambda (1-2x).$$
 
 Consider first $x_* = 0$. Then $f'(0) = \lambda$, so $x_* = 0$ is an unstable stationary point if $\lambda > 1$, while if $\lambda < 1$ then our growth rate for small $x_n$ will kill off the population and $x_* = 0$ is stable. On the other hand, the stationary point $x_* = (\lambda - 1)/\lambda$ yields $f'(\frac{\lambda - 1}{\lambda}) = 2 - \lambda$. So $x_*$ is stable if $|2 - \lambda| < 1$, that is if $1 < \lambda < 3$. 
 
-But what happens if $\lambda > 3$?^[Remember this stationary point is only applicable if $\lambda \geq 1$.] In that case we get $f'(\frac{\lambda - 1}{\lambda}) \leq -1$ and both stationary points are unstable. This is a breaking difference with the differential equation case. To illustrate this, consider @fig-phase-line-difference, which sketches a phase line for the logistic map when $\lambda > 3$.
+But what happens if $\lambda > 3$?^[Remember this stationary point is only applicable if $\lambda \geq 1$.] In that case we get $f'(\frac{\lambda - 1}{\lambda}) < -1$ and both stationary points are unstable. This is a key difference with the differential equation case. To illustrate this, consider @fig-phase-line-difference, which sketches a phase line for the logistic map when $\lambda > 3$.
 
 ```{python}
 #| label: fig-phase-line-difference
-#| fig-cap: "Sketch of a phase line for the logistic map when $\\lambda > 3$. Both stationary points are unstable, so a nearby solution will be pushed away from them. Note that this is for purely illustrative purposes in the comparison with the differential equation case, in the next section we will see a better way of studying the logistic map."
+#| fig-cap: "Sketch of a phase line for the logistic map when $\\lambda > 3$. Both stationary points are unstable, so a nearby solution will be pushed away from them. Note that this is for purely illustrative purposes in the comparison with the differential equation case; in the next section we will see a better way of studying the logistic map."
 #| out-width: "100%"
 #| echo: false
 
@@ -902,7 +896,7 @@ plt.show()
 ```
 
 
-Both stationary points are unstable, therefore a nearby solution will be pushed away from them. In the case of a differential equation, because we must move continuously, this would mean that there should be a stable stationary point in between where these solutions could converge too.^[Or that we made a mistake in our calculations.] However, in the case of a difference equation, we can jump over stationary points, which enables us to only have two unstable stationary points. But it is not that these solutions will diverge to infinity. In fact, things are about to become a lot more complicated.
+Both stationary points are unstable, therefore a nearby solution will be pushed away from them. In the case of a differential equation, because we must move continuously, this would mean that there should be a stable stationary point in between where these solutions could converge to.^[Or that we made a mistake in our calculations.] However, in the case of a difference equation, we can jump over stationary points, which enables us to only have two unstable stationary points. But it is not that these solutions will diverge to infinity. In fact, things are about to become a lot more complicated.
 
 ::: {#rem-stability-difference-edge-cases}
 
@@ -910,7 +904,7 @@ Our analysis above did not determine what happens when $\lambda = 1$ or $\lambda
 
 If $\lambda = 1$, then both stationary points overlap at $x_* = 0$. If we start with $x_0 > 0$, then $x_1 = x_0 (1 - x_0) < x_0$, and so the sequence will decrease monotonically to $0$. As $x_n$ must be non-negative, we do not need to study the other case, but, if you are curious, you would find that starting at a negative point the solution would be pushed towards $-\infty$.
 
-If $\lambda = 3$, the stationary point $x_* = 0$ is unstable, and we ony need to carefully study the other stationary point $x_* = 2/3$. In that case, we have $x_1 = 3 x_n (1 - x_n)$ and, if you compute a few iterations (you really want to use a computer here), you will see that the solution converges to the stationary point but extremely slowly. In fact, it is often that the case that at the threshold of stability (effectively at a bifurcation point) the solution will do extremely weird things, so it is not always trivial to assess what is going on.
+If $\lambda = 3$, the stationary point $x_* = 0$ is unstable, and we only need to carefully study the other stationary point $x_* = 2/3$. In that case, we have $x_{n+1} = 3 x_n (1 - x_n)$ and, if you compute a few iterations (you really want to use a computer here), you will see that the solution converges to the stationary point but extremely slowly. In fact, it is often the case that at the threshold of stability (effectively at a bifurcation point) the solution will do extremely weird things, so it is not always trivial to assess what is going on.
 :::
 
 ### Cobweb diagrams
@@ -928,7 +922,7 @@ The procedure for drawing a cobweb diagram is as follows:
 0. Draw the graphs of $x_{n+1}=f(x_n)$ and $x_{n+1}=x_n$ on the same axes.
 1. Start at $x_0$ on the $x_n$ axis.
 2. Go up to the graph of $f$ and across to the $x_{n+1}$ axis to get $x_1$.
-3. Draw a line from $x_1$ to graph of $x_n = x_{n+1}$, then down to $x_n$ axis.
+3. Draw a line from $x_1$ to the graph of $x_n = x_{n+1}$, then down to the $x_n$ axis.
 4. Repeat from item 2.
 
 This method is illustrated in @fig-cobweb-method.
@@ -1036,7 +1030,7 @@ plt.show()
 
 As we can see, when $\lambda = 3.2$, the solution is attracted to a "period two orbit", i.e. two alternating points; each repeated every $2$ iterations. Even though we concluded that the stationary point is unstable, in some sense, it feels like it is stable as we get attracted towards the orbit and do not go away from it. In fact we can show that each point $x_*$ of the orbit is a stationary point of $f^2 (x)=f(f(x))$, i.e. $f^2 (x_*) = x_*$.
 
-For $f(x) = \lambda x_n (1 - x_n)$, we have
+For $f(x_n) = \lambda x_n (1 - x_n)$, we have
 
 $$
 f^2 (x_n) = \lambda \left[ \lambda x_n (1 - x_n) \right] \left( 1 - \left[ \lambda x_n (1 - x_n) \right] \right).
@@ -1072,7 +1066,7 @@ Even though we will not go into detail here, $\lambda = 3$ is a bifurcation poin
 
 #### Period four orbit: $\lambda = 3.5$
 
-The cobweb diagram appears in Figure @fig-cobweb-35. In this case we no longer have a period two orbit, but rather a period four orbit, in which $f^4(x_*) = x_*$.
+The cobweb diagram appears in @fig-cobweb-35. In this case we no longer have a period two orbit, but rather a period four orbit, in which $f^4(x_*) = x_*$.
 
 ```{python}
 #| label: fig-cobweb-35
@@ -1102,7 +1096,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-If we then increase $\lambda$ further in small increments, we get periods of 8, 16, 32, etc. This is called a period-doubling cascade.^[The Wikipedia article about the [logistic map](https://en.wikipedia.org/wiki/Logistic_map) has a very cool animation on how the cobweb diagram evolves as we increase $\lambda$.] Beyond $\lambda\approx3.57$ the solutions we observe are apparently random. In fact it is an example of chaos (see @fig-cobweb-4).^[We deliberately do not provide a formal definition of chaos as it is complicated. But from the figure you get the idea that the behavious is "messy" at the very least.]
+If we then increase $\lambda$ further in small increments, we get periods of 8, 16, 32, etc. This is called a period-doubling cascade.^[The Wikipedia article about the [logistic map](https://en.wikipedia.org/wiki/Logistic_map) has a very cool animation on how the cobweb diagram evolves as we increase $\lambda$.] Beyond $\lambda\approx3.57$ the solutions we observe are apparently random. In fact it is an example of chaos (see @fig-cobweb-4).^[We deliberately do not provide a formal definition of chaos as it is complicated. But from the figure you get the idea that the behaviour is "messy" at the very least.]
 
 ::: {.callout-important}
 ::: {#def-period-k-orbits}
@@ -1120,7 +1114,7 @@ $$
 f^k(x_*) = x_*
 $$
 
-which are not either stationary points or belonging to a period $j$ orbit where $j<k$.
+which are neither stationary points nor belong to a period $j$ orbit where $j<k$.
 :::
 :::
 

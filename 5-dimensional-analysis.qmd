@@ -15,22 +15,22 @@ By the end of this chapter, you should be able to:
 
 In the last chapter we focused our attention on mathematical modelling, and on how the differential and difference equations we studied in Chapters 2 and 3, respectively, are at the core of most models. In this chapter, we introduce another key modelling tool: dimensional analysis, which leverages the basic principles governing how dimensions of physical quantities work. As we will see, these principles allow us to (a) simplify model equations, and (b) infer which parameter combinations dictate the behaviour of a given variable, even without the need to write down a full mathematical model.
 
-From an abstract point of view, a mathematical model is simply a relationship between variables of interest. Within this relationship we distinguish *indepedent variables*, denoted by $i = (i_1, \dots i_M)$, which are the variables that drive the model, and *dependent variables*  $d = (d_1, \dots, d_N)$, which depend on them. The end goal of modelling is to find a set unknown function $u_i$ that tell us how we can calculate the dependent variables from the independent ones:
+From an abstract point of view, a mathematical model is simply a relationship between variables of interest. Within this relationship we distinguish *independent variables*, denoted by $i = (i_1, \dots, i_N)$, which are the variables that drive the model, and *dependent variables*  $d = (d_1, \dots, d_K)$, which depend on them. The end goal of modelling is to find a set of unknown functions $u_1, \dots, u_K$ that tell us how we can calculate the dependent variables from the independent ones:
 
 $$
-\begin{pmatrix} d_1 \\ d_2 \\ \vdots \\ d_N \end{pmatrix} = \begin{pmatrix} u_1(i_1, \dots i_M) \\ u_2(i_1, \dots i_M) \\ \vdots \\ u_N(i_1, \dots i_M) \end{pmatrix}.
+\begin{pmatrix} d_1 \\ d_2 \\ \vdots \\ d_K \end{pmatrix} = \begin{pmatrix} u_1(i_1, \dots, i_N) \\ u_2(i_1, \dots, i_N) \\ \vdots \\ u_K(i_1, \dots, i_N) \end{pmatrix}.
 $$ {#eq-problem-general}
 
-These functions $u_1, \dots, u_N$ might be obtained in multiple ways, for example they could be solutions to a differential equation, like the mass-spring-damper system (@sec-mass-spring-damper). In that case, we have a single dependent variable (the position of the mass $x(t)$) and we have five independent variables: $t$, $m$, $c$, $k$ and $x_0$. Note that, for the purpose of dimensional analysis, model parameters are counted as independent variables even though from an equation point of view they are not.^[Do not forget initial conditions, they can have parameters too!] The rationale is that the parameters dictate the behaviour of the dependent variable in the same way as the independent variable of the equation, $t$, does. Indeed, as we saw in @sec-mass-spring-damper, the solution to our model allowed us to write
+These functions $u_1, \dots, u_K$ might be obtained in multiple ways, for example they could be solutions to a differential equation, like the mass-spring-damper system (@sec-mass-spring-damper). In that case, we have a single dependent variable (the position of the mass $x(t)$) and we have five independent variables: $t$, $m$, $c$, $k$ and $x_0$. Note that, for the purpose of dimensional analysis, model parameters are counted as independent variables even though from an equation point of view they are not.^[Do not forget initial conditions, they can have parameters too!] The rationale is that the parameters dictate the behaviour of the dependent variable in the same way as the independent variable of the equation, $t$, does. Indeed, as we saw in @sec-mass-spring-damper, the solution to our model allowed us to write
 
 $$x = u(t, m, c, k, x_0).$$
 
-Dimensional analysis is a complementary tool that allows us to reduce the effort required to solve such a problem, in some cases allowing us to draw conclusions even without knowing the equations for our model. It uses some fundamental ideas related to dimensions. Defining dimension is tricky, so one way to think about it is that a dimension is a dimension we can measure (even if in an indirect way). For example, time, length and mass are dimensions. Dimensions are measured in units,^[Note that the distinction between dimension and units sometimes is not (or not properly) made in the literature. I will aim to be consistent throughout the module, but I may unconsciously mix them up.] but they are fundamentally different: units are arbitrary (e.g. seconds, minutes, hours...) while the dimension is the abstract concept (e.g. time). Dimensional analysis then uses the two following principles:
+Dimensional analysis is a complementary tool that allows us to reduce the effort required to solve such a problem, in some cases allowing us to draw conclusions even without knowing the equations for our model. It uses some fundamental ideas related to dimensions. Defining dimension is tricky, so one way to think about it is that a dimension is a quantity we can measure (even if in an indirect way). For example, time, length and mass are dimensions. Dimensions are measured in units,^[Note that the distinction between dimension and units sometimes is not (or not properly) made in the literature. I will aim to be consistent throughout the module, but I may unconsciously mix them up.] but they are fundamentally different: units are arbitrary (e.g. seconds, minutes, hours...) while the dimension is the abstract concept (e.g. time). Dimensional analysis then uses the two following principles:
 
-1. All quantities and variables have *dimensions* attached to them.^[Not having dimensions is a dimension on itself, in a similar way that the empty set is an actual set.]
+1. All quantities and variables have *dimensions* attached to them.^[Not having dimensions is a dimension in itself, in a similar way that the empty set is an actual set.]
 2. The relations or laws between them do not alter when changing the units in which we measure them. For example, Newton's second law states that force equals mass times acceleration, and this is true independently of how you measure mass and acceleration.^[You will need to measure force in a consistent way, but that's totally fine: if you measured your mass in pounds and your acceleration in yards per year, you would have to measure force in pounds times yards per year. This is an incredibly weird unit, but from a mathematical point of view it is not any different to the unit we call Newton. In science, we usually stick to the International System of Units (SI units for short).]
 
-The main goal of dimensional analysis is to transform model equations into a *nondimensional form* (or dimensionless form), which means that every single term in the equation has no dimensions. This is a kind of reference or fundamental form of the model, which is usually much simpler than the original one. Any analysis or solution to the nondimensional form can then be converted back to the dimensional form. This sounds a bit pointless, but there are two essential benefits to this procedure:
+The main goal of dimensional analysis is to transform model equations into a *nondimensional form* (or dimensionless form), which means that every single term in the equation has no dimensions. This is a kind of reference or fundamental form of the model, which is usually much simpler than the original one. Any analysis or solution to the nondimensional form can then be converted back to the dimensional form. This sounds a bit pointless, but there are three essential benefits to this procedure:
 
 1. The number of independent variables in the problem often is reduced in nondimensional form. This makes it easier to find the solution.
 2. Many specific problems reduce to the same nondimensional problem, which means that we can just study that single nondimensional problem. All dimensional problems are then automatically covered too.
@@ -44,22 +44,22 @@ As you can imagine there are a lot of dimensions, but it turns out that any quan
 | notation | dimension | possible units |
 |---|---|---|
 | $T$ | time | seconds, days |
-| $L$ | length | nanometers, feet, lightyears |
+| $L$ | length | nanometres, feet, lightyears |
 | $M$ | mass | micrograms, pounds |
 | $A$ | quantity | head count, mol |
-| $\Theta$ | temperature | kelvin, degrees fahrenheit |
+| $\Theta$ | temperature | kelvin, degrees Fahrenheit |
 | $Q$ | charge | coulomb |
 
 Table: Fundamental dimensions used in this module. {#tbl-dimensions}
 
 ::: {.callout-note}
-Throughout the module I will stick to the notation in the table, and I encourage you to do so. If for whatever reason you do not follow it in the exam or assignment (for example, because you forgot of the specific symbol) please state clearly which dimension your symbol represents.
+Throughout the module I will stick to the notation in the table, and I encourage you to do so. If for whatever reason you do not follow it in the exam or assignment (for example, because you forgot the specific symbol) please state clearly which dimension your symbol represents.
 :::
 
 
 ::: {#prp-product-of-dimensions}
 
-Let $[v_j]$ denote the dimension of a variable $v_j$. Give two variables $v_1$ and $v_2$, the dimension of their product is the product of their dimensions, that is
+Let $[v_j]$ denote the dimension of a variable $v_j$. Given two variables $v_1$ and $v_2$, the dimension of their product is the product of their dimensions, that is
 
 $$
 [v_1 v_2] = [v_1] [v_2].
@@ -79,15 +79,15 @@ $$
 [u] = \left[ \frac{\Delta x}{\Delta t} \right] = \frac{[\Delta x]}{[\Delta t]} = \frac{L}{T},
 $$
 
-as expected. A way to sanity check this, is that the SI units of meters per second (i.e. length per time)\dots
+as expected. A way to sanity check this is that the SI unit of velocity is metres per second (i.e. length per time).
 
 2. Newton's second law states that $F = m a$. We know that mass has dimension $M$ while, by a similar argument as in point 1, acceleration has dimension $L T^{-2}$. Then, we deduce that the dimension of force is
 
 $$
-[F] = [ma] = [m][a] = \frac{M L}{T^{-2}}.
+[F] = [ma] = [m][a] = \frac{M L}{T^2}.
 $$
 
-This is not as obvious to check but, if we do the unit sanity check and look at the definition of the Newton, we will see that in SI units^[That is why SI units are very useful, they allow us to build a whole system of consistent units, so when we perform calculations we do not have to worry about tracking them.] is kg m s${}^{-2}$.
+This is not as obvious to check but, if we do the unit sanity check and look at the definition of the Newton, we will see that in SI units^[That is why SI units are very useful, they allow us to build a whole system of consistent units, so when we perform calculations we do not have to worry about tracking them.] it is kg m s${}^{-2}$.
 
 :::
 
@@ -102,14 +102,14 @@ Let us now introduce the fundamental principle in dimensional analysis.
 All terms in an equation must have the same dimensions, i.e.
 
 $$
-v_1 = v_2 \quad \iff \quad [v_1] = [v_2].
+v_1 = v_2 \quad \implies \quad [v_1] = [v_2].
 $$
 
 :::
 
 ::: {#rem-principle-dimensional-homogeneity}
 
-This sounds kind of trivial (and not too useful).^[Still, you would be surprise of the number of times people write equations in research articles that do not satisfy the principle (and thus are wrong).] However, a consequence of that is that we can only add (or substract) variables if they have the same dimensions, i.e. $v_1 + v_2$ is only defined if $[v_1]=[v_2]$ and, naturally, $[v_1 + v_2] = [v_1] = [v_2]$.
+This sounds kind of trivial (and not too useful).^[Still, you would be surprised by the number of times people write equations in research articles that do not satisfy the principle (and thus are wrong).] However, a consequence of that is that we can only add (or subtract) variables if they have the same dimensions, i.e. $v_1 + v_2$ is only defined if $[v_1]=[v_2]$ and, naturally, $[v_1 + v_2] = [v_1] = [v_2]$.
 
 :::
 
@@ -120,7 +120,7 @@ We can now combine these results (and some that we will deduce from them) in ord
 For two given variables $v_1$ and $v_2$, their dimensions satisfy:
 
 1. $[v_1 v_2] = [v_1][v_2]$ (@prp-product-of-dimensions).
-2. $v_1 = v_2 \quad \iff \quad [v_1] = [v_2]$ (@prp-principle-dimensional-homogeneity).
+2. $v_1 = v_2 \quad \implies \quad [v_1] = [v_2]$ (@prp-principle-dimensional-homogeneity).
 3. Derivative rule:
 
 $$
@@ -173,7 +173,7 @@ From the derivative rule we have that $[V_1] = [v_1][v_2]$, hence
 
 $$ \left[\int v_1 \mathrm{d} v_2 \right] = [v_1][v_2].$$
 
-Finally, let us consider rule 5. We will not give a general proof but prove it for a specific example, but one would proceed similarly for other functions. Consider the series representation of the exponential:
+Finally, let us consider rule 5. We will not give a general proof but prove it for a specific example; one would proceed similarly for other functions. Consider the series representation of the exponential:
 
 $$
 \exp(v_1) = \sum_{n=0}^{\infty} \frac{1}{n!} v_1^n.
@@ -182,10 +182,10 @@ $$
 By the principle of dimensional homogeneity all terms in the series must have the same dimension. Consider two consecutive terms:
 
 $$
-\left[ \frac{1}{n!} v_1^n \right] = \left[ \frac{1}{(n+1)!} v_1^(n+1) \right].
+\left[ \frac{1}{n!} v_1^n \right] = \left[ \frac{1}{(n+1)!} v_1^{n+1} \right].
 $$
 
-Applying the product rule we find that this only holds if $[v_1]^n = [v_1]^(n+1)$, which means that we must have $[v_1] = 1$.
+Applying the product rule we find that this only holds if $[v_1]^n = [v_1]^{n+1}$, which means that we must have $[v_1] = 1$.
 
 :::
 
@@ -205,7 +205,7 @@ We want to deduce the dimensions of all parameters involved. First let us write 
 
 What is the dimension of $x_0$? One could argue that it is a position, so it must have dimension of $L$ but we can also show it by the principle of dimensional homogeneity:
 
-$$x(0) = x_0 \quad \iff \quad [x(0)] = [x_0].$$
+$$x(0) = x_0 \quad \implies \quad [x(0)] = [x_0].$$
 
 We can proceed similarly for $c$ and $k$, just with some extra manipulation. The dimensions of the left-hand side term are
 
@@ -216,13 +216,13 @@ $$
 By the principle of dimensional homogeneity we conclude^[Note that minus signs play no role in the dimensional analysis, so we can just ignore them.]
 
 $$
-[k x(t)] = [m \ddot x(t)], \quad \implies \quad [k] = \frac{[m][\ddot(x)]}{[x(t)]} = M T^{-2},
+[k x(t)] = [m \ddot x(t)], \quad \implies \quad [k] = \frac{[m][\ddot x(t)]}{[x(t)]} = M T^{-2},
 $$
 
 and
 
 $$
-[c \dot x(t)] = [m \ddot x(t)], \quad \implies \quad [c] = \frac{[m][\ddot(x)]}{[\dot x(t)]} = M T^{-1}.
+[c \dot x(t)] = [m \ddot x(t)], \quad \implies \quad [c] = \frac{[m][\ddot x(t)]}{[\dot x(t)]} = M T^{-1}.
 $$
 
 :::
@@ -250,7 +250,7 @@ $$\frac{\mathrm{d} v_1}{\mathrm{d} v_2} = \frac{\Delta v_1}{\Delta v_2} \frac{\m
 
 3. Divide the equation by a suitable factor to make it nondimensional. Essentially, the factor is chosen to be the prefactor of one of the terms (i.e. the bit that ends up carrying the dimensions). 
 
-4. Choose the suitable values for the rescaling from the differential equation. This step is a bit of an art, an will be better illustrated through the examples below, but the goal is to make as many of the factors in the equation equal to one. We usually rename the remaining factors for simplicity.
+4. Choose the suitable values for the rescaling from the differential equation. This step is a bit of an art, and will be better illustrated through the examples below, but the goal is to make as many of the factors in the equation equal to one. We usually rename the remaining factors for simplicity.
 
 5. Solve or analyse the equation.
 
@@ -323,15 +323,15 @@ $$
 $$
 You can check that, indeed, now each of the terms in the equation is nondimensional.
 
-4. At this point, we set the values of the rescalings $\Delta x$ and $\Delta t$. As we said in the algorithm, the goal is to make as many parameters equal to one as possible. $\Delta x$ only appears in the initial condition, so we choose $\Delta x = x_0$. For $\Delta t$ we have two options, depending on which of the remaining parameter combinations we want to set to one. Again, it does not really matter which one you choose, as results are equivalent.^[In practice, once again, depending on the analysis you want to make, you might be inclined to make a certain choice. For example, one may want to study what happens if we remove the damper, which would make the middle term disappear. In that case, choosing that term to be one would result into a singularity.] This means that we want
+4. At this point, we set the values of the rescalings $\Delta x$ and $\Delta t$. As we said in the algorithm, the goal is to make as many parameters equal to one as possible. $\Delta x$ only appears in the initial condition, so we choose $\Delta x = x_0$. For $\Delta t$ we have two options, depending on which of the remaining parameter combinations we want to set to one. Again, it does not really matter which one you choose, as results are equivalent.^[In practice, once again, depending on the analysis you want to make, you might be inclined to make a certain choice. For example, one may want to study what happens if we remove the damper, which would make the middle term disappear. In that case, choosing that term to be one would result in a singularity.] This means that we want
 $$
 \frac{k \Delta t^2}{m} = 1, \quad \implies \quad \Delta t = \sqrt{\frac{m}{k}},
 $$
-and you can check that, indeed, this has dimensions of time. In fact, one can show that this is the period of the oscillations if the damper was removed. The resulting nondimensional equation is
+and you can check that, indeed, this has dimensions of time. In fact, one can show that this is proportional to the period of the oscillations if the damper was removed. The resulting nondimensional equation is
 $$
 \frac{\mathrm{d}^2 \tilde x}{\mathrm{d} \tilde t^2} + \xi \frac{\mathrm{d} \tilde x}{\mathrm{d} \tilde t} + \tilde x(\tilde t) = 0, \quad \text{with} \quad \tilde x(0) = 1, \quad \dot{\tilde{x}}(0) = 0,
 $$
-where we have relabelled the parameter grouping as $\xi := \frac{c}{\sqrt{mk}}$. Here we see the whole point of nondimensionalisation: the original problem had 4 parameters ($m$, $c$, $k$ and $x_0$), while the nondimensional form only has one ($\xi$). This means, for example, that if we were to do a bifurcation analysis^[Not that the methods we explained work in this case.] we would only have to worry about one parameter.
+where we have relabelled the parameter grouping as $\xi := \frac{c}{\sqrt{mk}}$. Here we see the whole point of nondimensionalisation: the original problem had 4 parameters ($m$, $c$, $k$ and $x_0$), while the nondimensional form only has one ($\xi$). This means, for example, that if we were to do a bifurcation analysis^[Note that the methods we explained do not work in this case.] we would only have to worry about one parameter.
 
 5. We now solve the nondimensional equation. We omit the details here for conciseness, but you know the method from @sec-differential-equations. The roots of the auxiliary equation are
 $$
@@ -343,11 +343,11 @@ p = -\frac{\xi}{2}, \quad \text{and} \quad q = \frac{1}{2} \sqrt{4 - \xi^2}.
 $$
 Then, the solution is
 $$
-\tilde x(\tilde t) = \e^{-\frac{\xi}{2} \tilde t} \left( \cos \left(\frac{1}{2} \sqrt{4 - \xi^2} \tilde t\right) + \frac{\xi}{\sqrt{4 - \xi^2}} \sin \left(\frac{1}{2} \sqrt{4 - \xi^2} \tilde t\right) \right).
+\tilde x(\tilde t) = e^{-\frac{\xi}{2} \tilde t} \left( \cos \left(\frac{1}{2} \sqrt{4 - \xi^2} \tilde t\right) + \frac{\xi}{\sqrt{4 - \xi^2}} \sin \left(\frac{1}{2} \sqrt{4 - \xi^2} \tilde t\right) \right).
 $$
 
 6. Finally, we bring the solution back to dimensional form. To do this, we plug the inverse of the rescalings back into the solution: $\tilde x = x / \Delta x$ and $\tilde t = t / \Delta t$:
-$$\frac{1}{\Delta x} x(t) = \e^{-\frac{\xi}{2} \frac{t}{\Delta t}} \left( \cos \left(\frac{1}{2} \sqrt{4 - \xi^2} \frac{t}{\Delta t} \right) + \frac{\xi}{\sqrt{4 - \xi^2}} \sin \left(\frac{1}{2} \sqrt{4 - \xi^2} \frac{t}{\Delta t} \right) \right).
+$$\frac{1}{\Delta x} x(t) = e^{-\frac{\xi}{2} \frac{t}{\Delta t}} \left( \cos \left(\frac{1}{2} \sqrt{4 - \xi^2} \frac{t}{\Delta t} \right) + \frac{\xi}{\sqrt{4 - \xi^2}} \sin \left(\frac{1}{2} \sqrt{4 - \xi^2} \frac{t}{\Delta t} \right) \right).
 $$
 Manipulating the expression and using that $\xi = \frac{c}{\sqrt{mk}}$, $\Delta x = x_0$ and $\Delta t = \sqrt{m/k}$ we obtain
 $$
@@ -360,12 +360,12 @@ as we already knew.
 :::
 
 ::: {#rem-similarity}
-Remember than a key advantage of using nondimensional equations is that various dimensional equations can reduce to the same nondimensional one. For example, in the example above, any combination of parameters that yields the same value of $\xi$ are equivalent. This is not too important when one can solve the equation analytically but, if we did it numerically, it would mean that we only need to run a single simulation and then just scale the solution back to the relevant problem.
+Remember that a key advantage of using nondimensional equations is that various dimensional equations can reduce to the same nondimensional one. For example, in the example above, any combinations of parameters that yield the same value of $\xi$ are equivalent. This is not too important when one can solve the equation analytically but, if we did it numerically, it would mean that we only need to run a single simulation and then just scale the solution back to the relevant problem.
 :::
 
 ## Scaling arguments
 
-As we stated earlier in this chapter, one could think of a model as a relation between dependent and independent variables, independently on how this relation is given. There is a very interesting application of dimensional analysis that allows us to determine, even without knowing the model equations, which combination of independent variables drives our dependent variables. For the purposes of this section, we count parameters as independent variables.
+As we stated earlier in this chapter, one could think of a model as a relation between dependent and independent variables, independently of how this relation is given. There is a very interesting application of dimensional analysis that allows us to determine, even without knowing the model equations, which combination of independent variables drives our dependent variables. For the purposes of this section, we count parameters as independent variables.
 
 Before we go into details on how to do that, a theorem.
 
@@ -376,7 +376,7 @@ Before we go into details on how to do that, a theorem.
 
 ## Buckingham Pi ($\pi$) Theorem
 
-A given problem with $n$ independent variables (including parameters) that contains $m$ independent dimensions (with $m < n$) can be reduced to a nondimensional problem completely determined by $(n-m)$ nondimensional independent variables.
+A given problem with $N$ independent variables (including parameters) that contains $D$ independent dimensions (with $D < N$) can be reduced to a nondimensional problem completely determined by $(N-D)$ nondimensional independent variables.
 
 :::
 
@@ -386,7 +386,7 @@ We skip the proof for this theorem, as it requires some linear algebra concepts.
 
 ::: {#exm-mass-spring-damper-Buckingham-Pi}
 
-## Mass-spring-damper: Buckingham Pi theorem
+## Mass-spring-damper: Buckingham Pi Theorem
 
 Consider the mass-spring-damper equation again. The model has one dependent variable $x(t)$ and five independent variables: $t$, $m$, $c$, $k$ and $x_0$. The dimensions of each variable (as determined in @exm-mass-spring-damper-dimensions) are:
 
@@ -397,13 +397,13 @@ $$
 \end{aligned}
 $$
 
-Therefore, we have three independent dimensions: $M$, $T$ and $L$. Then, from the Buckingham Pi theorem we have $n = 5$ and $m = 3$, therefore the nondimensional problem will depend on $n - m = 5 - 3 = 2$ independent variables. We already knew that from @exm-mass-spring-damper-nondimensionalisation: the nondimensional solution depended only on $\tilde t$ and $\xi$.
+Therefore, we have three independent dimensions: $M$, $T$ and $L$. Then, from the Buckingham Pi Theorem we have $N = 5$ and $D = 3$, therefore the nondimensional problem will depend on $N - D = 5 - 3 = 2$ independent variables. We already knew that from @exm-mass-spring-damper-nondimensionalisation: the nondimensional solution depended only on $\tilde t$ and $\xi$.
 
 :::
 
 ::: {#rem-fundamental-dimensions}
 
-A note on what we mean by independent dimensions: a dimension is independent of a set of other dimensions, if it cannot be constructed by combining dimensions in the set. In the Buckingham Pi theorem we are counting the minimal set of independent dimensions, not fundamental ones (as in @tbl-dimensions). In most cases they will be equivalent, but let us see a simple example where that is not true.
+A note on what we mean by independent dimensions: a dimension is independent of a set of other dimensions, if it cannot be constructed by combining dimensions in the set. In the Buckingham Pi Theorem we are counting the minimal set of independent dimensions, not fundamental ones (as in @tbl-dimensions). In most cases they will be equivalent, but let us see a simple example where that is not true.
 
 Consider an exponential decay problem, where a concentration $c$ (i.e. amount of particles per unit of volume) decays in time proportionally to itself for a given constant $a$:
 
@@ -412,7 +412,7 @@ $$ \frac{\mathrm{d} c}{\mathrm{d} t} = -a c, \quad \text{with} \quad c(0) = c_0.
 The dimensions of the variables of the equation are
 $$
 \begin{aligned}
-[c] &= A L^{-3}, & [t] &= T, & [a] &= T^{-1}, & [c_0] = A L^{-3}.
+[c] &= A L^{-3}, & [t] &= T, & [a] &= T^{-1}, & [c_0] &= A L^{-3}.
 \end{aligned}
 $$
 
@@ -433,16 +433,16 @@ The recipe to deduce the parameter dependency of a certain variable $d$ is as fo
 2. Write the dimensions of all variables (dependent and independent).
 
 3. Express the dimension of the dependent variable as a product of the independent ones:
-$$[d] = [i_1^{n_1} i_2^{n_2} \cdots i_n^{n_N}] = [i_1]^{n_1}[i_2]^{n_2}\cdots[i_n]^{n_N}.$$
+$$[d] = [i_1^{n_1} i_2^{n_2} \cdots i_N^{n_N}] = [i_1]^{n_1}[i_2]^{n_2}\cdots[i_N]^{n_N}.$$
 
 4. Substitute in the dimensions of all variables and solve for the exponents $n_1,n_2,\dots,n_N$. Depending on the number of independent dimensions, we will have a system of equations with a unique solution or with infinitely many solutions. In the latter case, we can express some of the exponents in terms of the others, such that
-$$[d] = [\Delta d \; \pi_1^{m_1} \pi_2^{m_2} \cdots \pi_M^{m_M}],$$
-where $\Delta d$ is a scaling for $d$, and $\pi_1,\dots,\pi_M$ are nondimensional combinations of the independent variables.^[Using $pi_j$ is the traditional notation, and that is why @thm-Buckingham-Pi is known as Buckingham Pi Theorem.] The number of nondimensional combinations is $M = N - D$, where $D$ is the number of independent dimensions.
+$$[d] = [\Delta d \; \pi_1^{p_1} \pi_2^{p_2} \cdots \pi_P^{p_P}],$$
+where $\Delta d$ is a scaling for $d$, and $\pi_1,\dots,\pi_P$ are nondimensional combinations of the independent variables.^[Using $\pi_j$ is the traditional notation, and that is why @thm-Buckingham-Pi is known as Buckingham Pi Theorem.] The number of nondimensional combinations is $P = N - D$, where $D$ is the number of independent dimensions.
 
 5. Then, we can write the dependency of $d$ on the independent variables as
-$$d = \Delta d \; f(\pi_1,\dots,\pi_M),$$
-where $f$ is an unknown function that we can determine by experiments or measurements. In the particular case where $M = 0$, we have
-$$d = \Delta d \; f(1,\dots,1) = \Delta d \cdot C,$$
+$$d = \Delta d \; f(\pi_1,\dots,\pi_P),$$
+where $f$ is an unknown function that we can determine by experiments or measurements. In the particular case where $P = 0$, we have
+$$d = \Delta d \cdot C,$$
 where $C$ is a constant to be determined.
 :::
 
@@ -459,7 +459,7 @@ To illustrate the method, let us pick up the exponential decay problem we mentio
 2. As we saw in @rem-fundamental-dimensions, we then have the following variables and their corresponding dimensions:
 $$
 \begin{aligned}
-[c] &= A L^{-3}, & [t] &= T, & [a] &= T^{-1}, & [c_0] = A L^{-3}.
+[c] &= A L^{-3}, & [t] &= T, & [a] &= T^{-1}, & [c_0] &= A L^{-3}.
 \end{aligned}
 $$
 
@@ -494,9 +494,9 @@ $$
 
 Let us sanity check the result. If we went and solved @eq-exponential-decay for the concentration, we would obtain
 $$
-c(t) = c_0 \e^{-a t},
+c(t) = c_0 e^{-a t},
 $$
-which is of the form we predicted, with $f(a t) = \e^{-a t}$, but in our scaling argument we did not need to know or solve any equations. Of course, this is a simple case so solving the equation is not too hard, but you can imagine how this technique can be useful in more complex problems where the equations are not known or are too hard to solve.
+which is of the form we predicted, with $f(a t) = e^{-a t}$, but in our scaling argument we did not need to know or solve any equations. Of course, this is a simple case so solving the equation is not too hard, but you can imagine how this technique can be useful in more complex problems where the equations are not known or are too hard to solve.
 :::
 
 This approach is extremely useful when one needs to rely on experiments that cannot be performed in the original setting of the problem because they would be too expensive or too dangerous. For example, imagine we want to design a skyscraper and we want to know how it will react to wind. We cannot build the skyscraper and then wait for a storm to see what happens, but we can build a small-scale model and test it in a wind tunnel. However, we need to make sure that the results we obtain from the model are meaningful for the real skyscraper. This is where dimensional analysis comes into play: it allows us to determine how we need to scale all the variables in the problem to ensure that the results from the experiment are applicable to the real skyscraper.
@@ -504,13 +504,13 @@ This approach is extremely useful when one needs to rely on experiments that can
 ::: {#exm-similitude}
 ## Mars rover
 
-In 2012, NASA's Mars rover Curiosity reached its destination. During the descent, a parachute was used to bring down its velocity. This was possible because Mars has an atmosphere, but that atmosphere is very different to the one in the Earth. As experiments on Mars were out of reach, engineers had to set them up on Earth. For this purpose they had to make sure that the experience and data they collected were meaningful to ensure that everything would work on Mars. One of the problems they had to solve was to determine the size of the parachute, and this is what we are going to do here.
+In 2012, NASA's Mars rover Curiosity reached its destination. During the descent, a parachute was used to bring down its velocity. This was possible because Mars has an atmosphere, but that atmosphere is very different to the one on Earth. As experiments on Mars were out of reach, engineers had to set them up on Earth. For this purpose they had to make sure that the experience and data they collected were meaningful to ensure that everything would work on Mars. One of the problems they had to solve was to determine the size of the parachute, and this is what we are going to do here.
 
-We are interested in the diameter $d$ of the (spherical) parachute.
+We are interested in the diameter $d$ of the (hemispherical) parachute.
 
 1. First, we need to determine on which variables it depends. As we said earlier, this is a key modelling step and the right choice is not always obvious. In this case, it sounds reasonable to assume that it will depend on the desired terminal velocity $v$, the mass of the rover $m$, the gravity acceleration $g$, and the atmospheric viscosity $\mu$.^[The viscosity is a quantity that measures how "thick" a fluid is, and it has dimensions of $M/LT$ (you do not need to remember that for the exam).]
 
-2. The dimensions of the variable are
+2. The dimensions of the variables are
 $$
 \begin{aligned}
 [d] &= L, & [v] &= \frac{L}{T}, & [m] &= M, & [g] &= \frac{L}{T^2}, & [\mu] &= \frac{M}{LT}.
@@ -530,7 +530,7 @@ Collecting the powers of each independent dimension we get
 $$
 \begin{aligned}
 L: & \quad 1 = n_1 + n_3 - n_4,\\
-T: & \quad 0 = - n_1 - 2 n_3,\\
+T: & \quad 0 = - n_1 - 2 n_3 - n_4,\\
 M: & \quad 0 = n_2 + n_4,
 \end{aligned}
 $$
@@ -538,7 +538,7 @@ which yields
 $$
 n_1 = 2 + 3 n_4, \quad n_2 = - n_4, \quad n_3 = -1 - 2 n_4.
 $$
-We choose to leave everything in terms of $n_4$, but you could choose otherwise. If you did so, you would possibly end up with a different nondimensional combination of the independent variables, but they are equivalent as all possible nondimensional combinations are the power of each other. Anyway, for our choice we obtain
+We choose to leave everything in terms of $n_4$, but you could choose otherwise. If you did so, you would possibly end up with a different nondimensional combination of the independent variables, but they are equivalent as all possible nondimensional combinations are powers of each other. Anyway, for our choice we obtain
 $$
 [d] = \left[\frac{v^2}{g} \left( \frac{\mu v^3}{m g^2} \right)^{n_4} \right].
 $$

@@ -10,13 +10,13 @@ By the end of this chapter, you should be able to:
 
 * Explain what a system of equations is and how it relates to higher order equations for both difference and differential equations.
 * Solve $2 \times 2$ first order linear systems of difference equations with constant coefficients.
-* Describe the general form of a solution of a inhomogeneous first order linear system of difference equations.
+* Describe the general form of a solution of an inhomogeneous first order linear system of difference equations.
 * Solve $2 \times 2$ first order linear systems of differential equations with constant coefficients.
-* Analyse the stability and produce a phase portrait for a $2 \times 2$ first order autonomous systems of differential equations, both linear and nonlinear.
+* Analyse the stability and produce a phase portrait for a $2 \times 2$ first order autonomous system of differential equations, both linear and nonlinear.
 
 :::
 
-So far, we have studied differential and difference equations for a single dependent variable. But in the same way as you can have systems of algebraic equations,^[You might know them as coupled equations.] you can also have systems of differential or difference equations. In fact, we already came across a system of differential equation in @exm-covid, where we saw the SEIR model for the spread of an infectious disease. In this chapter we will study systems of first order equations, that is systems composed of several first order equations. We will focus mostly on $2 \times 2$ systems, but most of the ideas and concepts generalise to all $n \times n$ systems, $n \in \mathbb{N}$.
+So far, we have studied differential and difference equations for a single dependent variable. But in the same way as you can have systems of algebraic equations,^[You might know them as coupled equations.] you can also have systems of differential or difference equations. In fact, we already came across a system of differential equations in @exm-covid, where we saw the SEIR model for the spread of an infectious disease. In this chapter we will study systems of first order equations, that is systems composed of several first order equations. We will focus mostly on $2 \times 2$ systems, but most of the ideas and concepts generalise to all $n \times n$ systems, $n \in \mathbb{N}$.
 
 ::: {.callout-note}
 Unless stated otherwise for the whole of this chapter we assume that any functions involved in the systems are sufficiently "nice", such that there is a unique solution of the system of equations we are considering.
@@ -26,7 +26,7 @@ Unless stated otherwise for the whole of this chapter we assume that any functio
 
 We start by considering systems of difference equations.
 
-::: {#def-system-difference-equations-m-by-m}
+::: {#def-system-difference-equations}
 
 In their most general form, a first order system of difference equations can be written as
 $$
@@ -37,7 +37,7 @@ x_{2,k+1} &= f_2 \left( x_{1,k},x_{2,k},\ldots,x_{n,k}, k \right), \\
 x_{n,k+1} &= f_n \left( x_{1,k},x_{2,k},\ldots,x_{n,k}, k \right),
 \end{aligned}
 $$
-for $k \in \mathbb{N}$ and with some initial conditions $x_{1,0},x_{2,0},\ldots,x_{n,0}$. Here $x_{i,k}$ is the $i$th dependent variable at step $k$, $f_i: \mathbb{R}^n \times \mathbb{N} \to \mathbb{R}$ are given functions, and $n$ is the number of equations and variables in the system. The system is called an $n \times n$ system of first order difference equations.^[To be precise, the most general form would be something of the form $f(...) = 0$, as we did with differential equations, but the notation would get even messier so we will stick to the above form.]
+for $k \in \mathbb{N}$ and with some initial conditions $x_{1,0},x_{2,0},\ldots,x_{n,0}$. Here $x_{i,k}$ is the $i$th dependent variable at step $k$,^[Note that, unlike in @sec-difference-equations, we use $k$ to denote the step, as $n$ is used for the number of equations in the system.] $f_i: \mathbb{R}^n \times \mathbb{N} \to \mathbb{R}$ are given functions, and $n$ is the number of equations and variables in the system. The system is called an $n \times n$ system of first order difference equations.^[To be precise, the most general form would be something of the form $f(...) = 0$, as we did with differential equations, but the notation would get even messier so we will stick to the above form.]
 :::
 
 It is often convenient to write the system in vector form.^[In this module we will consider vectors to be column vectors, hence why we have all the transpose operations.] This is simply a relabelling of the variables and functions. Let $\boldsymbol{x}_k = (x_{1,k},x_{2,k},\ldots,x_{n,k})^T$ and $\boldsymbol{f} = (f_1,f_2,\ldots,f_n)^T$. Then we can write the system as
@@ -49,7 +49,7 @@ where $\boldsymbol{x}_0$ is known and $\boldsymbol{f}: \mathbb{R}^n \times \math
 We do not give a formal definition, but note that the same classification of difference equations that we introduced in @def-difference-equation-properties naturally generalises to systems. In particular, the order of the system is still the difference between the highest and lowest index of the dependent variables and the system is linear if $\boldsymbol{f}$ is linear.
 
 ::: {.callout-important}
-For simplicity, in this module we will focus on $2\times2$ systems of first order difference equations of the form, and to simplify the notation we will usually write them in the form
+For simplicity, in this module we will focus on $2\times2$ systems of first order difference equations, and to simplify the notation we will usually write them in the form
 
 $$
 \begin{split}
@@ -58,7 +58,7 @@ y_{k+1} = f_2 \left( x_k,y_k,k \right),
 \end{split}
 $$ {#eq-2x2sys-elem-diff}
 
-with $k \in \mathbb{N}$, some given functions $f_i: \mathbb{R}^2 \times \mathbb{N} \to \mathbb{R}$, $i=1,2$ and initial conditions $x_0$ and $y_0$. This is equivalent to the notation in @def-system-difference-equations-m-by-m but using $x_k$ and $y_k$ instead of $x_{1,k}$ and $x_{2,k}$ to simplify the notation.
+with $k \in \mathbb{N}$, some given functions $f_i: \mathbb{R}^2 \times \mathbb{N} \to \mathbb{R}$, $i=1,2$ and initial conditions $x_0$ and $y_0$. This is equivalent to the notation in @def-system-difference-equations but using $x_k$ and $y_k$ instead of $x_{1,k}$ and $x_{2,k}$ to simplify the notation.
 :::
 
 ### Relation to higher order equations
@@ -119,7 +119,7 @@ x_{k+1}=\sin(k)x_k+y_k\,,\\
 y_{k+1}=x_k\,.
 \end{aligned}$$
 
-Substituting $x_k=y_{k+1}$ and $x_{k+1}=y_{k+2}$ into the first equations, we get
+Substituting $x_k=y_{k+1}$ and $x_{k+1}=y_{k+2}$ into the first equation, we get
 
 $$
 y_{k+2}=\sin(k)y_{k+1}+y_k.
@@ -129,7 +129,7 @@ $$
 
 ### Linear systems with constant coefficients
 
-Let us now briefly talk about how one solves $2 \times 2$ linear systems of difference equations with constant coefficients. This is systems of the form
+Let us now briefly talk about how one solves $2 \times 2$ linear systems of difference equations with constant coefficients. That is, systems of the form
 $$
 \begin{aligned}
 x_{k+1} &= a_{1,1} x_k + a_{1,2} y_k,\\
@@ -147,9 +147,7 @@ $$
 \boldsymbol{x}_{k+1} = A \boldsymbol{x}_k.
 $$
 
-A simple way to solve the system would be to convert it into a second order difference equation (as it is linear, we will always be able to) and solve it as we did in @sec-difference-equations-second-order. However, we can also solve the system directly using the eigenvalues and eigenvectors of the matrix $A$. This is a more general approach that can be used for any $n \times n$ linear system of difference equations with constant coefficients.
-
-However, let us study it as a system. Similarly to what we did in @sec-linear-first-order-difference-equations-homogeneous, we can calculate the first few values of $\boldsymbol{x}_k$ to deduce a pattern:
+A simple way to solve the system would be to convert it into a second order difference equation (as it is linear, we will always be able to) and solve it as we did in @sec-difference-equations-second-order. However, we can also study it directly as a system, which is a more general approach that can be used for any $n \times n$ linear system of difference equations with constant coefficients. Similarly to what we did in @sec-linear-first-order-difference-equations-homogeneous, we can calculate the first few values of $\boldsymbol{x}_k$ to deduce a pattern:
 $$\begin{aligned}
 \boldsymbol{x}_1 &= A \boldsymbol{x}_0,  \\
 \boldsymbol{x}_2 &= A \boldsymbol{x}_1 = A^2 \boldsymbol{x}_0,  \\
@@ -157,22 +155,22 @@ $$\begin{aligned}
 \vdots  \\
 \boldsymbol{x}_k &= A^k \boldsymbol{x}_0.
 \end{aligned}$$ {#eq-diffeqnfosoln}
-Here, $A^k$ is the $k$th power of the matrix $A$, i.e. $A^k = A \cdot A \dots \cdot A$ ($k$ times). Therefore, the solution to the system can be expressed as $\boldsymbol{x}_k = A^k \boldsymbol{x}_0$. Of course, one needs to compute $A^k$ to get the solution. We will not do this in this module, but if you take a linear algebra module, you will learn how to do that using the eigenvalues and eigenvectors of $A$.
+Here, $A^k$ is the $k$th power of the matrix $A$, i.e. $A^k = A \cdot A \cdot \ldots \cdot A$ ($k$ times). Therefore, the solution to the system can be expressed as $\boldsymbol{x}_k = A^k \boldsymbol{x}_0$. Of course, one needs to compute $A^k$ to get the solution. We will not do this in this module, but if you take a linear algebra module, you will learn how to do that using the eigenvalues and eigenvectors of $A$.
 
 ## Systems of differential equations
 
-Let us now consider first order systems of differential equations. In vector notation, the most general form of an $m \times m$ first order system of differential equations is
+Let us now consider first order systems of differential equations. In vector notation, the most general form of an $n \times n$ first order system of differential equations is
 $$
-\boldsymbol{\mathcal{F}} \left( t,\boldsymbol{x}(t), \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \boldsymbol{x}(t) \right) = \boldsymbol{0}, \quad \text{with} \quad \boldsymbol{x}(t_0) = \boldsymbol{x}_0,
+\boldsymbol{\mathcal{F}} \left( t,\boldsymbol{x}(t), \frac{\mathrm{d}}{\mathrm{d}t} \boldsymbol{x}(t) \right) = \boldsymbol{0}, \quad \text{with} \quad \boldsymbol{x}(t_0) = \boldsymbol{x}_0,
 $$ {#eq-system-differential-general}
-where $\boldsymbol{\mathcal{F}}: (\alpha,\beta) \times (\mathbb{R}^m)^2 \to \mathbb{R}^m$ is a given function, $\boldsymbol{x}(t) = (x_1(t),x_2(t),\ldots,x_m(t))^T$ is the vector of dependent variables, and $\boldsymbol{x}_0$ is a given initial condition. 
+where $\boldsymbol{\mathcal{F}}: (\alpha,\beta) \times (\mathbb{R}^n)^2 \to \mathbb{R}^n$ is a given function, $\boldsymbol{x}(t) = (x_1(t),x_2(t),\ldots,x_n(t))^T$ is the vector of dependent variables, and $\boldsymbol{x}_0$ is a given initial condition. 
 
 ::: {.callout-important}
 In this module we will constrain ourselves to studying $2 \times 2$ systems of first order equations, and we will assume we can always write them in the form
 $$
 \begin{aligned}
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) &= f_1 \left( x(t),y(t),t \right), & \text{with} \quad x(t_0) &= x_0,\\
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} y(t) &= f_2 \left( x(t),y(t),t \right), & \text{with} \quad y(t_0) &= y_0,
+\frac{\mathrm{d}}{\mathrm{d}t} x(t) &= f_1 \left( x(t),y(t),t \right), & \text{with} \quad x(t_0) &= x_0,\\
+\frac{\mathrm{d}}{\mathrm{d}t} y(t) &= f_2 \left( x(t),y(t),t \right), & \text{with} \quad y(t_0) &= y_0,
 \end{aligned}
 $$ {#eq-2x2-system-differential}
 for $t \in (\alpha,\beta)$ and with some given functions $f_i: \mathbb{R}^2 \times (\alpha,\beta) \to \mathbb{R}$, where $i=1,2$. 
@@ -183,7 +181,7 @@ for $t \in (\alpha,\beta)$ and with some given functions $f_i: \mathbb{R}^2 \tim
 A couple of remarks. First, as it happened with systems of difference equations, the definitions of order, linearity, etc. that we introduced for scalar differential equations in @def-deq-basics generalise to systems of differential equations. Second, we will interchangeably use the notation $x(t)$, $y(t)$ and $x_1(t)$, $x_2(t)$ for the dependent variables, depending on which is more convenient in the context.
 :::
 
-Note that we assumed that  $t$ belongs to the open interval $(\alpha,\beta)$. If $t_{0} = \alpha$ or $t_{0} = \beta$ then we implicitly assume that we can extend the solution to these boundary points.
+Note that we assumed that $t$ belongs to the open interval $(\alpha,\beta)$. If $t_{0} = \alpha$ or $t_{0} = \beta$ then we implicitly assume that we can extend the solution to these boundary points.
 
 ### Relation to higher order equations
 
@@ -212,13 +210,13 @@ This is a $2 \times 2$ system of the most general form @eq-system-differential-g
 Consider the second order equation
 
 $$
-\frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x + \cos(t) \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x - x^2 = 0.
+\frac{\mathrm{d}^2}{\mathrm{d}t^2} x + \cos(t) \frac{\mathrm{d}}{\mathrm{d}t} x - x^2 = 0.
 $$
 
-Writing $x_1(t) = x(t)$ and $x_2(t) = \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_1(t)$ we obtain the system
+Writing $x_1(t) = x(t)$ and $x_2(t) = \frac{\mathrm{d}}{\mathrm{d}t} x_1(t)$ we obtain the system
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_1 - x_2 = 0, \quad \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_2 + \cos(t) x_2 - x_1^2 = 0.
+\frac{\mathrm{d}}{\mathrm{d}t} x_1 - x_2 = 0, \quad \frac{\mathrm{d}}{\mathrm{d}t} x_2 + \cos(t) x_2 - x_1^2 = 0.
 $$
 
 :::
@@ -229,26 +227,26 @@ As we can rewrite the second order equation as a system this raises the question
 Consider the system
 
 $$\begin{aligned}
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_1 &= x_1 + x_2, \\
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_2 &= 4x_1 - 2x_2 + 4 e^{-2t}.
+\frac{\mathrm{d}}{\mathrm{d}t} x_1 &= x_1 + x_2, \\
+\frac{\mathrm{d}}{\mathrm{d}t} x_2 &= 4x_1 - 2x_2 + 4 e^{-2t}.
 \end{aligned}$$
 
 Rearranging the first equation we see that
 
 $$
-x_2 = \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_1 - x_1 \quad \Rightarrow \quad \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_2 = \frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x_1 - \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_1.
+x_2 = \frac{\mathrm{d}}{\mathrm{d}t} x_1 - x_1 \quad \Rightarrow \quad \frac{\mathrm{d}}{\mathrm{d}t} x_2 = \frac{\mathrm{d}^2}{\mathrm{d}t^2} x_1 - \frac{\mathrm{d}}{\mathrm{d}t} x_1.
 $$
 
 Therefore, using the second equation,
 
 $$
-\frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x_1 - \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_1 = \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_2 = 4x_1 - 2x_2 + 4 e^{-2t} = 4x_1 - 2\Big{(} \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_1 - x_1 \Big{)} + 4 e^{-2t}.
+\frac{\mathrm{d}^2}{\mathrm{d}t^2} x_1 - \frac{\mathrm{d}}{\mathrm{d}t} x_1 = \frac{\mathrm{d}}{\mathrm{d}t} x_2 = 4x_1 - 2x_2 + 4 e^{-2t} = 4x_1 - 2\Big{(} \frac{\mathrm{d}}{\mathrm{d}t} x_1 - x_1 \Big{)} + 4 e^{-2t}.
 $$
 
 Rearranging yields the second order equation
 
 $$
-\frac{\mathrm{d}^2}{\mathrm{\mathrm{d}}t^2} x_1 + \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_1 - 6 x_1 = 4 e^{-2t}.
+\frac{\mathrm{d}^2}{\mathrm{d}t^2} x_1 + \frac{\mathrm{d}}{\mathrm{d}t} x_1 - 6 x_1 = 4 e^{-2t}.
 $$
 
 :::
@@ -260,17 +258,17 @@ We will first focus on linear systems of differential equations, particularly wi
 ::: {.callout-important}
 $$
 \begin{split}
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_1(t) = a_{1,1}(t) x_1(t) + a_{1,2}(t) x_2(t) + s_{1}(t),  \\
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_2(t) = a_{2,1}(t) x_1(t) + a_{2,2}(t) x_2(t) + s_{2}(t),
+\frac{\mathrm{d}}{\mathrm{d}t} x_1(t) = a_{1,1}(t) x_1(t) + a_{1,2}(t) x_2(t) + s_{1}(t),  \\
+\frac{\mathrm{d}}{\mathrm{d}t} x_2(t) = a_{2,1}(t) x_1(t) + a_{2,2}(t) x_2(t) + s_{2}(t),
 \end{split}
 $$ {#eq-2x2sys-lin}
 
-where the $a_{i,j} : [\alpha,\beta] \to \mathbb{R}$ and the $s_i: [\alpha,\beta] \to \mathbb{R}$ are given functions, $i,j \in \{ 1,2 \}$. 
+where the $a_{i,j} : (\alpha,\beta) \to \mathbb{R}$ and the $s_i: (\alpha,\beta) \to \mathbb{R}$ are given functions, $i,j \in \{ 1,2 \}$. 
 
 We can formulate this system in matrix-vector form as follows:
 
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \boldsymbol{x}(t) = A(t) \boldsymbol{x}(t) + \boldsymbol{s}(t),
+\frac{\mathrm{d}}{\mathrm{d}t} \boldsymbol{x}(t) = A(t) \boldsymbol{x}(t) + \boldsymbol{s}(t),
 $$ {#eq-2x2sys-lin-matrix}
 with
 $$\qquad A(t) = \begin{pmatrix} a_{1,1}(t) & a_{1,2}(t) \\ a_{2,1}(t) & a_{2,2}(t) \end{pmatrix} \in \mathbb{R}^{2 \times 2}, \quad \boldsymbol{x}(t) = \begin{pmatrix} x_1(t) \\ x_2(t) \end{pmatrix}, \quad \boldsymbol{s}(t) = \begin{pmatrix} s_1(t) \\ s_2(t) \end{pmatrix}.
@@ -282,9 +280,9 @@ This notation, in addition to being more compact, allows us to use the tools of 
 ### Homogeneous system, complementary function
 
 ::: {.callout-important}
-We first study the homogeneous case $\boldsymbol{s}(t) = 0$ for all $t \in [\alpha,\beta]$ in @eq-2x2sys-lin-matrix, i.e.
+We first study the homogeneous case $\boldsymbol{s}(t) = \boldsymbol{0}$ for all $t \in (\alpha,\beta)$ in @eq-2x2sys-lin-matrix, i.e.
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \boldsymbol{x}(t) = A(t) \boldsymbol{x}(t),
+\frac{\mathrm{d}}{\mathrm{d}t} \boldsymbol{x}(t) = A(t) \boldsymbol{x}(t),
 $$ {#eq-2x2sys-lin-hom}
 with some suitable initial condition.
 
@@ -299,21 +297,21 @@ then is a solution, too.
 ::: {#def-linearly-independent-vector-functions}
 ## Linearly independent functions
 
-Two functions $\boldsymbol{x}^{(1)}, \boldsymbol{x}^{(2)} : [\alpha,\beta] \to \mathbb{R}^2$ are *linearly independent*^[The concept of linear independence naturally extends from the scalar case to the vector case.] if the only solution of
+Two functions $\boldsymbol{x}^{(1)}, \boldsymbol{x}^{(2)} : (\alpha,\beta) \to \mathbb{R}^2$ are *linearly independent*^[The concept of linear independence naturally extends from the scalar case to the vector case.] if the only solution of
 
 $$
-c_1 \boldsymbol{x}^{(1)}(t) + c_2 \boldsymbol{x}^{(2)}(t) = 0 \quad \text{for any } c_1, c_2 \in \mathbb{R}
+c_1 \boldsymbol{x}^{(1)}(t) + c_2 \boldsymbol{x}^{(2)}(t) = \boldsymbol{0} \quad \text{for all } t \in (\alpha,\beta)
 $$ {#eq-linindep}
 
-at all times $t \in [\alpha,\beta]$ is $c_1=c_2=0$.
+with $c_1, c_2 \in \mathbb{R}$, is $c_1=c_2=0$.
 
 :::
 :::
 
-Observe that in the this case where we have two functions only, linear dependence effectively means that the two functions are multiples of each other, because if $c_1,c_2 \neq 0$ exist then we can write $\boldsymbol{x}^{(1)}(t) = -\frac{c_2}{c_1} \boldsymbol{x}^{(2)}(t)$ and $\boldsymbol{x}^{(2)} = - \frac{c_1}{c_2} \boldsymbol{x}^{(1)}.$ (We here omit a tedious discussion of trivial cases when any of the functions $\boldsymbol{x}^{(i)}$ or any of the coefficients $c_i$ is zero.)
+Observe that in this case where we have two functions only, linear dependence effectively means that the two functions are multiples of each other, because if $c_1,c_2 \neq 0$ exist then we can write $\boldsymbol{x}^{(1)}(t) = -\frac{c_2}{c_1} \boldsymbol{x}^{(2)}(t)$ and $\boldsymbol{x}^{(2)} = - \frac{c_1}{c_2} \boldsymbol{x}^{(1)}.$ (We here omit a tedious discussion of trivial cases when any of the functions $\boldsymbol{x}^{(i)}$ or any of the coefficients $c_i$ is zero.)
 
 ::: {#exm-linear-independence-vector-functions}
-Consider $\boldsymbol{x}^{(1)}(t) = (t,1)$ and $\boldsymbol{x}^{(2)}(t) = (t^2,t)$ for $t \in [0,2]$ and let $c_1,c_2 \in \mathbb{R}$ be such that
+Consider $\boldsymbol{x}^{(1)}(t) = (t,1)^T$ and $\boldsymbol{x}^{(2)}(t) = (t^2,t)^T$ for $t \in [0,2]$ and let $c_1,c_2 \in \mathbb{R}$ be such that
 
 $$
 c_1 \boldsymbol{x}^{(1)}(t) + c_2 \boldsymbol{x}^{(2)}(t) = 0 \quad \Leftrightarrow \quad \begin{pmatrix} c_1 t + c_2 t^2 \\ c_1 + c_2 t \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix}
@@ -330,13 +328,13 @@ Note that we are free to choose the time. In fact, if we only consider a specifi
 Assume that $\boldsymbol{x}^{(1)}, \boldsymbol{x}^{(2)} : (\alpha,\beta) \to \mathbb{R}^2$ are two linearly independent solutions of @eq-2x2sys-lin-hom. Then all solutions are of the form
 
 $$
-\boldsymbol{x}(t) = l_1 \boldsymbol{x}^{(1)}(t) + l_2 \boldsymbol{x}^{(2)}(t), \quad l_1,l_2 \in \mathbb{R}, \, t \in [\alpha,\beta].
+\boldsymbol{x}(t) = l_1 \boldsymbol{x}^{(1)}(t) + l_2 \boldsymbol{x}^{(2)}(t), \quad l_1,l_2 \in \mathbb{R}, \, t \in (\alpha,\beta).
 $$
 
 Moreover, if an initial condition of the form
 
 $$
-\boldsymbol{x}(t_{0}) = \boldsymbol{x_{0}} \in \mathbb{R}^2 \quad \text{for some } t_{0} \in [\alpha,\beta]
+\boldsymbol{x}(t_{0}) = \boldsymbol{x}_{0} \in \mathbb{R}^2 \quad \text{for some } t_{0} \in (\alpha,\beta)
 $$ {#eq-2x2sys-ic}
 
 is imposed then $l_1,l_2$ are given as the unique solution of
@@ -354,7 +352,7 @@ We omit the details of the proof, but it follows easily from substituting the li
 ::: {#def-complementary-function-system}
 ## Complementary function
 
-Given any two linearly independent solutions $\boldsymbol{x}^{(1)}$, $\boldsymbol{x}^{(2)}$ of the $2 \times 2$ linear system of homogeneous differential equation @eq-2x2sys-lin-hom, the set of functions
+Given any two linearly independent solutions $\boldsymbol{x}^{(1)}$, $\boldsymbol{x}^{(2)}$ of the $2 \times 2$ linear system of homogeneous differential equations @eq-2x2sys-lin-hom, the set of functions
 
 $$
 l_1 \boldsymbol{x}^{(1)} + l_2 \boldsymbol{x}^{(2)} : (\alpha,\beta) \to \mathbb{R}^2, \quad l_1,l_2 \in \mathbb{R},
@@ -379,7 +377,7 @@ Assume that $\boldsymbol{x}_{p}: (\alpha,\beta) \to \mathbb{R}^2$ is a solution 
 @eq-2x2sys-lin-matrix are of the form
 
 $$
-\boldsymbol{x}(t) = \boldsymbol{x}_{p}(t) + l_1 \boldsymbol{x}^{(1)}(t) + l_2 \boldsymbol{x}^{(2)}(t), \quad l_1,l_2 \in \mathbb{R}, \, t \in [\alpha,\beta].
+\boldsymbol{x}(t) = \boldsymbol{x}_{p}(t) + l_1 \boldsymbol{x}^{(1)}(t) + l_2 \boldsymbol{x}^{(2)}(t), \quad l_1,l_2 \in \mathbb{R}, \, t \in (\alpha,\beta).
 $$
 
 Moreover, if we impose an initial condition of the form in @eq-2x2sys-ic, then $l_1,l_2$ are given as the unique solution of
@@ -396,9 +394,9 @@ $$ {#eq-2x2sys-iclinsysinhom}
 Assume that $\boldsymbol{x}$ is a solution of the inhomogeneous system @eq-2x2sys-lin-matrix. Define now the function $\boldsymbol{x}_{h}(t) = \boldsymbol{x}(t) - \boldsymbol{x}_{p}(t)$, $t \in (\alpha,\beta)$. Observe that it satisfies
 
 $$\begin{aligned}
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \boldsymbol{x}_{h}(t) &= \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \left( \boldsymbol{x}(t) - \boldsymbol{x}_{p}(t) \right) \\
-&= \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \boldsymbol{x}(t) - \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \boldsymbol{x}_{p}(t) \\
-&= A(t) \boldsymbol{x}(t) + s(t) - A(t) \boldsymbol{x}_{p}(t) - s(t) \\
+\frac{\mathrm{d}}{\mathrm{d}t} \boldsymbol{x}_{h}(t) &= \frac{\mathrm{d}}{\mathrm{d}t} \left( \boldsymbol{x}(t) - \boldsymbol{x}_{p}(t) \right) \\
+&= \frac{\mathrm{d}}{\mathrm{d}t} \boldsymbol{x}(t) - \frac{\mathrm{d}}{\mathrm{d}t} \boldsymbol{x}_{p}(t) \\
+&= A(t) \boldsymbol{x}(t) + \boldsymbol{s}(t) - A(t) \boldsymbol{x}_{p}(t) - \boldsymbol{s}(t) \\
 &= A(t) \left( \boldsymbol{x}(t) - \boldsymbol{x}_{p}(t) \right) \\
 &= A(t) \boldsymbol{x}_{h}(t),
 \end{aligned}$$
@@ -406,7 +404,7 @@ $$\begin{aligned}
 so $\boldsymbol{x}_{h}$ is a solution to the homogeneous system @eq-2x2sys-lin-hom. From @thm-2x2sys-solset we know that its solutions are of the form
 
 $$
-\boldsymbol{x}_{h}(t) = l_1 \boldsymbol{x}^{(1)}(t) + l_2 \boldsymbol{x}^{(2)}(t), \quad l_1,l_2 \in \mathbb{R}, \, t \in [\alpha,\beta].
+\boldsymbol{x}_{h}(t) = l_1 \boldsymbol{x}^{(1)}(t) + l_2 \boldsymbol{x}^{(2)}(t), \quad l_1,l_2 \in \mathbb{R}, \, t \in (\alpha,\beta).
 $$
 
 Altogether, $\boldsymbol{x}(t) = \boldsymbol{x}_{p}(t) + \boldsymbol{x}_{h}(t) = \boldsymbol{x}_{p}(t) + l_1 \boldsymbol{x}^{(1)}(t) + l_2 \boldsymbol{x}^{(2)}(t)$ is of the form as claimed.
@@ -421,7 +419,7 @@ so $\boldsymbol{x}$ also satisfies the correct initial condition. As we assume t
 
 :::
 
-Such a solution $\boldsymbol{x}_{p}$ of the inhomogeneous system @eq-2x2sys-lin-matrix is known in the literature as a *particular integral*. We see in @thm-2x2sys-solsetinhom how it can be used together with solutions to the corresponding homogeneous system to synthesize the solution to the initial value problem as a linear combination. This idea is called *superposition principle* and generally works for linear models, not only for differential equations. In practice, finding a particular integral can be quite challenging, though.
+Such a solution $\boldsymbol{x}_{p}$ of the inhomogeneous system @eq-2x2sys-lin-matrix is known in the literature as a *particular integral*. We see in @thm-2x2sys-solsetinhom how it can be used together with solutions to the corresponding homogeneous system to synthesise the solution to the initial value problem as a linear combination. This idea is called *superposition principle* and generally works for linear models, not only for differential equations. In practice, finding a particular integral can be quite challenging, though.
 
 ## Homogeneous linear systems with constant coefficients {#sec-linear-systems-constant-coefficients}
 
@@ -432,15 +430,15 @@ Let us look into linear systems of the form
 
 $$
 \begin{split}
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_1(t) = a_{1,1} x_1(t) + a_{1,2} x_2(t), \\
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_2(t) = a_{2,1} x_1(t) + a_{2,2} x_2(t),
+\frac{\mathrm{d}}{\mathrm{d}t} x_1(t) = a_{1,1} x_1(t) + a_{1,2} x_2(t), \\
+\frac{\mathrm{d}}{\mathrm{d}t} x_2(t) = a_{2,1} x_1(t) + a_{2,2} x_2(t),
 \end{split}
 \quad t \in \mathbb{R},
 $$
 
 where the $a_{i,j} \in \mathbb{R}$ now are independent of $t$. These can be formulated in the matrix-vector form
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \boldsymbol{x}(t) = A \boldsymbol{x}(t), \qquad A = \begin{pmatrix} a_{1,1} & a_{1,2} \\ a_{2,1} & a_{2,2} \end{pmatrix} \in \mathbb{R}^{2 \times 2}, \quad \boldsymbol{x}(t) = \begin{pmatrix} x_1(t) \\ x_2(t) \end{pmatrix}.
+\frac{\mathrm{d}}{\mathrm{d}t} \boldsymbol{x}(t) = A \boldsymbol{x}(t), \qquad A = \begin{pmatrix} a_{1,1} & a_{1,2} \\ a_{2,1} & a_{2,2} \end{pmatrix} \in \mathbb{R}^{2 \times 2}, \quad \boldsymbol{x}(t) = \begin{pmatrix} x_1(t) \\ x_2(t) \end{pmatrix}.
 $$ {#eq-2x2sys-lin-hom-cc}
 :::
 
@@ -453,7 +451,7 @@ where $\lambda \in \mathbb{R}$ and $\boldsymbol{v} \in \mathbb{R}^2$ are to be d
 Substituting this approach in the system yields
 
 $$
-\lambda e^{\lambda t} \boldsymbol{v} = \frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \boldsymbol{x}(t) = A \boldsymbol{x}(t) = e^{\lambda t} A \boldsymbol{v}.
+\lambda e^{\lambda t} \boldsymbol{v} = \frac{\mathrm{d}}{\mathrm{d}t} \boldsymbol{x}(t) = A \boldsymbol{x}(t) = e^{\lambda t} A \boldsymbol{v}.
 $$
 
 Using that $e^{\lambda t} \neq 0$ we obtain that
@@ -466,7 +464,7 @@ So $\boldsymbol{x}(t) = e^{\lambda t} \boldsymbol{v}$ is a solution if $\lambda$
 
 ### Eigenvalues and eigenvectors {#sec-eigenvalues-eigenvectors}
 
-In general, the $2 \times 2$ matrix $A$ has at most two distinct eigenvalues (similarly, an $n\times n$ matrix would have at most $n$ distinct eigenvalues) and each eigenvalue is paired with a corresponding eigenvector solving @eq-eigenvec. Assuming this is the case we denote them by $\lambda_1, \lambda_2$ and corresponding eigenvectors by $\boldsymbol{v}^{(1)}, \boldsymbol{v}^{(2)}$. These eigenvectors are always linearly independent.^[This will be proved in [MA149 Linear Algebra](https://warwick.ac.uk/fac/sci/maths/currentstudents/modules/ma149/)]
+In general, the $2 \times 2$ matrix $A$ has at most two distinct eigenvalues (similarly, an $n\times n$ matrix would have at most $n$ distinct eigenvalues) and each eigenvalue is paired with a corresponding eigenvector solving @eq-eigenvec. Assuming this is the case we denote them by $\lambda_1, \lambda_2$ and corresponding eigenvectors by $\boldsymbol{v}^{(1)}, \boldsymbol{v}^{(2)}$. These eigenvectors are always linearly independent.^[This will be proved in [MA149 Linear Algebra](https://warwick.ac.uk/fac/sci/maths/currentstudents/modules/ma149/).]
 
 ::: {.callout-important}
 
@@ -494,13 +492,13 @@ From @eq-eigenvalues-2x2 we see that the eigenvalues could be complex. In this c
 :::
 
 ::: {#def-eigenvectors}
-The corresponding eigenvectors $\boldsymbol{v}^{(1)}$ and $\boldsymbol{v}^{(2)}$ to eigenvalues $\lambda_1$ and $\lambda_2$ are the solutions $\boldsymbol{v}^{(i)} \in \mathbb{C}^2$, $\boldsymbol{v}^{(i)} \neq (0,0)$, of
+The corresponding eigenvectors $\boldsymbol{v}^{(1)}$ and $\boldsymbol{v}^{(2)}$ to eigenvalues $\lambda_1$ and $\lambda_2$ are the solutions $\boldsymbol{v}^{(i)} \in \mathbb{C}^2$, $\boldsymbol{v}^{(i)} \neq \boldsymbol{0}$, of
 
 $$
 (\lambda_{i} I - A) \boldsymbol{v}^{(i)} = 0, \quad i=1,2.
 $$
 
-There are two equations, and if $\boldsymbol{v}^{(i)}$ is an eigenvector then also every multiple $c \boldsymbol{v}^{(i)}$, $c \in \mathbb{C}$, is an eigenvector again. In practice, we just choose an arbitrary instance of $c \boldsymbol{v}^{(i)}$ to represent the eigenvector, for instance, by setting one of the components to $1$ and solving for the other component.
+There are two equations, and if $\boldsymbol{v}^{(i)}$ is an eigenvector then also every multiple $c \boldsymbol{v}^{(i)}$, $c \in \mathbb{C}$ with $c \neq 0$, is an eigenvector again. In practice, we just choose an arbitrary instance of $c \boldsymbol{v}^{(i)}$ to represent the eigenvector, for instance, by setting one of the components to $1$ and solving for the other component.
 
 :::
 
@@ -519,31 +517,31 @@ $$
 \lambda_{1,2} = \frac{1}{2} \pm \frac{1}{2} \sqrt{1-4(-2)} = \frac{1}{2} \pm \frac{3}{2},
 $$
 
-therefore $\lambda_1 = 2$ and $\lambda_2 = -1$. An eigenvector $\boldsymbol{v}^{(1)} = (v_1^{(1)},v_2^{(1)})$ corresponding to $\lambda_1$ satisfies
+therefore $\lambda_1 = 2$ and $\lambda_2 = -1$. An eigenvector $\boldsymbol{v}^{(1)} = (v_1^{(1)},v_2^{(1)})^T$ corresponding to $\lambda_1$ satisfies
 
 $$
-0 = (\lambda_1 I - A) \boldsymbol{v} = \begin{pmatrix} 2 - 1 & -2 \\ -1 & 2 - 0 \end{pmatrix} \begin{pmatrix} v_1^{(1)} \\ v_2^{(1)} \end{pmatrix} = \begin{pmatrix} v_1^{(1)} - 2 v_2^{(1)} \\ -v_1^{(1)} + 2 v_2^{(1)} \end{pmatrix}.
+0 = (\lambda_1 I - A) \boldsymbol{v}^{(1)} = \begin{pmatrix} 2 - 1 & -2 \\ -1 & 2 - 0 \end{pmatrix} \begin{pmatrix} v_1^{(1)} \\ v_2^{(1)} \end{pmatrix} = \begin{pmatrix} v_1^{(1)} - 2 v_2^{(1)} \\ -v_1^{(1)} + 2 v_2^{(1)} \end{pmatrix}.
 $$
 
-We see that a solution is given by $\boldsymbol{v}^{(1)} = (2,1)$. Let us briefly check that this is an eigenvalue for $\lambda_1$:
+We see that a solution is given by $\boldsymbol{v}^{(1)} = (2,1)^T$. Let us briefly check that this is an eigenvector for $\lambda_1$:
 
 $$
 A \boldsymbol{v}^{(1)} = \begin{pmatrix} 1 & 2 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} 2 \\ 1 \end{pmatrix} = \begin{pmatrix} 4 \\ 2 \end{pmatrix} = 2 \begin{pmatrix} 2 \\ 1 \end{pmatrix} = \lambda_1 \boldsymbol{v}^{(1)}.
 $$
 
-Regarding $\lambda_2$, a corresponding eigenvector $\boldsymbol{v}^{(2)} = (v_1^{(2)},v_2^{(2)})$ satisfies
+Regarding $\lambda_2$, a corresponding eigenvector $\boldsymbol{v}^{(2)} = (v_1^{(2)},v_2^{(2)})^T$ satisfies
 
 $$
-0 = (\lambda_2 I - A) \boldsymbol{v} = \begin{pmatrix} -1 - 1 & -2 \\ -1 & -1 - 0 \end{pmatrix} \begin{pmatrix} v_1^{(2)} \\ v_2^{(2)} \end{pmatrix} = \begin{pmatrix} -2 v_1^{(2)} - 2 v_2^{(2)} \\ -v_1^{(2)} - v_2^{(2)} \end{pmatrix}.
+0 = (\lambda_2 I - A) \boldsymbol{v}^{(2)} = \begin{pmatrix} -1 - 1 & -2 \\ -1 & -1 - 0 \end{pmatrix} \begin{pmatrix} v_1^{(2)} \\ v_2^{(2)} \end{pmatrix} = \begin{pmatrix} -2 v_1^{(2)} - 2 v_2^{(2)} \\ -v_1^{(2)} - v_2^{(2)} \end{pmatrix}.
 $$
 
-A solution to these equations is $\boldsymbol{v}^{(2)} = (1,-1)$, and it can be checked similarly.
+A solution to these equations is $\boldsymbol{v}^{(2)} = (1,-1)^T$, and it can be checked similarly.
 
 :::
 
 ### Solving homogeneous linear systems with constant coefficients
 
-We now have that for eigenvalues $\lambda_1$ and $\lambda_2$ with corresponding eigenvectors $\boldsymbol{v}^{(1)}$ and $\boldsymbol{v}^{(2)}$, the functions $\boldsymbol{x}^{(1)}(t) = e^{\lambda_1 t} \boldsymbol{v}^{(1)}$ and $\boldsymbol{x}^{(2)}(t) = e^{\lambda_1 t} \boldsymbol{v}^{(2)}$ then are solutions to the homogenenous system of linear equations with constant coefficients, @eq-2x2sys-lin-hom-cc. Moreover, these solutions are linearly independent.^[Just evaluate them at $t=0$ to obtain the $\boldsymbol{v}^{(i)}$, which are linearly independent.] The previous results on linear systems apply, in particular @thm-2x2sys-solset.^[Actually, we have studied the real-valued case only, but the steps of the proof still are valid if the functions $\boldsymbol{x}^{(i)} : (\alpha,\beta) \to \mathbb{C}^2$ are complex-valued and if the $l_i$ are complex.]
+We now have that for eigenvalues $\lambda_1$ and $\lambda_2$ with corresponding eigenvectors $\boldsymbol{v}^{(1)}$ and $\boldsymbol{v}^{(2)}$, the functions $\boldsymbol{x}^{(1)}(t) = e^{\lambda_1 t} \boldsymbol{v}^{(1)}$ and $\boldsymbol{x}^{(2)}(t) = e^{\lambda_2 t} \boldsymbol{v}^{(2)}$ then are solutions to the homogeneous system of linear equations with constant coefficients, @eq-2x2sys-lin-hom-cc. Moreover, these solutions are linearly independent.^[Just evaluate them at $t=0$ to obtain the $\boldsymbol{v}^{(i)}$, which are linearly independent.] The previous results on linear systems apply, in particular @thm-2x2sys-solset.^[Actually, we have studied the real-valued case only, but the steps of the proof still are valid if the functions $\boldsymbol{x}^{(i)} : (\alpha,\beta) \to \mathbb{C}^2$ are complex-valued and if the $l_i$ are complex.]
 
 ::: {.callout-important}
 Hence, all solutions of @eq-2x2sys-lin-hom-cc are of the form of the complementary function,
@@ -555,7 +553,7 @@ $$
 and the unique solution to the initial value problem consisting of @eq-2x2sys-lin-hom-cc and @eq-2x2sys-ic is obtained by substituting $\boldsymbol{x}_0$ and solving for $l_1,l_2$.
 :::
 
-Like we did with second order linear equations, we will now consider three separate cases for the eigenvalues of $A$ and discuss the corresponding solutions to the system of differential equations.^[At this point you probably have noticed the similiarities between $2\times2$ linear systems and second order linear equations. You can dig deeper in this similarity by converting a second order linear equation into a $2\times2$ linear system and vice versa, as we did in @exm-system-to-second-order-ode, and solving both.]
+Like we did with second order linear equations, we will now consider three separate cases for the eigenvalues of $A$ and discuss the corresponding solutions to the system of differential equations.^[At this point you probably have noticed the similarities between $2\times2$ linear systems and second order linear equations. You can dig deeper into this similarity by converting a second order linear equation into a $2\times2$ linear system and vice versa, as we did in @exm-system-to-second-order-ode, and solving both.]
 
 ### Real eigenvalues
 
@@ -566,7 +564,7 @@ $$
 \boldsymbol{x}^{(1)}(t) = e^{\lambda_1 t} \boldsymbol{v}^{(1)}, \quad \boldsymbol{x}^{(2)}(t) = e^{\lambda_2 t} \boldsymbol{v}^{(2)}
 $$
 
-are then are linearly independent solutions, with general solution
+are then linearly independent solutions, with general solution
 
 $$
 \boldsymbol{x}(t) = l_1 e^{\lambda_1 t} \boldsymbol{v}^{(1)} + l_2 e^{\lambda_2 t} \boldsymbol{v}^{(2)}\,.
@@ -594,7 +592,7 @@ $$
 0 = (\lambda_1 I - A) \boldsymbol{v}^{(1)} = \begin{pmatrix} -3 & -6 \\ 2 & 4 \end{pmatrix} \boldsymbol{v}^{(1)}.
 $$
 
-A possible choice is $\boldsymbol{v}^{(1)} = (-2,1)$. Proceeding similarly for $\lambda_2$ we find that a corresponding eigenvector is given by $\boldsymbol{v}^{(2)} = (-3,2)$.
+A possible choice is $\boldsymbol{v}^{(1)} = (-2,1)^T$. Proceeding similarly for $\lambda_2$ we find that a corresponding eigenvector is given by $\boldsymbol{v}^{(2)} = (-3,2)^T$.
 
 A general solution to the differential equations is thus given by
 
@@ -608,7 +606,7 @@ $$
 \boldsymbol{x}_0 = \boldsymbol{x}(0) = l_1 \boldsymbol{v}^{(1)} + l_2 \boldsymbol{v}^{(2)} \quad \Leftrightarrow \quad \begin{pmatrix} 1 \\ 0 \end{pmatrix} = l_1 \begin{pmatrix} -2 \\ 1 \end{pmatrix} + l_2 \begin{pmatrix} -3 \\ 2 \end{pmatrix}.
 $$
 
-The solution to this $2 \times 2$ systems is $l_1 = -2$, $l_2 = 1$, so the unique solution of @eq-2x2sys-lin-hom-cc, @eq-2x2sys-ic with the above data is
+The solution to this $2 \times 2$ system is $l_1 = -2$, $l_2 = 1$, so the unique solution of @eq-2x2sys-lin-hom-cc, @eq-2x2sys-ic with the above data is
 
 $$
 \boldsymbol{x}(t) = -2 e^{-t} \begin{pmatrix} -2 \\ 1 \end{pmatrix} + e^{-2t} \begin{pmatrix} -3 \\ 2 \end{pmatrix}.
@@ -616,7 +614,7 @@ $$
 
 @fig-example-linear-system-real-evs shows the solution in the $x_1$-$x_2$ plane. To facilitate the understanding of the solution, the arrows indicate the direction of the solution at each point $\boldsymbol{x}$, which is given by $A \boldsymbol{x}$.^[I have normalised the arrows to have the same length, so it is easier to read.]
 
-As $\lambda_2<\lambda_1<0$ the solution converges to $(0,0)$ as $t \to \infty$ and, you can imagine, that if either of the eigenvalues were positive then the solution would diverge to infinity. We will discuss this in more detail in @sec-phase-portraits. 
+As $\lambda_2<\lambda_1<0$ the solution converges to $(0,0)^T$ as $t \to \infty$ and, as you can imagine, if either of the eigenvalues were positive then the solution would diverge to infinity. We will discuss this in more detail in @sec-phase-portraits. 
 :::
 
 ::: {layout="[[-25,50,-25]]"}
@@ -683,7 +681,7 @@ $$
 \overline{e^{\lambda_1 t} \boldsymbol{v}^{(1)}} = e^{\lambda_2 t} \boldsymbol{v}^{(2)}.
 $$
 
-Recall that any linear combinations
+Recall that any linear combination
 
 $$
 l_1 e^{\lambda_1 t} \boldsymbol{v}^{(1)} + l_2 e^{\lambda_2 t} \boldsymbol{v}^{(2)}, \quad l_1,l_2 \in \mathbb{C},
@@ -703,7 +701,7 @@ $$
 \lambda_1 = p + i \omega \text{ with } p,\omega \in \mathbb{R}, \quad \text{and } \boldsymbol{v}^{(1)} = \boldsymbol{r} + i \boldsymbol{b} \text{ with } \boldsymbol{r}, \boldsymbol{b} \in \mathbb{R}^2.
 $$
 
-Note that $\omega \neq 0$, and one can show that $\boldsymbol{r} \neq (0,0)$ and $\boldsymbol{b} \neq (0,0)$.
+Note that $\omega \neq 0$, and one can show that $\boldsymbol{r} \neq \boldsymbol{0}$ and $\boldsymbol{b} \neq \boldsymbol{0}$.
 Then
 
 $$
@@ -735,7 +733,7 @@ $$ {#eq-2x2sys-lin-cmpl-sol-final}
 
 for $l_1,l_2 \in \mathbb{R}$.
 
-Any initial condition of the form @eq-2x2sys-ic with $t_{0} = 0$ (this is only for in the notation simplicity) then becomes
+Any initial condition of the form @eq-2x2sys-ic with $t_{0} = 0$ (this is only for notational simplicity) then becomes
 
 $$
 \boldsymbol{x}_0 = \boldsymbol{x}(0) = l_1\boldsymbol{r} + l_2 \boldsymbol{b}.
@@ -744,7 +742,7 @@ $$
 :::
 
 ::: {#rem-complex-eigenvalues-spirals}
-Note that $\cos$ and $\sin$ will give rise to oscillations, which in the two-dimensional case manifest as spiralling around. For $p=0$ this will become a circle, maintaining a fixed distance away from $(0,0)$.
+Note that $\cos$ and $\sin$ will give rise to oscillations, which in the two-dimensional case manifest as spiralling around. For $p=0$ this will become a circle, maintaining a fixed distance away from $(0,0)^T$.
 :::
 
 ::: {#exm-SysLinExB}
@@ -789,7 +787,7 @@ $$
 \end{aligned}
 $$
 
-The plot of the solution is shown in @fig-example-linear-system-complex-evs. Because $e^{-t} \to 0$ as $t \to \infty$, the solution converges to $(0,0)$ as $t \to \infty$. Notice the difference from @fig-example-linear-system-real-evs: now the solutions "spiral" into the origin rather than "hitting" it directly.
+The plot of the solution is shown in @fig-example-linear-system-complex-evs. Because $e^{-t} \to 0$ as $t \to \infty$, the solution converges to $(0,0)^T$ as $t \to \infty$. Notice the difference from @fig-example-linear-system-real-evs: now the solutions "spiral" into the origin rather than "hitting" it directly.
 
 :::
 
@@ -808,11 +806,11 @@ from utils import apply_style, plot_phase_portrait
 apply_style()
 
 # ── System matrix ─────────────────────────────────────────────────────────────
-A = [[-1,  -8],
-     [ 8, -1]]
+A = [[ 1,  5],
+     [-1, -3]]
 
 # ── Start points for trajectories ────────────────────────────────────────────
-starts = [( 1,  0)]
+starts = [(20,  0)]
 
 # ── Layout: info panel (top, fixed height) + phase portrait (below) ──────────
 fig = plt.figure(figsize=(5.5, 6), constrained_layout=True)
@@ -825,11 +823,11 @@ plot_phase_portrait(
     ax,
     A        = A,
     starts   = starts,
-    xlim     = (-1.5, 1.5),
-    ylim     = (-1.5, 1.5),
-    t_max    = 4,
+    xlim     = (-5, 25),
+    ylim     = (-15, 15),
+    t_max    = 6,
     n_grid   = 20,
-    t_arrows = [1, 2],
+    t_arrows = [0.5, 2],
     alpha    = 0.4,
     backward = False,
     ax_info  = ax_info,   # pass the info panel here
@@ -850,7 +848,7 @@ $$
 \boldsymbol{x}^{(2)}(t)=te^{\lambda t}\boldsymbol{v}+e^{\lambda t}\boldsymbol{v}^{(2)}
 $$
 
-for some vector $\boldsymbol{v}^{(2)}$ that is linearly independent to our eigenvector $\boldsymbol{v}$. We want to check that this is a solution and find a formula for $\boldsymbol{v}^{(2)}$.
+for some vector $\boldsymbol{v}^{(2)}$ that is linearly independent of our eigenvector $\boldsymbol{v}$. We want to check that this is a solution and find a formula for $\boldsymbol{v}^{(2)}$.
 
 We start by differentiating $\boldsymbol{x}^{(2)}$ and setting equal to $\dot{\boldsymbol{x}}^{(2)}=A\boldsymbol{x}^{(2)}$ to get
 
@@ -861,7 +859,7 @@ $$
 Now we divide through by $e^{\lambda t}$ to get
 
 $$
-\boldsymbol{v}+t\lambda \boldsymbol{v}+\lambda \boldsymbol{v}^{(2)}=tA\boldsymbol{v}+e^{\lambda t}A\boldsymbol{v}^{(2)}=t\lambda\boldsymbol{v}+e^{\lambda t}A\boldsymbol{v}^{(2)}
+\boldsymbol{v}+t\lambda \boldsymbol{v}+\lambda \boldsymbol{v}^{(2)}=tA\boldsymbol{v}+A\boldsymbol{v}^{(2)}=t\lambda\boldsymbol{v}+A\boldsymbol{v}^{(2)}
 $$
 
 since $A\boldsymbol{v}=\lambda\boldsymbol{v}$, which cancels and rearranges to give
@@ -890,7 +888,7 @@ The eigenvalues satisfy $\lambda^2 + 2 \lambda + 1 = 0$, therefore
 $$
 \lambda = -1,
 $$
-and we have a repeated eigenvalue. The corresponding eigenvector $\boldsymbol{v}^{(1)}$ (also repeated) is
+and we have a repeated eigenvalue. The corresponding eigenvector $\boldsymbol{v}$ (also repeated) is
 
 $$
 \boldsymbol{v} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}.
@@ -901,7 +899,7 @@ We now need to find a vector $\boldsymbol{v}^{(2)}$ such that
 $$
 \boldsymbol{v} = (A - \lambda I)\boldsymbol{v}^{(2)}, \quad \implies \quad \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \boldsymbol{v}^{(2)}.
 $$
-A solution to this equation is $\boldsymbol{v}^{(2)} = (0,1)$.
+A solution to this equation is $\boldsymbol{v}^{(2)} = (0,1)^T$.
 
 Then, a general solution to the differential equations is thus given by
 
@@ -923,7 +921,7 @@ $$
 \end{aligned}
 $$
 
-The plot of the solution is shown in @fig-example-linear-system-repeated-ev. Because $e^{-t} \to 0$ as $t \to \infty$, the solution converges to $(0,0)$ as $t \to \infty$. However, the solutions approach the origin in a more complex manner, not quite directly as in @fig-example-linear-system-real-evs, and not quite spiralling as in @fig-example-linear-system-complex-evs. This is the contribution of the $t$ term in the solution, and we will discuss this in more detail in @sec-phase-portraits.
+The plot of the solution is shown in @fig-example-linear-system-repeated-ev. Because $e^{-t} \to 0$ as $t \to \infty$, the solution converges to $(0,0)^T$ as $t \to \infty$. However, the solutions approach the origin in a more complex manner, not quite directly as in @fig-example-linear-system-real-evs, and not quite spiralling as in @fig-example-linear-system-complex-evs. This is the contribution of the $t$ term in the solution, and we will discuss this in more detail in @sec-phase-portraits.
 :::
 
 ::: {layout="[[-25,50,-25]]"}
@@ -945,7 +943,7 @@ A = [[-1,  1],
      [ 0, -1]]
 
 # ── Start points for trajectories ────────────────────────────────────────────
-starts = [( -1,  1)]
+starts = [( 1,  1)]
 
 # ── Layout: info panel (top, fixed height) + phase portrait (below) ──────────
 fig = plt.figure(figsize=(5.5, 6), constrained_layout=True)
@@ -985,7 +983,7 @@ A *phase portrait* (also called *phase diagram*) of @eq-2x2sys-lin-hom-cc is the
 
 Note that @fig-example-linear-system-real-evs, @fig-example-linear-system-complex-evs and @fig-example-linear-system-repeated-ev are technically phase portraits, but they only show a single solution. Typically, in phase portraits, we represent a few solutions to showcase the overall behaviour of the system.
 
-Before going into detail on how to draw phase portraits, let us talk stability. We will give a formal definition of stationary points in @sec-autonomous-systems, but for now we will just say that the definition we gave for differential equations naturally generalises. A stationary point is a point $\boldsymbol{x}^*$ that, if the solution starts there, it will stay there forever. Alternatively, we can picture it as a point for which the right-hand side of the system of differential equations is zero. For a homogeneous linear system with constant coefficients, this means
+Before going into detail on how to draw phase portraits, let us talk about stability. We will give a formal definition of stationary points in @sec-autonomous-systems, but for now we will just say that the definition we gave for differential equations naturally generalises. A stationary point is a point $\boldsymbol{x}^*$ that, if the solution starts there, it will stay there forever. Alternatively, we can picture it as a point for which the right-hand side of the system of differential equations is zero. For a homogeneous linear system with constant coefficients, this means
 
 $$
 A\boldsymbol{x}^* = \boldsymbol{0}, \quad \implies \quad \boldsymbol{x}^* = \boldsymbol{0},
@@ -1013,11 +1011,13 @@ Now we need to consider three cases based on the eigenvalues of $A$.
 
 **Case 1: real (distinct) eigenvalues:**
 
-1. Draw a line through the stationary point along each eigenvalue.
+1. Draw a line through the stationary point along each eigenvector.
 2. Draw arrows on these lines:
    * Pointing towards the stationary point if the corresponding eigenvalue is negative.
    * Pointing away from the stationary point if the corresponding eigenvalue is positive.
-3. Using the lines as a guide, add in additional lines demonstrating the evolution of various solutions as $t$ increases, including arrows to determine the direction of travel. As a guideline, solutions start moving parallel to the eigenvector with smallest eigenvalue (in absolute value), and then bend towards the eigenvector with largest eigenvalue (in absolute value) as $t$ increases, with the direction of travel determined by the arrows from Step 2. 
+3. Using the lines as a guide, add in additional lines demonstrating the evolution of various solutions as $t$ increases, including arrows to determine the direction of travel (given by the arrows from Step 2). As a guideline:
+   * If both eigenvalues have the same sign (node), solutions are tangent to the eigenvector with the smallest eigenvalue (in absolute value) near the stationary point, and parallel to the eigenvector with the largest eigenvalue (in absolute value) far from it.
+   * If the eigenvalues have opposite signs (saddle), solutions do not reach the stationary point: they approach it along the eigenvector with negative eigenvalue and then move away from it along the eigenvector with positive eigenvalue, like hyperbolas with the eigenvector lines as asymptotes.
 
 **Case 2: complex eigenvalues:**
 
@@ -1031,7 +1031,7 @@ In all cases, draw arrows on the spirals/circles to indicate the direction of tr
 
 **Case 3: repeated eigenvalue:**
 
-1. Draw a line through the stationary point along the eigenvalue.
+1. Draw a line through the stationary point along the eigenvector.
 2. Draw arrows on the line based on the sign of the eigenvalue (like in Case 1).
 3. Draw a second line through the stationary point along $\boldsymbol{v}^{(2)}$ (this time without arrows).
 4. Determine the direction in which solutions cross the second line by evaluating the right-hand side of the system at points along the line. You want, at least, to evaluate one point at each side of the stationary point.
@@ -1041,7 +1041,7 @@ In all cases, draw arrows on the spirals/circles to indicate the direction of tr
 
 ::: {#rem-phase-portraits}
 
-Phase portraits are a qualitative tool to visualise the behaviour of solutions to systems of differential equations, not a quantititative one (at least not in this module). Therefore, when you draw phase portraits, you should focus on the overall structure and behaviour of the solutions (qualitative shape, direction of travel, etc.) rather than the specific shape of the solutions or the exact points it goes through. 
+Phase portraits are a qualitative tool to visualise the behaviour of solutions to systems of differential equations, not a quantitative one (at least not in this module). Therefore, when you draw phase portraits, you should focus on the overall structure and behaviour of the solutions (qualitative shape, direction of travel, etc.) rather than the specific shape of the solutions or the exact points they go through. 
 
 :::
 
@@ -1052,7 +1052,7 @@ Phase portraits are a qualitative tool to visualise the behaviour of solutions t
 With this information, we now draw phase portraits for various systems to showcase all the different behaviours that can occur. In each case, the details of the system (the matrix $A$, eigenvalues and eigenvectors) are shown in the plot so you can work out the results yourself.^[In the figures here we also show the grey arrows that indicate the direction of travel of the solution at each point, but you do not have to do that. Similarly, we use different colours for the different solutions for clarity, but you do not have to do that either.]
 
 ::: {.callout-important}
-First we discuss the case of real eigenvalues. We need to distinguish three separate cases, based on the signs of the eigenvalues. If both eigenvalues are positive (@fig-phase-portraits-source-node), then the stationary point is unstable and is called a *source node*. If both eigenvalues are negative (@fig-phase-portraits-sink-node), then the stationary point is stable and is called a *sink node*. The source/sink node terminology comes from the fact that solutions "flow" away from the stationary point in the case of a source node, and "flow" towards the stationary point in the case of a sink node. If one eigenvalue is positive and the other is negative (@fig-phase-portraits-saddle-node), then the stationary point is unstable and is called a *saddle node*.
+First we discuss the case of real eigenvalues. We need to distinguish three separate cases, based on the signs of the eigenvalues. If both eigenvalues are positive (@fig-phase-portraits-source-node), then the stationary point is unstable and is called a *source node*. If both eigenvalues are negative (@fig-phase-portraits-sink-node), then the stationary point is stable and is called a *sink node*. The source/sink node terminology comes from the fact that solutions "flow" away from the stationary point in the case of a source node, and "flow" towards the stationary point in the case of a sink node. If one eigenvalue is positive and the other is negative (@fig-phase-portraits-saddle-point), then the stationary point is unstable and is called a *saddle point*.
 :::
 
 ::: {#fig-phase-portraits-real-evs layout="[[50,50],[-25,50,-25]]"}
@@ -1145,8 +1145,8 @@ plt.show()
 ```
 
 ```{python}
-#| label: fig-phase-portraits-saddle-node
-#| fig-cap: "Saddle node: $\\lambda_1 < 0 < \\lambda_2$."
+#| label: fig-phase-portraits-saddle-point
+#| fig-cap: "Saddle point: $\\lambda_1 < 0 < \\lambda_2$."
 #| echo: false
 
 import numpy as np
@@ -1192,7 +1192,7 @@ Phase portraits for real eigenvalues.
 :::
 
 ::: {.callout-important}
-Next we consider the case of complex eigenvalues. If the real part of the eigenvalues is positive, then the stationary point is unstable and is called a *source spiral*. If the real part of the eigenvalues is negative, then the stationary point is stable and is called a *sink spiral*. If the real part of the eigenvalues is zero, it is called a *center*. In this case, the solution does neither converge nor diverge from the stationary point, but rather oscillates around it. As the solution does not get further and further from the stationary point as time increases, the solution is stable. Sometimes, we may refer it as marginally stable, because the solution does not converge to the stationary point either.
+Next we consider the case of complex eigenvalues. If the real part of the eigenvalues is positive, then the stationary point is unstable and is called a *source spiral*. If the real part of the eigenvalues is negative, then the stationary point is stable and is called a *sink spiral*. If the real part of the eigenvalues is zero, it is called a *centre*. In this case, the solution neither converges to nor diverges from the stationary point, but rather oscillates around it. As the solution does not get further and further from the stationary point as time increases, the solution is stable. Sometimes, we may refer to it as marginally stable, because the solution does not converge to the stationary point either.
 :::
 
 
@@ -1430,11 +1430,15 @@ Phase portraits for repeated eigenvalues.
 ### Degenerate cases
 
 ::: {.callout-important}
-In the classification above, we have assumed that the eigenvalues are nonzero, but they could be. In that case, the behaviour of the system is a bit different, and they are called degenerate cases. For a $2\times 2$ system, there are two degenerate cases: either one eigenvalue is zero and the other is nonzero (and real) or both eigenvalues are zero. The latter is quite simple: if both eigenvalues are zero, then the matrix $A$ is the zero matrix, therefore
+In the classification above, we have assumed that the eigenvalues are nonzero, but they could be. In that case, the behaviour of the system is a bit different, and they are called degenerate cases. For a $2\times 2$ system, there are two degenerate cases: either one eigenvalue is zero and the other is nonzero (and real) or both eigenvalues are zero. The latter splits into two subcases. If $A$ has two linearly independent eigenvectors, then $A$ is the zero matrix, therefore
 $$
 \frac{\mathrm{d}}{\mathrm{d}t} \boldsymbol{x}(t) = A \boldsymbol{x}(t) = \boldsymbol{0}, \quad \implies \quad \boldsymbol{x}(t) = \boldsymbol{x}_0,
 $$
-which implies that all points $\boldsymbol{x}_0 \in \mathbb{R}^2$ are stationary points. As nothing happens, there is nothing we can draw in a phase portrait.
+which implies that all points $\boldsymbol{x}_0 \in \mathbb{R}^2$ are stationary points. As nothing happens, there is nothing we can draw in a phase portrait. Otherwise, $A$ has a single eigenvector $\boldsymbol{v}$ (for example, $A = \begin{pmatrix} 0 & 1 \ 0 & 0 \end{pmatrix}$), and the solution is
+$$
+\boldsymbol{x}(t) = \boldsymbol{x}_0 + t A \boldsymbol{x}_0.
+$$
+Points on the line spanned by $\boldsymbol{v}$ are stationary, and all other trajectories are straight lines parallel to $\boldsymbol{v}$, moving in opposite directions on either side of it.
 
 The former case is a bit more interesting. If one eigenvalue is zero and the other is nonzero, then the line through the stationary point along the eigenvector corresponding to the zero eigenvalue is a line of stationary points. To see that, consider the definition of the eigenvalue and eigenvector for $\lambda = 0$:
 $$
@@ -1538,13 +1542,13 @@ Phase portraits for the degenerate case.
 
 ## Autonomous systems {#sec-autonomous-systems}
 
-We conclude this section with a discussion of autonomous nonlinear systems. The idea is to leverage the concepts we have just introduced for phase portraits of linear systems to understand the behaviour of nonlinear systems. 
+We conclude this chapter with a discussion of autonomous nonlinear systems. The idea is to leverage the concepts we have just introduced for phase portraits of linear systems to understand the behaviour of nonlinear systems. 
 
-We constrain ourseles to $2 \times 2$ autonomous systems, that is systimes of the form
+We constrain ourselves to $2 \times 2$ autonomous systems, that is systems of the form
 $$
 \begin{split}
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_1(t) = f_1 \left( x_1(t),x_2(t) \right), \\
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x_2(t) = f_2 \left( x_1(t),x_2(t) \right),
+\frac{\mathrm{d}}{\mathrm{d}t} x_1(t) = f_1 \left( x_1(t),x_2(t) \right), \\
+\frac{\mathrm{d}}{\mathrm{d}t} x_2(t) = f_2 \left( x_1(t),x_2(t) \right),
 \end{split}
 \quad \quad \quad t \in (\alpha,\beta)
 $$ {#eq-2x2sys-auto}
@@ -1553,7 +1557,7 @@ with some given functions $f_1,f_2: \mathbb{R}^2 \to \mathbb{R}$. Remember that,
 
 We can also use the vector notation and write @eq-2x2sys-auto as
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \boldsymbol{x}(t) = \boldsymbol{f}(\boldsymbol{x}(t)), \quad \quad \quad t \in (\alpha,\beta),
+\frac{\mathrm{d}}{\mathrm{d}t} \boldsymbol{x}(t) = \boldsymbol{f}(\boldsymbol{x}(t)), \quad \quad \quad t \in (\alpha,\beta),
 $$ {#eq-2x2sys-auto-matrix}
 where $\boldsymbol{x}(t) = (x_1(t),x_2(t))^T$ and $\boldsymbol{f}(\boldsymbol{x}) = (f_1(\boldsymbol{x}),f_2(\boldsymbol{x}))^T$. This is analogous to the vector notation we used for linear systems in @eq-2x2sys-lin-matrix.
 
@@ -1561,7 +1565,7 @@ Let us now give a more formal definition of a stationary point and its stability
 
 ::: {.callout-important}
 
-::: {#def-stationary-point-systemw}
+::: {#def-stationary-point-system}
 
 ## Stationary point
 
@@ -1585,8 +1589,8 @@ Let us consider a model that describes the interaction between two species in a 
 
 $$
 \begin{split}
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} x(t) &= \alpha x(t) - \beta x(t) y(t), \\
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} y(t) &= -\gamma y(t) + \delta x(t) y(t),
+\frac{\mathrm{d}}{\mathrm{d}t} x(t) &= \alpha x(t) - \beta x(t) y(t), \\
+\frac{\mathrm{d}}{\mathrm{d}t} y(t) &= -\gamma y(t) + \delta x(t) y(t),
 \end{split}
 \quad \quad \quad t \in \mathbb{R},
 $$ {#eq-lotka-volterra}
@@ -1602,13 +1606,13 @@ $$
 \end{aligned}
 $$
 
-Solving the two equations simultaneously, we find that the stationary points are $(x^*,y^*) = (0,0)$ and $(x^*,y^*) = (\gamma/\delta,\alpha/\beta)$. The first stationary point corresponds to the extinction of both species, while the second stationary point corresponds to a stable coexistence of both species.
+Solving the two equations simultaneously, we find that the stationary points are $(x^*,y^*)^T = (0,0)^T$ and $(x^*,y^*)^T = (\gamma/\delta,\alpha/\beta)^T$. The first stationary point corresponds to the extinction of both species, while the second stationary point corresponds to the coexistence of both species.
 
 :::
 
 We have now seen how to calculate stationary points of a nonlinear system, but how do we determine their stability? In order to do so, we can linearise the system around the stationary point and study the resulting linear system using the tools in @sec-phase-portraits.
 
-Let $(x^*_1,x^*_2)$ denote a stationary solution (or point) of @eq-2x2sys-auto. In order to get some more insight into whether $(x^*_1,x^*_2)$ is stable we study solutions of the form
+Let $(x^*_1,x^*_2)^T$ denote a stationary solution (or point) of @eq-2x2sys-auto. In order to get some more insight into whether $(x^*_1,x^*_2)^T$ is stable we study solutions of the form
 
 $$
 (x_1(t),x_2(t)) = (x^*_1 + \xi_1(t), x^*_2 + \xi_2(t))
@@ -1616,30 +1620,30 @@ $$
 
 where $(\xi_1(t),\xi_2(t))$ is a "small" deviation from the stationary point.^[In order to properly formulate what "small" means, one needs to nondimensionalise the problem.] If we take the time derivative of both sides, we get 
 
-$$\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} (x_1(t),x_2(t)) = \tfrac{\mathrm{d}}{\mathrm{\mathrm{d}}t} (\xi_1(t),\xi_2(t)),$$ 
+$$\frac{\mathrm{d}}{\mathrm{d}t} (x_1(t),x_2(t)) = \tfrac{\mathrm{d}}{\mathrm{d}t} (\xi_1(t),\xi_2(t)),$$ 
 
 so that the system for $(\xi_1(t),\xi_2(t))$ becomes
 
 $$
 \begin{split}
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \xi_1(t) = f_1 \left( x^*_1 + \xi_1(t), x^*_2 + \xi_2(t) \right), \\
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \xi_2(t) = f_2 \left( x^*_1 + \xi_1(t), x^*_2 + \xi_2(t) \right),
+\frac{\mathrm{d}}{\mathrm{d}t} \xi_1(t) = f_1 \left( x^*_1 + \xi_1(t), x^*_2 + \xi_2(t) \right), \\
+\frac{\mathrm{d}}{\mathrm{d}t} \xi_2(t) = f_2 \left( x^*_1 + \xi_1(t), x^*_2 + \xi_2(t) \right),
 \end{split}
 \quad \quad \quad t \in (\alpha,\beta).
 $$
 
-Now, we take a Taylor expansion^[You are probably familiar with Taylor expansions for functions of a single variable: $f(x) \approx f(a) + f'(a)(x-a)$. For functions of multiple variables, the idea is similar, but one needs to take partial derivatives with respect to each variable while keeping the others fixed.] of the right-hand-side around the stationary point $(x^*_1,x^*_2)$. Let us work first with the first equation. We have that
+Now, we take a Taylor expansion^[You are probably familiar with Taylor expansions for functions of a single variable: $f(x) \approx f(a) + f'(a)(x-a)$. For functions of multiple variables, the idea is similar, but one needs to take partial derivatives with respect to each variable while keeping the others fixed.] of the right-hand side around the stationary point $(x^*_1,x^*_2)^T$. Let us work first with the first equation. We have that
 
 $$
 f_1 \left( x^*_1 + \xi_1(t), x^*_2 + \xi_2(t) \right) \approx f_1(x^*_1,x^*_2) + \frac{\partial}{\partial x_1} f_1(x^*_1,x^*_2) \xi_1(t) + \frac{\partial}{\partial x_2} f_1(x^*_1,x^*_2) \xi_2(t),
 $$
-where we have dropped the higher order terms, hence the $\approx$. Here, the *partial derivatives* $\tfrac{\partial}{\partial x_1}$ and $\tfrac{\partial}{\partial x_2}$ with respect to the first and second argument of the functions $f_1$ and $f_2$ appear. There are defined by differentiating with respect to one argument whilst keeping the other fixed, for instance,
+where we have dropped the higher order terms, hence the $\approx$. Here, the *partial derivatives* $\tfrac{\partial}{\partial x_1}$ and $\tfrac{\partial}{\partial x_2}$ with respect to the first and second argument of the functions $f_1$ and $f_2$ appear. They are defined by differentiating with respect to one argument whilst keeping the other fixed, for instance,
 
 $$
 \frac{\partial}{\partial x_2} f_1 (x_1,x_2) = \lim_{\Delta x_2 \to 0} \frac{f_1(x_1,x_2 + \Delta x_2) - f_1(x_1,x_2)}{\Delta x_2}.
 $$
 
-Then, because $(x^*_1,x^*_2)$ is a stationary point, we have that $f_1(x^*_1,x^*_2) = 0$, so that the first term on the right-hand-side vanishes. A similar expansion can be done for the second equation, and we obtain
+Then, because $(x^*_1,x^*_2)^T$ is a stationary point, we have that $f_1(x^*_1,x^*_2) = 0$, so that the first term on the right-hand side vanishes. A similar expansion can be done for the second equation, and we obtain
 
 $$
 \begin{split}
@@ -1653,15 +1657,15 @@ With this approximation we obtain the following system for $(\xi_1(t),\xi_2(t))$
 
 $$
 \begin{split}
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \xi_1(t) = \frac{\partial}{\partial x_1} f_1(x^*_1,x^*_2) \xi_1(t) + \frac{\partial}{\partial x_2} f_1(x^*_1,x^*_2) \xi_2(t), \\
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \xi_2(t) = \frac{\partial}{\partial x_1} f_2(x^*_1,x^*_2) \xi_1(t) + \frac{\partial}{\partial x_2} f_2(x^*_1,x^*_2) \xi_2(t),
+\frac{\mathrm{d}}{\mathrm{d}t} \xi_1(t) = \frac{\partial}{\partial x_1} f_1(x^*_1,x^*_2) \xi_1(t) + \frac{\partial}{\partial x_2} f_1(x^*_1,x^*_2) \xi_2(t), \\
+\frac{\mathrm{d}}{\mathrm{d}t} \xi_2(t) = \frac{\partial}{\partial x_1} f_2(x^*_1,x^*_2) \xi_1(t) + \frac{\partial}{\partial x_2} f_2(x^*_1,x^*_2) \xi_2(t),
 \end{split}
 \quad \quad \quad t \in (\alpha,\beta).
 $$ {#eq-2x2sys-linearised}
 
-This system is *linear* in $(\xi_1(t),\xi_2(t))$. We therefore talk about a *linearisation* of @eq-2x2sys-auto around the stationary solution $(x^*_1,x^*_2)$. In particular, the coefficients $\tfrac{\partial}{\partial x_2} f_1(x^*_1,x^*_2)$, etc. are constant, and in that case we can find explicit solutions.
+This system is *linear* in $(\xi_1(t),\xi_2(t))$. We therefore talk about a *linearisation* of @eq-2x2sys-auto around the stationary solution $(x^*_1,x^*_2)^T$. In particular, the coefficients $\tfrac{\partial}{\partial x_2} f_1(x^*_1,x^*_2)$, etc. are constant, and in that case we can find explicit solutions.
 
-The *principle of linearised stability* now relates the stability properties of the original system @eq-2x2sys-auto around the stationary point $(x^*_1,x^*_2)$ to the stability properties of the linearised system @eq-2x2sys-linearised around $(0,0)$. Roughly, the stationary point is stable if and only if the linearised system is stable around the origin.
+The *principle of linearised stability* now relates the stability properties of the original system @eq-2x2sys-auto around the stationary point $(x^*_1,x^*_2)^T$ to the stability properties of the linearised system @eq-2x2sys-linearised around $(0,0)^T$. More precisely, if all the eigenvalues of the linearised system have negative real part, then the stationary point is stable, and if at least one eigenvalue has positive real part, then the stationary point is unstable. However, if some eigenvalues have zero real part (e.g. a centre), the linearisation is inconclusive: the nonlinear terms we have neglected determine the stability of the stationary point.
 
 :::
 
@@ -1670,11 +1674,11 @@ The *principle of linearised stability* now relates the stability properties of 
 
 As we have seen, it is often more convenient to write linear systems in matrix form. In that case, the linearised system @eq-2x2sys-linearised can be written as
 $$
-\frac{\mathrm{d}}{\mathrm{\mathrm{d}}t} \begin{pmatrix} \xi_1(t) \\ \xi_2(t) \end{pmatrix}
+\frac{\mathrm{d}}{\mathrm{d}t} \begin{pmatrix} \xi_1(t) \\ \xi_2(t) \end{pmatrix}
 = \begin{pmatrix} \frac{\partial}{\partial x_1} f_1(x^*_1,x^*_2) & \frac{\partial}{\partial x_2} f_1(x^*_1,x^*_2) \\[0.3em] \frac{\partial}{\partial x_1} f_2(x^*_1,x^*_2) & \frac{\partial}{\partial x_2} f_2(x^*_1,x^*_2) \end{pmatrix}
 \begin{pmatrix} \xi_1(t) \\ \xi_2(t) \end{pmatrix}.
 $$
-The matrix on the right-hand-side is called the *Jacobian* of the system @eq-2x2sys-auto at the stationary point $(x^*_1,x^*_2)$, and is denoted by $J(x^*_1,x^*_2)$. The Jacobian is a $2 \times 2$ matrix that contains all the partial derivatives of the functions $f_1$ and $f_2$ evaluated at the stationary point.^[You will learn more about Jacobians in the follow-up module [MA145 Mathematical Methods and Modelling 2](https://warwick.ac.uk/fac/sci/maths/currentstudents/modules/ma145/).]
+The matrix on the right-hand side is called the *Jacobian* of the system @eq-2x2sys-auto at the stationary point $(x^*_1,x^*_2)^T$, and is denoted by $J(x^*_1,x^*_2)$. The Jacobian is a $2 \times 2$ matrix that contains all the partial derivatives of the functions $f_1$ and $f_2$ evaluated at the stationary point.^[You will learn more about Jacobians in the follow-up module [MA145 Mathematical Methods and Modelling 2](https://warwick.ac.uk/fac/sci/maths/currentstudents/modules/ma145/).]
 
 :::
 
@@ -1689,14 +1693,14 @@ J(x,y) = \begin{pmatrix} \frac{\partial f_1}{\partial x} & \frac{\partial f_1}{\
 = \begin{pmatrix} \alpha - \beta y & -\beta x \\\delta y & -\gamma + \delta x \end{pmatrix}.
 $$
 
-First we study the stationary point $(x^*,y^*) = (0,0)$. Evaluating the Jacobian at this point gives
+First we study the stationary point $(x^*,y^*)^T = (0,0)^T$. Evaluating the Jacobian at this point gives
 $$
 J(0,0) = \begin{pmatrix} \alpha & 0 \\ 0 & -\gamma \end{pmatrix}.
 $$
 
-This is already a diagonal matrix, and we can read off the eigenvalues as $\lambda_1 = \alpha > 0$ and $\lambda_2 = -\gamma < 0$. Therefore, the stationary point $(0,0)$ is a saddle point, and hence unstable. A side note, if there is only predators present in the system, then they will die out, as there is no food for them. This is consistent with the definition of a saddle point, because having only predators corresponds to starting on the $y$-axis, which is the direction of the eigenvector corresponding to the negative eigenvalue.
+This is already a diagonal matrix, and we can read off the eigenvalues as $\lambda_1 = \alpha > 0$ and $\lambda_2 = -\gamma < 0$. Therefore, the stationary point $(0,0)^T$ is a saddle point, and hence unstable. As a side note, if there are only predators present in the system, then they will die out, as there is no food for them. This is consistent with the definition of a saddle point, because having only predators corresponds to starting on the $y$-axis, which is the direction of the eigenvector corresponding to the negative eigenvalue.
 
-Next we study the stationary point $(x^*,y^*) = (\gamma/\delta,\alpha/\beta)$. Evaluating the Jacobian at this point gives
+Next we study the stationary point $(x^*,y^*)^T = (\gamma/\delta,\alpha/\beta)^T$. Evaluating the Jacobian at this point gives
 $$
 J\left(\frac{\gamma}{\delta}, \frac{\alpha}{\beta}\right) = \begin{pmatrix} 0 & -\beta \frac{\gamma}{\delta} \\ \delta \frac{\alpha}{\beta} & 0 \end{pmatrix}.
 $$
@@ -1705,15 +1709,15 @@ Now the eigenvalues of the matrix satisfy $\lambda^2 + \alpha \gamma = 0$, which
 
 $$\lambda_{1,2} = \pm i \sqrt{\alpha \gamma}.$$
 
-Therefore, the eigenvalues are purely imaginary, and the stationary point $(\gamma/\delta,\alpha/\beta)$ is a centre. This means that the populations of both species will oscillate around this stationary point, and the system is stable in the sense that the populations will not diverge to infinity.
+Therefore, the eigenvalues are purely imaginary, and the stationary point $(\gamma/\delta,\alpha/\beta)^T$ is a centre. This means that the populations of both species will oscillate around this stationary point, and the system is stable in the sense that the populations will not diverge to infinity.^[Strictly speaking, the linearisation only tells us that the *linearised* system has a centre, as the principle of linearised stability is inconclusive for purely imaginary eigenvalues. For the Lotka-Volterra system we can confirm that the nonlinear system also has a centre, because the quantity $H(x,y) = \delta x - \gamma \log x + \beta y - \alpha \log y$ is conserved along solutions (check it by computing $\frac{\mathrm{d}}{\mathrm{d}t} H(x(t),y(t))$), so the orbits around the stationary point are closed curves.]
 
-Let us now visualise the phase portrait of the Lotka-Volterra system around the non-zero stationary point, @fig-phase-portrait-lotka-volterra. We take the parameters $\alpha = 3$, $\beta = 2$, $\gamma = 2$, and $\delta = 1$ and compare the true solution (obtained numerically) with the linearise solution for a starting point $(x, y) = (1.5, 1)$ (@fig-phase-portrait-lotka-volterra-far). We observe that, even though the quantitative agreement is not perfect, the qualitative behaviour is captured well by the linearised system. In particular, the linearised system captures the oscillatory behaviour of the populations around the stationary point. Note that if instead we start much closer to the stationary point (@fig-phase-portrait-lotka-volterra-closer), then the agreement between the true solution and the linearised solution is much better, as expected.^[Note that @fig-phase-portrait-lotka-volterra-closer has a narrower plotting range than @fig-phase-portrait-lotka-volterra-far, which magnifies the discrepancy between solutions.]
+Let us now visualise the phase portrait of the Lotka-Volterra system around the non-zero stationary point, @fig-phase-portrait-lotka-volterra. We take the parameters $\alpha = 3$, $\beta = 2$, $\gamma = 2$, and $\delta = 1$ and compare the true solution (obtained numerically) with the linearised solution for a starting point $(x, y)^T = (1.5, 1)^T$ (@fig-phase-portrait-lotka-volterra-far). We observe that, even though the quantitative agreement is not perfect, the qualitative behaviour is captured well by the linearised system. In particular, the linearised system captures the oscillatory behaviour of the populations around the stationary point. Note that if instead we start much closer to the stationary point (@fig-phase-portrait-lotka-volterra-closer), then the agreement between the true solution and the linearised solution is much better, as expected.^[Note that @fig-phase-portrait-lotka-volterra-closer has a narrower plotting range than @fig-phase-portrait-lotka-volterra-far, which magnifies the discrepancy between solutions.]
 
 ::: {#fig-phase-portrait-lotka-volterra layout="[[50,50]]"}
 
 ```{python}
 #| label: fig-phase-portrait-lotka-volterra-far
-#| fig-cap: "Starting point $(x, y) = (1.5, 1)$."
+#| fig-cap: "Starting point $(x, y)^T = (1.5, 1)^T$."
 #| echo: false
 
 import numpy as np
@@ -1775,7 +1779,7 @@ plt.show()
 
 ```{python}
 #| label: fig-phase-portrait-lotka-volterra-closer
-#| fig-cap: "Starting point $(x, y) = (2.1, 1.4)$."
+#| fig-cap: "Starting point $(x, y)^T = (2.1, 1.4)^T$."
 #| echo: false
 
 import numpy as np
